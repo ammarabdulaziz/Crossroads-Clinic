@@ -5,11 +5,16 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('express-handlebars');
 var db = require('./config/connection');
+var passport = require('passport');
+var session = require('express-session');
 
-var usersRouter = require('./routes/usersRouter');
+var patientRouter = require('./routes/patientRouter');
 var adminRouter = require('./routes/adminRouter');
 
 var app = express();
+
+// Passport Config
+require('./config/passport')(passport);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +32,29 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Clear chache when not authenticated
+app.use(function (req, res, next) {
+  if (!req.isAuthenticated()) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+  }
+  next();
+});
+
+app.use(session({ secret: "key", cookie: { maxAge: 600000 } }));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// app.use((req, res, next) => {
+//   console.log('req.session: ', req.session)
+//   console.log('req.user: ', req.user)
+//   next()
+// })
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Call db connection
@@ -35,7 +63,7 @@ db.connect((err) => {
   else console.log("Database connected Successfully");
 });
 
-app.use('/', usersRouter);
+app.use('/', patientRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
