@@ -1,0 +1,90 @@
+<!-- Custom breadcrumb  -->
+
+<div class="content">
+    <div>
+        <ul class="bar">
+            <li class="bar-item"><a href="/admin">Dashboard</a></li>
+            <span>/</span>
+            <li class="bar-item active">Appointments</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Table -->
+
+<div class="content">
+    <div class="card">
+        <div class="card-head">
+            <div>Appointments</div>
+        </div>
+    </div>
+    <div class="card2 card mb-4">
+        <table class="table table-hover" id="appointment-table">
+            <thead>
+                <tr>
+                    <th scope="col">Date-Time</th>
+                    <th scope="col">Doctor Name</th>
+                    <th scope="col">Booking For</th>
+                    <th scope="col">Session</th>
+                    <th scope="col" class="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>24/12/2020 : 6 PM</td>
+                    <td>Dr. Prashanth</td>
+                    <td>Abdulla K</td>
+                    <td>Morning</td>
+                    <td>
+                        {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
+                        <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                        <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>24/12/2020 : 4 PM</td>
+                    <td>Dr. Amith</td>
+                    <td>Abdul Aziz</td>
+                    <td>Evening</td>
+                    <td>
+                        {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
+                        <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                        <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>19/12/2020 : 9 PM</td>
+                    <td>Dr. Rajeev</td>
+                    <td>Fayiz Kv</td>
+                    <td>After Noon</td>
+                    <td>
+                        {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
+                        <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                        <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>13/12/2020 : 1 PM</td>
+                    <td>Dr. Hameed</td>
+                    <td>Fawzan</td>
+                    <td>Morning</td>
+                    <td>
+                        {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
+                        <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                        <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#appointment-table').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+</script>

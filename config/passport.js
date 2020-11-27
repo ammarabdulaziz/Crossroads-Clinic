@@ -17,6 +17,7 @@ module.exports = function (passport) {
                                 if (!user) {
                                     console.log('That email is not registered')
                                     return done(null, false, { message: 'This email is not registered' });
+                                    // Match passwords if user exists
                                 } else { matchPassword(password, user) }
                             })
                         } else { matchPassword(password, user) }
@@ -48,7 +49,7 @@ module.exports = function (passport) {
     });
 
     passport.deserializeUser((id, done) => {
-        // Find user details from 3 different collections
+        // Find user details from 3 different collections and deserialize
         db.get().collection(collections.ADMIN_COLLECTION).findOne({ _id: objectId(id) }).then((user) => {
             if (!user) {
                 db.get().collection(collections.PATIENTS_COLLECTION).findOne({ _id: objectId(id) }).then((user) => {

@@ -15,25 +15,30 @@ router.get('/', function (req, res, next) {
   res.render('index', { user });
 });
 
-router.get('/login', isNotAuthenticated, function (req, res, next) {
+router.get('/login', function (req, res, next) {
+
+  // User registration
+
   // let userData = {}
   // userData.email = "user";
   // userData.password = "user";
   // userData.patient = true;
   // adminHelpers.doRegister(userData).then((response) => {
-  //   res.render('partials/login');
+  //   res.render('login', {layout: 'login'});
   // })
   // patientHelpers.doRegister(userData).then((response) => {
-  //   res.render('partials/login');
+  //   res.render('login', {layout: 'login'});
   // })
   // doctorHelpers.doRegister(userData).then((response) => {
-  //   res.render('partials/login');
+  //   res.render('login', {layout: 'login'});
   // })
-  res.render('partials/login');
+  // var message = req.flash('error')
+  res.render('login', { layout: 'login' });
 });
 
 router.post('/login', passport.authenticate('local'),
   function (req, res) {
+    console.log('----------- message', message)
     if (!req.user) return res.status(404).json({ message: 'Something went wrong, please try again.' });
 
     else {
@@ -46,9 +51,9 @@ router.post('/login', passport.authenticate('local'),
       else if (req.user.patient) {
         res.redirect('/');
       }
-      else {
-        res.redirect('/login');
-      }
+      // else {
+      //   res.redirect('/login');
+      // }
     }
     res.redirect('/login');
   });

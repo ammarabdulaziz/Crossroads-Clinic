@@ -1,0 +1,31 @@
+h1, h2 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h3, h4, h5, h6, p, span, body {
+    font-family: 'Barlow', sans-serif;
+}
+
+.btn {
+    padding: 0 20px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Barlow', sans-serif;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn-green {
+    color: #E7EAE9 !important;
+    background-color: #28905F;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn-green:hover {
+    background-color: #19754a;
+}

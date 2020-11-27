@@ -1,0 +1,103 @@
+<!--  Custom breadcrumb  -->
+
+<div class="content ">
+    <div>
+        <ul class="bar">
+            <li class="bar-item"><a href="/admin">Dashboard</a></li>
+            <span>/</span>
+            <li class="bar-item"><a href="/admin/view-doctors">Doctors</a></li>
+            <span>/</span>
+            <li class="bar-item active">Add</li>
+        </ul>
+    </div>
+</div>
+
+<!-- - Form  -->
+
+<div class="content">
+    <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+            <div class="card">
+                <div class="card-head">
+                    <div>Add Details</div>
+                </div>
+            </div>
+            <div class="card2 card">
+                <form action="#">
+                    <div class="row">
+                        <div class="form-group col-12 col-md-6">
+                            <label for="fname">First Name</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Dr.</span>
+                                </div>
+                                <input type="text" name="fname" class="form-control" placeholder="John"
+                                    aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="form-group col-12 col-md-6">
+                            <label for="lname">Last Name</label>
+                            <input type="name" class="form-control" name="lname" id="lname" placeholder="Doe">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="johndoe@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password</label>
+                        <input type="password" class="form-control" id="pwd" placeholder="******">
+                    </div>
+                    <div class="row ">
+                        <div class="form-group col-12 col-md-6">
+                            <label for="phone">Phone Number</label>
+                            <input type="phone" class="form-control" name="phone" id="phone" placeholder="+91 ">
+                        </div>
+                        <div class="col-12 col-md-6 ">
+                            <label>Gender</label>
+                            <div class="radio-box formInputs pl-2">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="gender" id="male">
+                                    <label class="custom-control-label" for="male">Male</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="gender" id="female">
+                                    <label class="custom-control-label" for="female">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card">
+            </div>
+            <div class="card2 card no-border">
+                <div class="row">
+                    <div class="form-group col-12 col-md-6">
+                        <label for="specialized">Specialized</label>
+                        <input type="specialized" class="form-control" name="specialized" id="specialized"
+                            placeholder="BDS">
+                    </div>
+                    <div class="form-group col-12 col-md-6">
+                        <label for="speciality">Speciality</label>
+                        <input type="speciality" class="form-control" name="speciality" id="speciality"
+                            placeholder="Orthodentist">
+                    </div>
+                </div>
+                <div class="row formInputs">
+                    <div class="form-group col-12">
+                        <label for="image" class="custom-file-upload"><i class='bx bx-cloud-upload'></i>Upload Profile
+                            Image<input type="file" id="image"></label>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <button type="submit" class="btn btn-green">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <p></p>
+    <p></p>
+</div>

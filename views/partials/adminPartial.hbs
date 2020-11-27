@@ -1,0 +1,70 @@
+<!-- Header -->
+
+<header class="header" id="header">
+    <div class="header__toggle">
+        <i class='bx bx-menu' id="header-toggle" onclick="navToggle()"></i>
+    </div>
+    <div class="admin-tab">
+        <div class="admin-name">
+            <h5>John Doe</h5>
+            <h6>ADMIN</h6>
+        </div>
+        <div class="header__img" onclick="userPopup()">
+            <img id="user-img" class="user-img" src="/images/perfil.jpg" alt="">
+        </div>
+    </div>
+    <div id="user-pop" class="user-pop">
+        <div class="user-pop-head">
+            <h2><span>Hello</span> Admin</h2>
+            <h4>Available</h4>
+        </div>
+        <div class="wrapper">
+            <div class="list">
+                <i class='bx bx-user nav__logo-icon'></i>
+                <a href="#">Profile</a>
+            </div>
+            <div class="list">
+                <i class='bx bx-log-out'></i>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--  Nav  -->
+
+<div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+        <div>
+            <div class="nav__logo">
+                <i class='bx bx-layer nav__logo-icon'></i>
+                <span class="nav__logo-name">Crossroads Clinic</span>
+            </div>
+
+            <div class="nav__list">
+                <a href="/admin" class="nav__link active">
+                    <i class='bx bx-grid-alt nav__icon'></i>
+                    <span class="nav__name">Dashboard</span>
+                </a>
+
+                <a href="/admin/view-doctors" class="nav__link">
+                    <i class='bx bx-user nav__icon'></i>
+                    <span class="nav__name">Doctors</span>
+                </a>
+
+                <a href="/admin/view-patients" class="nav__link">
+                    <i class='bx bx-message-square-detail nav__icon'></i>
+                    <span class="nav__name">Patients</span>
+                </a>
+
+                <a href="/admin/view-appointments" class="nav__link">
+                    <i class='bx bx-bookmark nav__icon'></i>
+                    <span class="nav__name">Appointments</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+<script src="/javascripts/main.js"></script>
