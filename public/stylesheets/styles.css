@@ -75,7 +75,7 @@ a {
   cursor: pointer;
 }
 
-.admin-tab{
+.admin-tab {
   box-shadow: 0 5px 5px rgba(71, 141, 0, 0.062);
   background-color: #f8f8f8;
   padding: 3px;
@@ -84,20 +84,21 @@ a {
   align-items: center;
 }
 
-.admin-name{
+.admin-name {
   text-align: end;
   padding: 0px 15px;
   font-family: var(--body-font);
   color: var(--first-color);
 }
 
-.admin-name h5{
+.admin-name h5 {
   font-family: var(--body-font);
   font-weight: 600;
   margin-bottom: 0;
   font-size: 16px;
 }
-.admin-name h6{
+
+.admin-name h6 {
   font-family: var(--body-font);
   margin-bottom: 0;
   font-size: 10px;
@@ -260,21 +261,6 @@ a {
   }
   .actions {
     min-width: 100px;
-  }
-  .dataTables_wrapper .dataTables_filter label {
-    display: none;
-  }
-  .dataTables_wrapper input {
-    min-width: 100%;
-    margin-bottom: 1em !important;
-  }
-  .dataTables_wrapper input::placeholder {
-    color: #d6d6d6 !important;
-  }
-  .dataTables_wrapper select:focus {
-    outline: 0 none;
-    box-shadow: none;
-    border-color: #28905F;
   }
 }
 
@@ -543,13 +529,12 @@ table a {
   padding: 1em 0em;
 }
 
-.content form input {
-  height: 3em;
+.content input {
   border-radius: 12px;
 }
 
-.radio-box{
-  height: 3em;
+.radio-box {
+  height: calc(1.5em + .75rem + 2px);
   border-radius: 12px;
   border: 1px solid #ccc;
 }
@@ -597,50 +582,4 @@ table a {
 .formInputs {
   display: flex;
   align-items: center;
-}
-
-
-/* datatable buttons */
-
-.dataTables_wrapper .paginate_button {
-  border: 0 !important;
-  padding: 4px 14px !important;
-  border-radius: 5px;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-  background: linear-gradient(to bottom, rgb(40, 144, 95) 0%, #28905F 100%) !important;
-  color: var(--white-color) !important;
-  border-radius: 5px;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-  color: var(--white-color) !important;
-  box-shadow: 0 5px 5px rgba(0, 255, 136, 0.1);
-}
-
-.dataTables_wrapper .paginate_button:not(.disabled):hover {
-  background: linear-gradient(to bottom, rgba(0, 150, 80, 0.582) 0%, #00924e93 100%) !important;
-  color: #ffffff !important;
-  box-shadow: 0 5px 5px rgba(0, 255, 136, 0.1);
-  border-radius: 5px;
-}
-
-.dataTables_wrapper .disabled:hover {
-  background-color: #ffffff !important;
-}
-
-.dataTables_wrapper input, .dataTables_wrapper label, .dataTables_wrapper .dataTables_info, .dataTables_wrapper select {
-  border-color: #b9b9b9 !important;
-  color: #999999;
-}
-
-.dataTables_wrapper table tr th{
-  border: 0 !important;
-  white-space: nowrap !important;
-}
-
-
-.dataTables_wrapper table{
-  border:0 !important;
 }

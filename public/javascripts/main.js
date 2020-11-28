@@ -17,8 +17,24 @@ function navToggle() {
 }
 
 /*===== LOGOUT POPUP  =====*/
-
 function userPopup() {
     var userPop = document.getElementById("user-pop");
     userPop.classList.toggle('show-pop');
 }
+
+/*===== TABS  =====*/
+var tabLinks = document.querySelectorAll(".nav .nav__list a");
+var tabContents = document.querySelectorAll(".tab-container  .tab-content");
+
+function showContent(navIndex, contentIndex) {
+    tabLinks.forEach(node => node.classList.remove('active'))
+    tabLinks[navIndex].classList.add('active')
+    tabContents.forEach(node => node.style.display = "none");
+    tabContents[contentIndex].style.display = "block";
+}
+showContent(0, 0);
+
+if(window.location.hash == "#tab2") showContent(1,1)
+if(window.location.hash == "#tab3") showContent(2,2)
+if(window.location.hash == "#tab4") showContent(3,3)
+if(window.location.hash == "#tab2.1") showContent(1,4)

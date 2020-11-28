@@ -39,5 +39,8 @@ module.exports = {
         else if (req.user.patient) {
             res.redirect('/')
         }
+        else{
+            res.redirect('/login')
+        }
     }
 }
