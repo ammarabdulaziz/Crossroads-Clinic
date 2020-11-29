@@ -8,7 +8,7 @@ html {
 
 body {
     min-height: 100vh;
-    background-image: url(/images/Artboard\ 2.png);
+    background-image: url(/images/Artboard\ 2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -66,6 +66,10 @@ body {
     transition: 0.3s ease;
 }
 
+.login-tab, .register-tab{
+    margin-bottom: 10px;
+}
+
 .login-register .active::after {
     background: #28905F;
 }
@@ -81,6 +85,29 @@ body {
 
 .register-tab::after{
     width: 3.7em;
+}
+
+/* Error-Box */
+.error-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F4E482;
+    color: #867400;
+    font-size: 13px;
+    height: 45px;
+    border-radius: 8px;
+    padding: 0px 18px;
+}
+
+.error-box i:hover{
+    cursor: pointer;
+    color: #5e5100;
+
+}
+
+.hide{
+    display: none;
 }
 
 form {

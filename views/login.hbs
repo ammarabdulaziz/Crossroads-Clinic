@@ -19,17 +19,24 @@
 </head>
 
 <body>
-    
+
 
     <div class="login-card">
         <div class="login-content">
-            {{!-- {{>messages}} --}}
             <h1>LOGIN</h1>
             <h4>Login to your account to continue</h4>
             <div class="login-register">
                 <h5 class="login-tab active"><a href="">Login</a></h5>
                 <h5 class="register-tab "><a href="">Register</a></h5>
             </div>
+            {{#if errors}}
+            <div class="error-box" id="errorDiv">
+                <div class="error-msg">
+                    <p>{{errors}}</p>
+                </div>
+                <i class="fa fa-times" aria-hidden="true" onclick="hideError()"></i>
+            </div>
+            {{/if}}
             <form action="/login" method="POST">
                 <label for="email">Email Address</label><br>
                 <div class="form-icon-input">
@@ -46,10 +53,14 @@
                     <h5><a href="">Forgot password</a></h5>
                 </div>
             </form>
-            <br>
-            <br>
         </div>
     </div>
 </body>
 
 </html>
+
+<script>
+    function hideError() {
+        document.getElementById("errorDiv").classList.add('hide');
+    }
+</script>

@@ -11,17 +11,17 @@ const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 // Login - Logout Routes
 
 router.get('/', function (req, res, next) {
-  let user = req.user
+  let user = req.user || [];
   res.render('index', { user });
 });
 
 router.get('/login', isNotAuthenticated, function (req, res, next) {
-  res.render('login', { layout: 'login' });
+  const errors = req.flash().error || [];
+  res.render('login', { layout: 'login', errors });
 });
 
-router.post('/login', passport.authenticate('local', { failureRedirect: '/login' }),
+router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }),
   function (req, res, next) {
-
     if (req.user.admin) {
       res.redirect('/admin');
     }

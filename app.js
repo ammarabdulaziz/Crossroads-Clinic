@@ -7,6 +7,7 @@ var hbs = require('express-handlebars');
 var db = require('./config/connection');
 var passport = require('passport');
 var session = require('express-session');
+var flash = require('connect-flash')
 
 var patientRouter = require('./routes/patientRouter');
 var adminRouter = require('./routes/adminRouter');
@@ -49,6 +50,8 @@ app.use(session({ secret: "key", cookie: { maxAge: 600000 } }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Connect flash
+app.use(flash());
 
 // Console authenticated user and its session
 // app.use((req, res, next) => {
