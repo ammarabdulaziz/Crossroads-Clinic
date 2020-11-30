@@ -4,20 +4,20 @@ const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 /* GET home page. */
-router.get('/', isAdmin, function (req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('admin/dashboard');
 });
 
 
 // -- Doctor routes --
-router.get('/view-dcotor-profile', isAdmin,  (req, res) => {
+router.get('/view-dcotor-profile',  (req, res) => {
   res.render('admin/dcotor-profile')
 })
 
 
 
 // -- Patient routes --
-router.get('/view-patient-profile', isAdmin,  (req, res) => {
+router.get('/view-patient-profile',  (req, res) => {
   res.render('admin/patient-profile')
 })
 

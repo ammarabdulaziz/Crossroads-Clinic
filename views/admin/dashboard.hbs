@@ -1,6 +1,9 @@
-{{!-- ----------------------- Dashboard ----------------------- --}}
-
 <div class="tab-container">
+
+
+    {{!-- ----------------------- Dashboard ----------------------- --}}
+
+
 
     <div id="tab1" class="tab-content">
         <!--  breadcrumb  -->
@@ -62,7 +65,7 @@
                 <div class="col-12 col-md-6 col-xl-4 mb-3">
                     <div class="dash-card">
                         <div class="icon-bg">
-                            <i class='bx bx-bookmark nav__icon color-5'></i>
+                            <i class='bx bx-bookmark nav__icon color-6'></i>
                         </div>
                         <div class="card-content color-5">
                             <h4>Appointments<br>Pending</h4>
@@ -107,7 +110,8 @@
             <div class="card">
                 <div class="card-head">
                     <div>Doctors</div>
-                    <a href="#tab2.1" onclick="showContent(1, 4)" class="btn btn-green formInputs"><i class='bx bxs-user-plus'></i>Add
+                    <a href="#tab2.1" onclick="showContent(1, 4)" class="btn btn-green formInputs"><i
+                            class='bx bxs-user-plus'></i>Add
                         Doctor</a>
                 </div>
             </div>
@@ -377,9 +381,15 @@
                         </div>
                         <div class="row formInputs">
                             <div class="form-group col-12">
-                                <label for="image" class="custom-file-upload"><i class='bx bx-cloud-upload'></i>Upload
-                                    Profile
-                                    Image<input type="file" id="image"></label>
+                                <label for="image" class="custom-file-upload">
+                                    <div id="upload">
+                                        <i class='bx bx-cloud-upload'></i>
+                                        Upload Profile Image
+                                        <input type="file" id="image">
+                                    </div>
+                                    <img src="#" id="displayImg" alt="">
+                                </label>
+
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <button type="submit" class="btn btn-green">Submit</button>
@@ -392,6 +402,14 @@
             <p></p>
             <p></p>
         </div>
+        <div class="modal-bg">
+            <div class="modal-box col-11 col-sm-8 col-md-6 col-lg-4">
+                <i class="fa fa-times-circle-o close-icon" aria-hidden="true"></i>
+                <div id="image_demo" class="col-12"></div>
+                <button class="btn btn-green col-12" id="crop-btn">Crop Image</button>
+            </div>
+        </div>
+        <img src="#" id="foo" alt="">
     </div>
 
 </div>

@@ -551,18 +551,29 @@ table a {
 
 .content input[type="file"] {
   position: absolute;
-  left: -99999rem
+  left: -99999rem;
+}
+
+.content label #displayImg {
+  height: 70px;
+  width: auto;
 }
 
 .custom-file-upload {
   border: 1px solid #ccc;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0px 12px;
   border-radius: 12px;
   cursor: pointer;
   height: 6em;
   color: #aaaaaa;
+}
+
+.custom-file-upload #upload {
+  display: flex;
+  align-items: center;
 }
 
 .custom-file-upload i {
@@ -582,4 +593,9 @@ table a {
 .formInputs {
   display: flex;
   align-items: center;
+}
+
+#modal {
+  height: 10em;
+  background-color: #000000;
 }

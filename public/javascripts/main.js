@@ -34,7 +34,53 @@ function showContent(navIndex, contentIndex) {
 }
 showContent(0, 0);
 
-if(window.location.hash == "#tab2") showContent(1,1)
-if(window.location.hash == "#tab3") showContent(2,2)
-if(window.location.hash == "#tab4") showContent(3,3)
-if(window.location.hash == "#tab2.1") showContent(1,4)
+if (window.location.hash == "#tab2") showContent(1, 1)
+if (window.location.hash == "#tab3") showContent(2, 2)
+if (window.location.hash == "#tab4") showContent(3, 3)
+if (window.location.hash == "#tab2.1") showContent(1, 4)
+
+
+
+/*===== CROP IMAGE AND DISPLAY  =====*/
+$('#image').on('change', function () {
+    $('.modal-bg').addClass('bg-active')
+    var reader = new FileReader();
+    reader.onload = function (event) {
+        $image_crop.croppie('bind', {
+            url: event.target.result
+        }).then(function () {
+            console.log('jQuery bind complete');
+        });
+    }
+    reader.readAsDataURL(this.files[0]);
+})
+
+$('.close-icon ').on('click', function () {
+    $('.modal-bg').removeClass('bg-active')
+})
+
+$(document).ready(function () {
+    $image_crop = $('#image_demo').croppie({
+        enableExif: true,
+        viewport: {
+            width: 200,
+            height: 200,
+            type: 'square' //circle
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+    });
+})
+
+$('#crop-btn').click(function (event) {
+    $image_crop.croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+    }).then(function (response) {
+        console.log('response', response)
+        $('#displayImg').attr('src', response);
+        $('.modal-bg').removeClass('bg-active')
+    });
+})
