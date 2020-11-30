@@ -81,6 +81,7 @@ $('#crop-btn').click(function (event) {
     }).then(function (response) {
         console.log('response', response)
         $('#displayImg').attr('src', response);
+        $('#image-label').attr('value', response);
         $('.modal-bg').removeClass('bg-active')
     });
 })

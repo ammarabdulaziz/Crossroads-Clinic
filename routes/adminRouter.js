@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const fs = require('fs');
 const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
@@ -10,6 +11,17 @@ router.get('/', function (req, res, next) {
 
 
 // -- Doctor routes --
+router.post('/add-dcotor',  (req, res) => {
+
+  console.log('req.body:',req.body)
+  const path = './public/images/'+Date.now()+'.png'
+  const imgdata = req.body.image;
+  const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+  fs.writeFileSync(path, base64Data,  {encoding: 'base64'});
+  
+  res.redirect('/admin/')
+})
+
 router.get('/view-dcotor-profile',  (req, res) => {
   res.render('admin/dcotor-profile')
 })
