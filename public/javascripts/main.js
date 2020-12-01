@@ -81,6 +81,7 @@ $('#crop-btn').click(function (event) {
     }).then(function (response) {
         console.log('response', response)
         $('#displayImg').attr('src', response);
+        // const base64Data = response.replace(/^data:([A-Za-z-+/]+);base64,/, '');
         $('#image-label').attr('value', response);
         $('.modal-bg').removeClass('bg-active')
     });

@@ -326,36 +326,39 @@
                                             <span class="input-group-text" id="basic-addon1">Dr.</span>
                                         </div>
                                         <input type="text" name="fname" class="form-control" placeholder="John"
-                                            aria-label="Username" aria-describedby="basic-addon1">
+                                            aria-label="Username" aria-describedby="basic-addon1" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-12 col-md-6">
                                     <label for="lname">Last Name</label>
-                                    <input type="name" class="form-control" name="lname" id="lname" placeholder="Doe">
+                                    <input type="name" class="form-control" name="lname" id="lname" placeholder="Doe" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email address</label>
-                                <input type="email" class="form-control" id="email" placeholder="johndoe@gmail.com">
+                                <input type="email" class="form-control" id="email" placeholder="johndoe@gmail.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="pwd">Password</label>
-                                <input type="password" class="form-control" id="pwd" placeholder="******">
+                                <input type="password" class="form-control" name="password" id="pwd"
+                                    placeholder="******">
                             </div>
                             <div class="row ">
                                 <div class="form-group col-12 col-md-6">
                                     <label for="phone">Phone Number</label>
-                                    <input type="phone" class="form-control" name="phone" id="phone" placeholder="+91 ">
+                                    <input type="phone" class="form-control" name="phone" id="phone" placeholder="+91 " required>
                                 </div>
                                 <div class="col-12 col-md-6 ">
                                     <label>Gender</label>
                                     <div class="radio-box formInputs pl-2">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" class="custom-control-input" name="gender" id="male">
-                                            <label class="custom-control-label" for="male">Male</label>
+                                            <input type="radio" class="custom-control-input" name="gender" value="male"
+                                                id="male">
+                                            <label class="custom-control-label" for="male" required>Male</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" class="custom-control-input" name="gender" id="female">
+                                            <input type="radio" class="custom-control-input" name="gender"
+                                                value="female" id="female">
                                             <label class="custom-control-label" for="female">Female</label>
                                         </div>
                                     </div>
@@ -371,12 +374,12 @@
                             <div class="form-group col-12 col-md-6">
                                 <label for="specialized">Specialized</label>
                                 <input type="text" class="form-control" name="specialized" id="specialized"
-                                    placeholder="BDS">
+                                    placeholder="BDS" required>
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="speciality">Speciality</label>
                                 <input type="text" class="form-control" name="speciality" id="speciality"
-                                    placeholder="Orthodentist">
+                                    placeholder="Orthodentist" required>
                             </div>
                         </div>
                         <div class="row formInputs">
@@ -399,14 +402,15 @@
             </div>
             <p></p>
             <p></p>
-            <input type="text" class="form-control" name="image" id="image-label" style="visibility:hidden; position:absolute">
+            <input type="text" class="form-control" name="image" id="image-label"
+                style="visibility:hidden; position:absolute">
             </form>
         </div>
         <div class="modal-bg">
             <div class="modal-box col-11 col-sm-8 col-md-6 col-lg-4">
                 <i class="fa fa-times-circle-o close-icon" aria-hidden="true"></i>
                 <div id="image_demo" class="col-12"></div>
-                <a class="btn btn-green col-12" id="crop-btn">Crop Image</a>
+                <a class="btn btn-green formInputs col-12" id="crop-btn">Crop Image</a>
             </div>
         </div>
     </div>

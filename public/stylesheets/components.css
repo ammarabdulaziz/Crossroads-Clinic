@@ -7,6 +7,9 @@ h3, h4, h5, h6, p, span, body {
 }
 
 .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0 20px;
     height: 40px;
     border: none;
