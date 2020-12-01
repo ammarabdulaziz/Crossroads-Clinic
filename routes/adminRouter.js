@@ -6,8 +6,10 @@ const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('admin/dashboard');
+router.get('/', async function (req, res, next) {
+  // Get doctor details
+  let doctors = await adminHelpers.getDoctors();
+  res.render('admin/dashboard', { doctors });
 });
 
 
@@ -25,8 +27,12 @@ router.post('/add-dcotor', (req, res) => {
   })
 })
 
-router.get('/view-dcotor-profile', (req, res) => {
-  res.render('admin/dcotor-profile')
+router.post('/delete-doctor', (req, res) => {
+  // console.log("------------------Api Call", req.body.id);
+  adminHelpers.deleteDoctor(req.body.id).then(() => {
+    res.json({ status: true })
+  })
+  // res.render('admin/dashboard', { doctors });
 })
 
 

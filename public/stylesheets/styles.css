@@ -460,6 +460,14 @@ a {
   font-family: var(--body-font2);
 }
 
+table img{
+  max-width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: block;
+  margin : auto;
+}
+
 .card2 {
   margin-top: 0;
   border-radius: 0px 0px 15px 15px;

@@ -86,3 +86,38 @@ $('#crop-btn').click(function (event) {
         $('.modal-bg').removeClass('bg-active')
     });
 })
+
+
+
+/*===== DELETE DATA AJAX  =====*/
+$(document).ready(function () {
+    // Delete 
+    $('.btn-delete').click(function () {
+
+        // Delete id
+        var docID = $(this).data('id');
+
+        // Confirm box
+        var deleteConfirm = confirm("Are you sure you want to delete the record?");
+        if (deleteConfirm) {
+            deleteDoctor(docID)
+        }
+        function deleteDoctor(docID) {
+            $.ajax({
+                url: '/admin/delete-doctor',
+                method: 'post',
+                data: {
+                    id: docID
+                },
+                success: (response) => {
+                    // Data removed from HTML Table
+                    if (response.status) {
+                        window.location.hash = "#tab2"
+                        window.location.reload();
+                        alert('You have successfully deleted the data')
+                    }
+                }
+            })
+        }
+    });
+});

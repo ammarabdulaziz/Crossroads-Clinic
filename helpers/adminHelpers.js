@@ -27,10 +27,34 @@ module.exports = {
                 gender: doctorData.gender,
                 specialized: doctorData.specialized,
                 speciality: doctorData.speciality,
-                password: doctorData.password
+                password: doctorData.password,
+                doctor: true,
+                status: 'active'
             }
             db.get().collection(collections.DOCTORS_COLLECTION).insertOne(data).then((response) => {
                 resolve(response.ops[0]._id)
+            })
+        })
+    },
+
+    getDoctors: () => {
+        return new Promise(async (resolve, reject) => {
+            let doctors = await db.get().collection(collections.DOCTORS_COLLECTION).aggregate(
+                [{ $match: { status: "active" } }]
+            ).toArray()
+            console.log('response', doctors)
+            resolve(doctors)
+        })
+    },
+
+    deleteDoctor: (docID) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.DOCTORS_COLLECTION).updateOne({_id : objectId(docID)}, {
+                $set: {
+                    status : "deleted"
+                }
+            }).then((response) => {
+                resolve()
             })
         })
     }
