@@ -456,7 +456,7 @@
                         </div>
                     </div>
                     <div class="card2 card">
-                        <form action="/admin/add-dcotor" method="POST" enctype="multipart/form-data">
+                        <form id="update" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="form-group col-12 col-md-6">
                                     <label for="fname">First Name</label>
@@ -494,13 +494,13 @@
                                     <label>Gender</label>
                                     <div class="radio-box formInputs pl-2">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" class="custom-control-input" name="gender" value="male">
-                                            <label class="custom-control-label" for="male" required>Male</label>
+                                            <input type="radio" class="custom-control-input" name="gender" id="male-edit" value="male">
+                                            <label class="custom-control-label" for="male-edit" required>Male</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" class="custom-control-input" name="gender"
-                                                value="female">
-                                            <label class="custom-control-label" for="female">Female</label>
+                                                value="female" id="female-edit">
+                                            <label class="custom-control-label" for="female-edit">Female</label>
                                         </div>
                                     </div>
                                 </div>
@@ -535,7 +535,7 @@
                                 </label>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <button type="submit" class="btn btn-green">Submit</button>
+                                <button type="submit" class="btn btn-green">Update</button>
                             </div>
                         </div>
                     </div>

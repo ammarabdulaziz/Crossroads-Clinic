@@ -27,11 +27,22 @@ router.post('/add-dcotor', (req, res) => {
   })
 })
 
-router.get('/edit-doctor', (req,res) => {
-  console.log("------------------Api Call query", req.query.id);
+router.get('/edit-doctor', (req, res) => {
   adminHelpers.getDoctorDetails(req.query.id).then((response) => {
-    console.log('response---------',response)
     res.json({ response })
+  })
+})
+
+router.post('/edit-doctor', (req, res) => {
+  adminHelpers.editDoctor(req.query.id, req.body).then((response) => {
+    if (req.body.image) {
+      const path = './public/images/' + req.query.id + '.jpg'
+      const imgdata = req.body.image;
+      const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+      fs.writeFileSync(path, base64Data, { encoding: 'base64' });
+    }
+    console.log("------------------updated");
+    res.redirect('/admin/')
   })
 })
 

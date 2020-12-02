@@ -65,5 +65,31 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+
+    editDoctor: (docID, doctorData) => {
+        return new Promise(async (resolve, reject) => {
+            if (doctorData.password) {
+                doctorData.password = await bcrypt.hash(doctorData.password, 10)
+            } else {
+                // Retrieve the existing password
+                let doc = await db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docID) })
+                doctorData.password = doc.password
+            }
+            db.get().collection(collections.DOCTORS_COLLECTION).updateOne({ _id: objectId(docID) }, {
+                $set: {
+                    firstname: doctorData.fname,
+                    lastname: doctorData.lname,
+                    email: doctorData.email,
+                    phone: doctorData.phone,
+                    gender: doctorData.gender,
+                    specialized: doctorData.specialized,
+                    speciality: doctorData.speciality,
+                    password: doctorData.password
+                }
+            }).then((response) => {
+                resolve(response)
+            })
+        })
     }
 }

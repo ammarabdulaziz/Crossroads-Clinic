@@ -139,8 +139,9 @@ $(document).ready(function () {
                 $('#edit-phone').attr('value', response.response.phone);
                 $('#edit-speciality').attr('value', response.response.speciality);
                 $('#edit-specialized').attr('value', response.response.specialized);
-                $("input[name=gender][value=" + response.response.gender + "]").prop('checked', true);
+                $("input[name=gender][value=" + response.response.gender + "]").attr('checked', true);
                 $('#displayImg-edit').attr('src', '../images/' + response.response._id + '.jpg');
+                $('#update').attr('action', '/admin/edit-doctor?id=' + response.response._id);
             }
         })
     });
