@@ -23,6 +23,7 @@ module.exports = {
             let data = {
                 firstname: doctorData.fname,
                 lastname: doctorData.lname,
+                email: doctorData.email,
                 phone: doctorData.phone,
                 gender: doctorData.gender,
                 specialized: doctorData.specialized,
@@ -42,19 +43,26 @@ module.exports = {
             let doctors = await db.get().collection(collections.DOCTORS_COLLECTION).aggregate(
                 [{ $match: { status: "active" } }]
             ).toArray()
-            console.log('response', doctors)
             resolve(doctors)
         })
     },
 
     deleteDoctor: (docID) => {
         return new Promise(async (resolve, reject) => {
-            db.get().collection(collections.DOCTORS_COLLECTION).updateOne({_id : objectId(docID)}, {
+            db.get().collection(collections.DOCTORS_COLLECTION).updateOne({ _id: objectId(docID) }, {
                 $set: {
-                    status : "deleted"
+                    status: "deleted"
                 }
             }).then((response) => {
                 resolve()
+            })
+        })
+    },
+
+    getDoctorDetails: (docID) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docID) }).then((response) => {
+                resolve(response)
             })
         })
     }

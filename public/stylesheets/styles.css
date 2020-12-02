@@ -562,7 +562,7 @@ table a {
   left: -99999rem;
 }
 
-.content label #displayImg {
+.content label #displayImg, .displayImg, #displayImg-edit {
   height: 70px;
   width: auto;
 }
@@ -579,7 +579,7 @@ table a {
   color: #aaaaaa;
 }
 
-.custom-file-upload #upload {
+.custom-file-upload #upload, #upload-edit {
   display: flex;
   align-items: center;
 }
@@ -603,7 +603,7 @@ table a {
   align-items: center;
 }
 
-#modal {
+#modal, #modal-edit {
   height: 10em;
   background-color: #000000;
 }

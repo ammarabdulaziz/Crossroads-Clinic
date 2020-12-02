@@ -27,12 +27,19 @@ router.post('/add-dcotor', (req, res) => {
   })
 })
 
+router.get('/edit-doctor', (req,res) => {
+  console.log("------------------Api Call query", req.query.id);
+  adminHelpers.getDoctorDetails(req.query.id).then((response) => {
+    console.log('response---------',response)
+    res.json({ response })
+  })
+})
+
 router.post('/delete-doctor', (req, res) => {
-  // console.log("------------------Api Call", req.body.id);
+  // console.log("Api Call", req.body.id);
   adminHelpers.deleteDoctor(req.body.id).then(() => {
     res.json({ status: true })
   })
-  // res.render('admin/dashboard', { doctors });
 })
 
 
