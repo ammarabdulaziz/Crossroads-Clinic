@@ -36,6 +36,18 @@ h3, h4, h5, h6, p, span, body {
     transition: 0.3s ease;
 }
 
+.btn-blue-outline{
+    color: #0C464C;
+    border: 1px solid #dadbdb;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn-blue-outline:hover{
+    color: #e4e4e4 !important;
+    background-color: #0C464C;
+}
+
 .btn-green:hover {
     background-color: #19754a;
 }

@@ -41,16 +41,20 @@ router.post('/edit-doctor', (req, res) => {
       const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
       fs.writeFileSync(path, base64Data, { encoding: 'base64' });
     }
-    console.log("------------------updated");
     res.redirect('/admin/')
   })
 })
 
 router.post('/delete-doctor', (req, res) => {
-  // console.log("Api Call", req.body.id);
   adminHelpers.deleteDoctor(req.body.id).then(() => {
     res.json({ status: true })
   })
+})
+
+router.get('/profile', (req, res) => {
+  res.render('admin/doctorProfile')
+  // adminHelpers.getDoctorDetails(req.query.id).then((response) => {
+  // })
 })
 
 
