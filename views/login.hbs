@@ -38,7 +38,7 @@
                 <i id="closeMsg" class="fa fa-times" aria-hidden="true"></i>
             </div>
             {{/if}}
-            <form action="/login" method="POST">
+            <form action="/login" method="POST" id="login-form">
                 <label for="email">Email Address</label><br>
                 <div class="form-icon-input">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -54,15 +54,41 @@
                     <h5><a href="">Forgot password</a></h5>
                 </div>
             </form>
+            <form action="/register" method="POST" id="register-form">
+                <label for="name">Full Name</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" name="name" placeholder="John Doe"><br>
+                </div>
+                <label for="phone">Phone Number</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" name="phone" placeholder="+91"><br>
+                </div>
+                <label for="email">Email Address</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input type="text" name="email" placeholder="johndoe@gmail.com"><br>
+                </div>
+                <label for="password">Password</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" name="password" placeholder="*****">
+                </div>
+                <label for="place">Place</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" name="place" placeholder="Calicut, India"><br>
+                </div>
+                <div class="submit">
+                    <button class="btn btn-green" type="submit">Register</button>
+                </div>
+            </form>
+            <hr>
+            <a href="/auth/google" class="btn btn-oauth btn-google-plus"><i class="fa fa-google-plus" aria-hidden="true"></i>Sign In with Google</a>
         </div>
     </div>
 </body>
 
 </html>
-
-<script>
-    $("#closeMsg").click(function () {
-        $("#errorDiv").hide();
-    })
-
-</script>
+<script src="/javascripts/login.js"></script>

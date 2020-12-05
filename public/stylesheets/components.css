@@ -36,14 +36,26 @@ h3, h4, h5, h6, p, span, body {
     transition: 0.3s ease;
 }
 
-.btn-blue-outline{
+.btn-blue-outline {
     color: #0C464C;
     border: 1px solid #dadbdb;
     font-weight: 600;
     transition: 0.3s ease;
 }
 
-.btn-blue-outline:hover{
+.btn-oauth {
+    color: #E7EAE9 !important;
+}
+
+.btn-oauth i {
+    padding-right: 10px;
+}
+
+.btn-google-plus {
+    background-color: #DB4A39;
+}
+
+.btn-blue-outline:hover {
     color: #e4e4e4 !important;
     background-color: #0C464C;
 }
@@ -54,6 +66,15 @@ h3, h4, h5, h6, p, span, body {
 
 .btn-white:hover {
     background-color: #cecece;
+}
+
+/* hr */
+
+.login-content hr {
+    height: 1px;
+    background-color: rgb(223, 223, 223);
+    border: none;
+    margin: 25px 0px;
 }
 
 /* Custom modal */
@@ -74,12 +95,10 @@ h3, h4, h5, h6, p, span, body {
     transition: visibility 0s, opacity 0.5s;
 }
 
-.bg-active{
+.bg-active {
     visibility: visible;
     opacity: 1;
 }
-
-
 
 .modal-box {
     padding: 30px;
@@ -94,15 +113,21 @@ h3, h4, h5, h6, p, span, body {
     padding: 0 !important;
 }
 
-.crop-btn{
+.crop-btn {
     width: 100%;
 }
 
-.close-icon{
+.close-icon {
     color: #28905F;
     font-size: 25px;
     float: right;
     padding: 10px;
     margin: -25px -25px 0 0;
     cursor: pointer;
+}
+
+@media screen and (min-width: 767px){
+    .btn-oauth{
+        width: 50%
+    }
 }

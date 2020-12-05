@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var dotenv = require('dotenv')
 var hbs = require('express-handlebars');
 var fileUpload = require('express-fileupload');
 var db = require('./config/connection');
@@ -12,6 +13,7 @@ var flash = require('connect-flash')
 
 var patientRouter = require('./routes/patientRouter');
 var adminRouter = require('./routes/adminRouter');
+var authRouter = require('./routes/authRouter');
 
 var app = express();
 
@@ -72,6 +74,7 @@ db.connect((err) => {
 
 app.use('/', patientRouter);
 app.use('/admin', adminRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
