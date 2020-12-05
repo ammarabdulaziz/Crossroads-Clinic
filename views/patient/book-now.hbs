@@ -1,0 +1,131 @@
+<div class="container">
+    <div id="tab6" class="tab-content">
+
+        <!--  Custom breadcrumb  -->
+
+        <div class="content">
+            <div>
+                <ul class="bar mt-4">
+                    <li class="bar-item"><a href="/homepage">Homepage</a></li>
+                    <span>/</span>
+                    <li class="bar-item active">Book Your Appoinment</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- - Form  -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>Booking Details</div>
+                        </div>
+                    </div>
+                    <div class="card2 card">
+                        <form id="update" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="fname">First Name</label>
+                                    <div class="input-group">
+                                        <input id="edit-fname" type="text" name="fname" class="form-control"
+                                            placeholder="John" aria-label="Username" aria-describedby="basic-addon2"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="lname">Last Name</label>
+                                    <input id="edit-lname" type="name" class="form-control" name="lname"
+                                        placeholder="Doe" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input id="edit-email" type="email" name="email" class="form-control"
+                                    placeholder="johndoe@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="select-docto">Select Doctor</label>
+                                <select class="form-control" id="select-docto">
+                                    <option>Dr. Ammar Abdul Aziz</option>
+                                    <option>Dr. Osama Aziz</option>
+                                    <option>Dr. Fathima</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="place">Place</label>
+                                <input type="text" class="form-control" name="place" id="edit-place"
+                                    placeholder="Calicut, India">
+                            </div>
+                            <div class="row ">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="phone">Phone Number</label>
+                                    <input id="edit-phone" type="phone" class="form-control" name="phone"
+                                        placeholder="+91 " required>
+                                </div>
+                                <div class="col-12 col-md-6 ">
+                                    <label>Gender</label>
+                                    <div class="radio-box formInputs pl-2">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="gender"
+                                                id="male-edit" value="male">
+                                            <label class="custom-control-label" for="male-edit" required>Male</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="gender"
+                                                value="female" id="female-edit">
+                                            <label class="custom-control-label" for="female-edit">Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card">
+                    </div>
+                    <div class="card2 card no-border">
+                        <div class="row">
+                            <div class="form-group col-12 ">
+                                <label for="disese">Disese</label>
+                                <input id="edit-disese" type="text" class="form-control" name="disese" id="disese-edit"
+                                    placeholder="Infection, etc.">
+                            </div>
+                        </div>
+                        <div class="row formInputs">
+                            <div class="form-group col-12">
+                                <label for="image" class="custom-file-upload">
+                                    <div class="formInputs">
+                                        <i class='bx bx-cloud-upload'></i>
+                                        Upload Profile Image
+                                        <input type="file" class="image" id="image-edit">
+                                    </div>
+                                    <img src="#" class="displayImg" id="displayImg-edit" name="image" alt="">
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <button type="submit" class="btn btn-green">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <p></p>
+                {{!-- Input hidden for sending image base64 data --}}
+                <input type="text" class="form-control image-label" style="visibility: hidden; position:absolute;"
+                    name="image" style="">
+                </form>
+            </div>
+            <div class="modal-bg">
+                <div class="modal-box col-11 col-sm-8 col-md-6 col-lg-4">
+                    <i class="fa fa-times-circle-o close-icon" aria-hidden="true"></i>
+                    <div class="col-12" id="image_demo_edit"></div>
+                    <a class="btn btn-green formInputs col-12 crop-btn">Crop Image</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

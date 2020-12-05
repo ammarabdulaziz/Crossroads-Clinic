@@ -19,6 +19,20 @@ module.exports = {
 
     addDoctor: (doctorData) => {
         return new Promise(async (resolve, reject) => {
+
+            var today = new Date();
+            let month = today.toLocaleString('default', { month: 'short' });
+            let year = today.getFullYear();
+            let day = today.getDate();
+            let hours = today.getHours();
+            let minutes = today.getMinutes();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            let date = `${day} ${month} ${year}, ${hours}:${minutes} ${ampm}`
+
             doctorData.password = await bcrypt.hash(doctorData.password, 10)
             let data = {
                 firstname: doctorData.fname,
@@ -29,6 +43,8 @@ module.exports = {
                 specialized: doctorData.specialized,
                 speciality: doctorData.speciality,
                 password: doctorData.password,
+                place: doctorData.place,
+                date: date,
                 doctor: true,
                 status: 'active'
             }

@@ -6,15 +6,15 @@ const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 /* GET home page. */
-router.get('/', async function (req, res, next) {
+router.get('/', isAdmin, async function (req, res, next) {
   // Get doctor details
   let doctors = await adminHelpers.getDoctors();
-  res.render('admin/dashboard', { doctors });
+  res.render('admin/dashboard', { doctors, admin: true });
 });
 
 
 // -- Doctor routes --
-router.post('/add-dcotor', (req, res) => {
+router.post('/add-dcotor', isAdmin, (req, res) => {
   // console.log('req.body:',req.body)
   // image = req.body.image
 
@@ -27,13 +27,13 @@ router.post('/add-dcotor', (req, res) => {
   })
 })
 
-router.get('/edit-doctor', (req, res) => {
+router.get('/edit-doctor', isAdmin, (req, res) => {
   adminHelpers.getDoctorDetails(req.query.id).then((response) => {
     res.json({ response })
   })
 })
 
-router.post('/edit-doctor', (req, res) => {
+router.post('/edit-doctor', isAdmin, (req, res) => {
   adminHelpers.editDoctor(req.query.id, req.body).then((response) => {
     if (req.body.image) {
       const path = './public/images/' + req.query.id + '.jpg'
@@ -45,16 +45,17 @@ router.post('/edit-doctor', (req, res) => {
   })
 })
 
-router.post('/delete-doctor', (req, res) => {
+router.post('/delete-doctor', isAdmin, (req, res) => {
   adminHelpers.deleteDoctor(req.body.id).then(() => {
     res.json({ status: true })
   })
 })
 
-router.get('/profile', (req, res) => {
-  res.render('admin/doctorProfile')
-  // adminHelpers.getDoctorDetails(req.query.id).then((response) => {
-  // })
+router.get('/profile', isAdmin, (req, res) => {
+  adminHelpers.getDoctorDetails(req.query.id).then((response) => {
+    // console.log('admin:::', response)
+    res.json({ response })
+  })
 })
 
 

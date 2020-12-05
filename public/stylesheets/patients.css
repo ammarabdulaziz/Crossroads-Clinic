@@ -291,6 +291,7 @@ body {
 }
 
 .options-box {
+    cursor: pointer;
     position: absolute;
     background-color: #f8f8f8;
     border-radius: 15px;

@@ -115,7 +115,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     // Edit 
-    $('.btn-edit').click(function () {
+    $('.edit-profile').click(function () {
         // Load Edit page content
         showContent(1, 5)
         window.location.hash = "#tab2"
@@ -139,6 +139,7 @@ $(document).ready(function () {
                 $('#edit-phone').attr('value', response.response.phone);
                 $('#edit-speciality').attr('value', response.response.speciality);
                 $('#edit-specialized').attr('value', response.response.specialized);
+                $('#edit-place').attr('value', response.response.place);
                 $("input[name=gender][value=" + response.response.gender + "]").attr('checked', true);
                 $('#displayImg-edit').attr('src', '../images/' + response.response._id + '.jpg');
                 $('#update').attr('action', '/admin/edit-doctor?id=' + response.response._id);
@@ -178,5 +179,39 @@ $(document).ready(function () {
                 }
             })
         }
+    });
+});
+
+
+
+/*===== PROFILE EDIT AJAX  =====*/
+$(document).ready(function () {
+    // Edit 
+    $('.btn-view').click(function () {
+        // Load Edit page content
+        showContent(1, 6)
+        window.location.hash = "#tab2"
+
+        // Edit id
+        var docID = $(this).data('id');
+        $.ajax({
+            url: '/admin/profile?id=' + docID,
+            method: 'get',
+            success: (response) => {
+                // Doctor data recieved in response.response object
+                console.log(response)
+                console.log(response.response._id)
+                console.log(response.response.firstname)
+                $('.profile-content h2').text('Dr. ' + response.response.firstname + ' ' + response.response.lastname);
+                $('.sub-name h5').text(response.response.speciality + ' | ' + response.response.specialized);
+                $('.join-date h5').text('Join date ' + response.response.date);
+                $('.detail-1 a').text('+91' + response.response.phone);
+                $('.detail-2 a').text(response.response.email);
+                $('.detail-3 a').text(response.response.place);
+                $('.detail-3 a').text(response.response.place);
+                $('.edit-profile').attr('data-id', response.response._id);
+                $('.hero-img').attr('src', '../images/' + response.response._id + '.jpg');
+            }
+        })
     });
 });

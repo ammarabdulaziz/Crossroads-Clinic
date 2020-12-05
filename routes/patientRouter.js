@@ -12,7 +12,9 @@ const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 router.get('/', function (req, res, next) {
   let user = req.user || [];
-  res.render('index', { user });
+  res.set('Content-Type', 'text/html');
+  res.send(new Buffer('<h1>LANDING PAGE</h1> <style>h1{font-size:40px; text-align:center}</style>'));
+  // res.render('index', { user });
 });
 
 router.get('/login', isNotAuthenticated, function (req, res, next) {
@@ -37,5 +39,17 @@ router.get('/logout', (req, res, next) => {
   req.logout();
   res.redirect('/login');
 });
+
+router.get('/homepage', (req, res) => {
+  res.render('patient/homepage', { patient: true })
+})
+
+router.get('/edit-profile', (req, res) => {
+  res.render('patient/edit-profile', { patient: true })
+})
+
+router.get('/book-appoinment', (req, res) => {
+  res.render('patient/book-now', { patient: true })
+})
 
 module.exports = router;
