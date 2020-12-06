@@ -6,6 +6,7 @@ const adminHelpers = require('../helpers/adminHelpers')
 const patientHelpers = require('../helpers/patientHelpers')
 const doctorHelpers = require('../helpers/doctorHelpers')
 const isAdmin = require('../config/auth').isAdmin
+const isPatient = require('../config/auth').isPatient
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 // Login - Logout Routes

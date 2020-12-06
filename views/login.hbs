@@ -38,7 +38,7 @@
                 <i id="closeMsg" class="fa fa-times" aria-hidden="true"></i>
             </div>
             {{/if}}
-            <form action="/login" method="POST" id="login-form">
+            <form action="/auth/login" method="POST" id="login-form">
                 <label for="email">Email Address</label><br>
                 <div class="form-icon-input">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -86,6 +86,7 @@
             </form>
             <hr>
             <a href="/auth/google" class="btn btn-oauth btn-google-plus"><i class="fa fa-google-plus" aria-hidden="true"></i>Sign In with Google</a>
+            <a href="/auth/facebook" class="btn btn-oauth btn-facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Sign In with Facebook</a>
         </div>
     </div>
 </body>
