@@ -8,12 +8,25 @@ const { Forbidden } = require('http-errors')
 module.exports = {
 
     doRegister: (userData) => {
-        return new Promise (async (resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             userData.password = await bcrypt.hash(userData.password, 10)
-            db.get().collection(collections.PATIENTS_COLLECTION).insertOne(userData).then((response) => {
-                console.log(response)
+            let userEmail = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ email: userData.email })
+            let userPhone = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ phone: userData.phone })
+            if (!userEmail && !userPhone) {
+                userData.patient = true
+                db.get().collection(collections.PATIENTS_COLLECTION).insertOne(userData).then((response) => {
+                    resolve(response.ops[0])
+                })
+            } else if (userEmail && userPhone) {
+                response.error = 'This Email Address and Phone Number alredy exists'
                 resolve(response)
-            })
+            } else if (userEmail) {
+                response.error = 'This Email Address already exists'
+                resolve(response)
+            } else if (userPhone) {
+                response.error = 'This Phone Number already exists'
+                resolve(response)
+            }
         })
     }
 }

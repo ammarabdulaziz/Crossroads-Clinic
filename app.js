@@ -58,11 +58,11 @@ app.use(passport.session());
 app.use(flash());
 
 // Console authenticated user and its session
-// app.use((req, res, next) => {
-//   console.log('req.session: ', req.session)
-//   console.log('req.user: ', req.user)
-//   next()
-// })
+app.use((req, res, next) => {
+  console.log('req.session: ', req.session)
+  console.log('req.user: ', req.user)
+  next()
+})
 
 app.use(express.static(path.join(__dirname, 'public')));
 

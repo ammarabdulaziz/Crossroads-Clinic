@@ -53,6 +53,12 @@ h3, h4, h5, h6, p, span, body {
 
 .btn-google-plus {
     background-color: #DB4A39;
+    margin-top: 15px;
+}
+
+.btn-facebook {
+    background-color: #4267B2;
+    margin-top: 15px;
 }
 
 .btn-blue-outline:hover {
@@ -74,7 +80,7 @@ h3, h4, h5, h6, p, span, body {
     height: 1px;
     background-color: rgb(223, 223, 223);
     border: none;
-    margin: 25px 0px;
+    margin: 10px 0px;
 }
 
 /* Custom modal */
@@ -128,6 +134,10 @@ h3, h4, h5, h6, p, span, body {
 
 @media screen and (min-width: 767px){
     .btn-oauth{
-        width: 50%
+        width: 48%
+    }
+    .oauth{
+        display: flex;
+        justify-content: space-between;
     }
 }

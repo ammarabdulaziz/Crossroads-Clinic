@@ -11,6 +11,8 @@ const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 // Login - Logout Routes
 
+
+// Landing Page route
 router.get('/', function (req, res, next) {
   let user = req.user || [];
   res.set('Content-Type', 'text/html');
@@ -18,8 +20,13 @@ router.get('/', function (req, res, next) {
   // res.render('index', { user });
 });
 
+
+// Login Routes
 router.get('/login', isNotAuthenticated, function (req, res, next) {
-  const errors = req.flash().error || [];
+  var errors = req.flash().error || [];
+  if (req.query.error) {
+    errors.push(req.query.error)
+  }
   res.render('login', { layout: 'login', errors });
 });
 
@@ -41,7 +48,27 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/login');
 });
 
-router.get('/homepage', (req, res) => {
+
+// User Register routes
+router.post('/register', (req, res) => {
+  patientHelpers.doRegister(req.body).then((response) => {
+    if (response.error) {
+      var error = response.error
+      res.redirect('/login?error=' + error)
+    } else {
+      req.login(response, function (err) {
+        if (!err) {
+          res.redirect('/');
+        } else {
+          var error = 'Something went wrong. Please login with the Credintials'
+          res.redirect('/login?error=' + error)
+        }
+      })
+    }
+  })
+});
+
+router.get('/homepage', isPatient, (req, res) => {
   res.render('patient/homepage', { patient: true })
 })
 
