@@ -59,6 +59,12 @@ body {
     font-weight: 700;
 }
 
+.login-register {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .login-register a {
     padding-right: 10px;
 }
@@ -170,10 +176,24 @@ form i {
     align-items: center;
     margin-top: 5px;
     transition: 0.3s ease;
+    margin: 10px 0px;
 }
 
-.submit a:hover {
+.forgot-pwd a:hover, .otp:hover, h6:hover {
     color: #28905F;
+}
+
+.otp, h6 {
+    font-size: 15px;
+    margin: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.forgot-pwd{
+    display: flex;
+    justify-content: center;
+    margin: 25px 0px;
 }
 
 /* Desktop */

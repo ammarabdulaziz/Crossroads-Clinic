@@ -28,5 +28,12 @@ module.exports = {
                 resolve(response)
             }
         })
+    },
+
+    checkPhone: (phone) => {
+        return new Promise(async (resolve, reject) => {
+            let user = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ phone: phone })
+            resolve(user)
+        })
     }
 }

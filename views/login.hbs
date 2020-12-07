@@ -27,8 +27,11 @@
             <h1>LOGIN</h1>
             <h4>Login to your account to continue</h4>
             <div class="login-register">
-                <h5 class="login-tab active"><a href="">Login</a></h5>
-                <h5 class="register-tab "><a href="">Register</a></h5>
+                <div>
+                    <h5 class="login-tab active"><a href="">Login</a></h5>
+                    <h5 class="register-tab "><a href="">Register</a></h5>
+                </div>
+                
             </div>
             {{#if errors}}
             <div class="error-box" id="errorDiv">
@@ -38,20 +41,47 @@
                 <i id="closeMsg" class="fa fa-times" aria-hidden="true"></i>
             </div>
             {{/if}}
+            {{!-- ----------------- --}}
+            <form action="/auth/send-otp" method="POST"  id="otp-form">
+                <label for="email">Phone Number (10 digit number)</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <input type="text" maxlength="10" id="phone" name="phone" placeholder="+91"><br>
+                </div>
+                <div class="submit">
+                    <button class="btn btn-green send-otp">Send OTP</button>
+                    <h6 href="" class="send-otp-timer otp">Multiple Requests. Try again later</h6>
+                </div>
+            </form>
+            {{!-- ----------------- --}}
+            <form action="/auth/verify-otp" method="POST" id="otp-verify">
+                Please enter the OTP recieved in your phone number <br>
+                <label for="password">Enter OTP</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="text" maxlength="4" id="otp" name="code" placeholder="****">
+                </div>
+                <div class="submit">
+                    <button class="btn btn-green verify-otp" type="submit">Login</button>
+                    <a class="verify-otp-timer"></a>
+                    <h6 class="resendOTP"></h6>
+                </div>
+            </form>
+            {{!-- ----------------- --}}
             <form action="/login" method="POST" id="login-form">
                 <label for="email">Email Address</label><br>
                 <div class="form-icon-input">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input type="text" id="email" name="email" placeholder="johndoe@gmail.com"><br>
+                    <input type="text" name="email" placeholder="johndoe@gmail.com"><br>
                 </div>
                 <label for="password">Password</label><br>
                 <div class="form-icon-input">
                     <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" id="password" name="password" placeholder="*****">
+                    <input type="password" name="password" placeholder="*****">
                 </div>
                 <div class="submit">
                     <button class="btn btn-green" type="submit">Login</button>
-                    <h5><a href="">Forgot password</a></h5>
+                    <h6 href="" class="otp">Login with OTP</h6>
                 </div>
             </form>
             {{!-- ----------------- --}}
@@ -64,7 +94,7 @@
                 <label for="phone">Phone Number</label><br>
                 <div class="form-icon-input">
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <input type="text" name="phone" placeholder="+91"><br>
+                    <input type="text"  maxlength="10" name="phone" placeholder="+91"><br>
                 </div>
                 <label for="email">Email Address</label><br>
                 <div class="form-icon-input">
@@ -87,6 +117,7 @@
                 <a href="/auth/facebook" class="btn btn-oauth btn-facebook"><i class="fa fa-facebook"
                         aria-hidden="true"></i>Sign In with Facebook</a>
             </div>
+            <div class="forgot-pwd"><a href="">Forgot your password?</a></div>
         </div>
     </div>
 </body>
