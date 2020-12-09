@@ -19,3 +19,10 @@ $(document).ready(function () {
     $input.parent().after($input);
     $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
 });
+
+$(document).ready(function () {
+    $('#specialities-table').DataTable();
+    var $input = $('.dataTables_filter label > input');
+    $input.parent().after($input);
+    $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+});

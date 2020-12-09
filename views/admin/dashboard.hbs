@@ -137,9 +137,9 @@
                             <td>
                                 <a href="#tab2.3" data-id="{{this._id}}" class="btn-action btn-view"><i
                                         class='bx bxs-user-detail nav__icon'></i></a>
-                                <a href="#tab2.2" data-id="{{this._id}}" class="btn-action btn-edit edit-profile"><i
+                                <a href="#tab2.2" data-id="{{this._id}}" class="btn-action btn-edit edit-profile edit-doctor"><i
                                         class='bx bx-pencil nav__icon'></i></a>
-                                <a href="#" data-id="{{this._id}}" class="btn-action btn-delete"><i
+                                <a href="#" data-id="{{this._id}}" class="btn-action btn-delete delete-doctor"><i
                                         class='bx bx-trash nav__icon'></i></a>
                             </td>
                         </tr>
@@ -206,7 +206,7 @@
 
 
 
-    {{!-- ----------------------- Patients ----------------------- --}}
+    {{!-- ----------------------- Appointments ----------------------- --}}
 
 
 
@@ -331,8 +331,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Dr.</span>
                                         </div>
-                                        <input type="text" name="fname" class="form-control" placeholder="John"
-                                            aria-label="Username" aria-describedby="basic-addon1" required>
+                                        <input type="text" name="fname" class="form-control side-rectangle"
+                                            placeholder="John" aria-label="Username" aria-describedby="basic-addon1"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="form-group col-12 col-md-6">
@@ -386,14 +387,16 @@
                     <div class="card2 card no-border">
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
-                                <label for="specialized">Specialized</label>
-                                <input type="text" class="form-control" name="specialized" id="specialized"
-                                    placeholder="BDS" required>
+                                <label for="speciality">Speciality</label>
+                                <select class="form-control" name="speciality">
+                                    {{#each specialities}}
+                                    <option>{{this.speciality}}</option>
+                                    {{/each}}
+                                </select>
                             </div>
                             <div class="form-group col-12 col-md-6">
-                                <label for="speciality">Speciality</label>
-                                <input type="text" class="form-control" name="speciality" id="speciality"
-                                    placeholder="Orthodentist" required>
+                                <label for="specialized">Specialized</label>
+                                <input type="text" class="form-control" name="specialized" placeholder="BDS" required>
                             </div>
                         </div>
                         <div class="row formInputs">
@@ -470,9 +473,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon2">Dr.</span>
                                         </div>
-                                        <input id="edit-fname" type="text" name="fname" class="form-control"
-                                            placeholder="John" aria-label="Username" aria-describedby="basic-addon2"
-                                            required>
+                                        <input id="edit-fname" type="text" name="fname"
+                                            class="form-control side-rectangle" placeholder="John" aria-label="Username"
+                                            aria-describedby="basic-addon2" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-12 col-md-6">
@@ -525,14 +528,17 @@
                     <div class="card2 card no-border">
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
-                                <label for="specialized">Specialized</label>
-                                <input id="edit-specialized" type="text" class="form-control" name="specialized"
-                                    id="specialized-edit" placeholder="BDS" required>
+                                <label for="speciality">Speciality</label>
+                                <select class="form-control" id="speciality" name="speciality">
+                                    {{#each specialities}}
+                                    <option>{{this.speciality}}</option>
+                                    {{/each}}
+                                </select>
                             </div>
                             <div class="form-group col-12 col-md-6">
-                                <label for="speciality">Speciality</label>
-                                <input id="edit-speciality" type="text" class="form-control" name="speciality"
-                                    id="speciality-edit" placeholder="Orthodentist" required>
+                                <label for="specialized">Specialized</label>
+                                <input type="text" class="form-control" name="specialized" id="specialized"
+                                    placeholder="BDS" required>
                             </div>
                         </div>
                         <div class="row formInputs">
@@ -610,7 +616,7 @@
                                 <!-- Btn and Review -->
                                 <div class="col-12 col-md-3">
                                     <a href="#tab2.2" data-id=""
-                                        class="btn btn-blue-outline btn-edit-profile edit-profile">Edit Profile</a>
+                                        class="btn btn-blue-outline btn-edit-profile edit-profile edit-doctor">Edit Profile</a>
                                 </div>
                             </div>
                             <!-- Contact Icons -->
@@ -715,5 +721,169 @@
                 </div>
             </div>
             <br>
+        </div>
+    </div>
+
+
+
+    {{!-- ----------------------- Specialities Table ----------------------- --}}
+
+
+
+    <div id="tab8" class="tab-content">
+        <!--  breadcrumb  -->
+        <div class="content">
+            <div>
+                <ul class="bar">
+                    <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                    <span>/</span>
+                    <li class="bar-item active">Specialities</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="content">
+            <div class="card">
+                <div class="card-head">
+                    <div>Specialities</div>
+                    <a href="#tab8.2" class="btn btn-green formInputs btn-add-speciality"><i
+                            class='bx bxs-user-plus'></i>Add
+                        Speciality</a>
+                </div>
+            </div>
+            <div class="card2 card mb-4">
+                <table class="table table-hover" id="specialities-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width : 250px; ">Speciality</th>
+                            <th scope="col" class="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each specialities}}
+                        <tr>
+                            <td>{{this.speciality}}</td>
+                            <td>
+                                <a href="#tab2.2" data-id="{{this._id}}" name="{{this.speciality}}"
+                                    class="btn-action btn-edit edit-speciality"><i
+                                        class='bx bx-pencil nav__icon'></i></a>
+                                <a href="#" data-id="{{this._id}}" class="btn-action btn-delete dlt-spec"><i
+                                        class='bx bx-trash nav__icon'></i></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    {{!-- ----------------------- Add Speciality Forms ----------------------- --}}
+
+
+    <div id="tab9" class="tab-content">
+
+        <!--  Custom breadcrumb  -->
+
+        <div class="content ">
+            <div class="row">
+                <ul class="col-12 col-md-6">
+                    <div class="bar col-12 mt-4">
+                        <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                        <span>/</span>
+                        <li class="bar-item"><a href="/admin/view-doctors">Specialities</a></li>
+                        <span>/</span>
+                        <li class="bar-item active">Add</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- - Form  -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>Add Speciality</div>
+                        </div>
+                    </div>
+                    <div class="card2 card">
+                        <form action="/admin/add-speciality" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="speciality">Speciality</label>
+                                    <div class="input-group">
+                                        <input type="text" name="speciality" class="form-control"
+                                            placeholder="Orthology" aria-label="Username"
+                                            aria-describedby="basic-addon1" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-green">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+        </div>
+    </div>
+
+
+    {{!-- --------- Edit Speciality form -------- --}}
+
+    <div id="tab9" class="tab-content">
+
+        <!--  Custom breadcrumb  -->
+
+        <div class="content ">
+            <div class="row">
+                <ul class="col-12 col-md-6">
+                    <div class="bar col-12 mt-4">
+                        <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                        <span>/</span>
+                        <li class="bar-item"><a href="/admin/view-doctors">Specialities</a></li>
+                        <span>/</span>
+                        <li class="bar-item active">Edit</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- - Form  -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>Edit Speciality</div>
+                        </div>
+                    </div>
+                    <div class="card2 card">
+                        <form action="" class="edit-spec-form" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="speciality">Speciality</label>
+                                    <div class="input-group">
+                                        <input type="text" name="speciality" class="form-control speciality"
+                                            placeholder="Orthology" aria-label="Username"
+                                            aria-describedby="basic-addon1" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-green">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <p></p>
         </div>
     </div>

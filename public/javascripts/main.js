@@ -45,7 +45,6 @@ if (window.location.hash == "#tab2.1") showContent(1, 4)
 
 $(document).ready(function () {
 
-
     $('.image').on('change', function () {
         // Activate model after image select
         $('.modal-bg').addClass('bg-active')
@@ -95,7 +94,7 @@ $(document).ready(function () {
 })
 
 
-/*===== ADD PAGE  =====*/
+/*===== SWITCH TO ADD PAGE  =====*/
 
 $(document).ready(function () {
     $('.btn-add').click(() => {
@@ -107,15 +106,18 @@ $(document).ready(function () {
         $('#image_demo_edit').removeClass('image_demo')
         $('#image_demo_add').addClass('image_demo')
     })
+    $('.btn-add-speciality').click(() => {
+        showContent(4, 8)
+    })
 })
 
 
 
-/*===== EDIT DATA AJAX  =====*/
+/*===== DOCTORS EDIT DATA AJAX  =====*/
 
 $(document).ready(function () {
     // Edit 
-    $('.edit-profile').click(function () {
+    $('.edit-doctor').click(function () {
         // Load Edit page content
         showContent(1, 5)
         window.location.hash = "#tab2"
@@ -152,7 +154,7 @@ $(document).ready(function () {
 /*===== DELETE DATA AJAX  =====*/
 $(document).ready(function () {
     // Delete 
-    $('.btn-delete').click(function () {
+    $('.delete-doctor').click(function () {
 
         // Delete id
         var docID = $(this).data('id');
@@ -213,5 +215,64 @@ $(document).ready(function () {
                 $('.hero-img').attr('src', '../images/' + response.response._id + '.jpg');
             }
         })
+    });
+});
+
+
+
+/*===== SPECIALITY EDIT DATA  =====*/
+
+$(document).ready(function () {
+    // Edit 
+    $('.edit-speciality').click(function () {
+        // Load Edit page content
+        showContent(4, 9)
+        window.location.hash = "#tab8"
+
+        // Edit id
+        var specID = $(this).data('id');
+        var specName = $(this).attr('name');
+
+        console.log(specID)
+        console.log(specName)
+
+        $('.speciality').attr('value', specName);
+        $('.edit-spec-form').attr('action', '/admin/edit-speciality?id=' + specID );
+
+    });
+});
+
+
+
+/*===== DELETE DATA AJAX  =====*/
+$(document).ready(function () {
+    // Delete 
+    $('.dlt-spec').click(function () {
+
+        // Delete id
+        var dltSpec = $(this).data('id');
+
+        // Confirm box
+        var deleteConfirm = confirm("Are you sure you want to delete the record?");
+        if (deleteConfirm) {
+            deleteDoctor(dltSpec)
+        }
+        function deleteDoctor(dltSpec) {
+            $.ajax({
+                url: '/admin/delete-speciality',
+                method: 'post',
+                data: {
+                    id: dltSpec
+                },
+                success: (response) => {
+                    // Data removed from HTML Table
+                    if (response.status) {
+                        window.location.hash = "#tab8"
+                        window.location.reload();
+                        alert('You have successfully deleted the data')
+                    }
+                }
+            })
+        }
     });
 });

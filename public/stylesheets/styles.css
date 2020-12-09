@@ -350,7 +350,7 @@ a {
   font-family: var(--body-font);
   font-size: 14px;
   font-weight: 400;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.01);
+  box-shadow: 0 8px 8px rgba(29, 19, 19, 0.030);
   padding: 1em;
   list-style-type: none;
 }
@@ -539,8 +539,12 @@ table a {
   padding: 1em 0em;
 }
 
-.content input, .content select {
+.content input, .content select, textarea {
   border-radius: 12px;
+}
+
+.active::before{
+  display: none;
 }
 
 .radio-box {
@@ -549,14 +553,14 @@ table a {
   border: 1px solid #ccc;
 }
 
-.content input::placeholder {
+.content input::placeholder, textarea {
   color: #aaaaaa;
 }
 
-.content input:focus {
-  outline: 0 none;
-  box-shadow: none;
-  border-color: #28905F;
+.content input:focus, textarea:focus {
+  outline: 0 none !important;
+  box-shadow: none !important;
+  border-color: #28905F !important;
 }
 
 .content input[type="file"] {
@@ -605,7 +609,17 @@ table a {
   align-items: center;
 }
 
+.side-rectangle{
+  border-radius: 0px 15px 15px 0px !important;
+}
+
 #modal, #modal-edit {
   height: 10em;
   background-color: #000000;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1230px !important;
+  }
 }

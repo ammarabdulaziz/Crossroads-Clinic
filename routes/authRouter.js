@@ -51,7 +51,7 @@ router.get('/get-countdown', (req, res) => {
 
 // Login Endpoint
 router.get('/send-otp', async (req, res) => {
-    let timeSecond = 10;
+    let timeSecond = 30;
 
     // Display time Fn defenition
     function displayTime(second) {

@@ -6,18 +6,16 @@ const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 /* GET home page. */
-router.get('/', isAdmin, async function (req, res, next) {
+router.get('/', async function (req, res, next) {
   // Get doctor details
   let doctors = await adminHelpers.getDoctors();
-  res.render('admin/dashboard', { doctors, admin: true });
+  let specialities = await adminHelpers.getSpecialities();
+  res.render('admin/dashboard', { doctors, specialities, admin: true });
 });
 
 
 // -- Doctor routes --
-router.post('/add-dcotor', isAdmin, (req, res) => {
-  // console.log('req.body:',req.body)
-  // image = req.body.image
-
+router.post('/add-dcotor', (req, res) => {
   adminHelpers.addDoctor(req.body).then((id) => {
     const path = './public/images/' + id + '.jpg'
     const imgdata = req.body.image;
@@ -27,13 +25,13 @@ router.post('/add-dcotor', isAdmin, (req, res) => {
   })
 })
 
-router.get('/edit-doctor', isAdmin, (req, res) => {
+router.get('/edit-doctor', (req, res) => {
   adminHelpers.getDoctorDetails(req.query.id).then((response) => {
     res.json({ response })
   })
 })
 
-router.post('/edit-doctor', isAdmin, (req, res) => {
+router.post('/edit-doctor', (req, res) => {
   adminHelpers.editDoctor(req.query.id, req.body).then((response) => {
     if (req.body.image) {
       const path = './public/images/' + req.query.id + '.jpg'
@@ -45,24 +43,36 @@ router.post('/edit-doctor', isAdmin, (req, res) => {
   })
 })
 
-router.post('/delete-doctor', isAdmin, (req, res) => {
+router.post('/delete-doctor', (req, res) => {
   adminHelpers.deleteDoctor(req.body.id).then(() => {
     res.json({ status: true })
   })
 })
 
-router.get('/profile', isAdmin, (req, res) => {
+router.get('/profile', (req, res) => {
   adminHelpers.getDoctorDetails(req.query.id).then((response) => {
-    // console.log('admin:::', response)
     res.json({ response })
   })
 })
 
 
+// -- Speciality routes --
+router.post('/add-speciality', (req, res) => {
+  adminHelpers.addSpeciality(req.body).then(() => {
+    res.redirect('/admin')
+  })
+})
 
-// -- Patient routes --
-router.get('/view-patient-profile', (req, res) => {
-  res.render('admin/patient-profile')
+router.post('/edit-speciality', (req, res) => {
+  adminHelpers.ediSpeciality(req.query.id, req.body).then((response) => {
+    res.redirect('/admin')
+  })
+})
+
+router.post('/delete-speciality', (req, res) => {
+  adminHelpers.deleteSpeciality(req.body.id).then(() => {
+    res.json({ status: true })
+  })
 })
 
 

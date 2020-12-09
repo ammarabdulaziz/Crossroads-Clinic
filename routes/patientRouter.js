@@ -68,15 +68,30 @@ router.post('/register', (req, res) => {
   })
 });
 
-router.get('/homepage', isPatient, (req, res) => {
+router.get('/homepage', async (req, res) => {
+  // let appointments = await patientHelpers.getAppointments()
   res.render('patient/homepage', { patient: true })
 })
 
-router.get('/edit-profile', (req, res) => {
-  res.render('patient/edit-profile', { patient: true })
+// router.get('/edit-profile', (req, res) => {
+//   res.render('patient/edit-profile', { patient: true })
+// })
+
+router.get('/doctors', (req, res) => {
+  res.render('patient/doctors', { patient: true })
 })
 
-router.get('/book-appoinment', (req, res) => {
+router.get('/book-appointment', (req, res) => {
+  // let docId = req.query.docId
+  res.render('patient/book-now', { patient: true })
+})
+
+router.post('/book-appointment', (req, res) => {
+  console.log(req.body)
+  console.log(req.user._id)
+  patientHelpers.bookAppointment(req.body, req.user._id).then(() => {
+
+  })
   res.render('patient/book-now', { patient: true })
 })
 

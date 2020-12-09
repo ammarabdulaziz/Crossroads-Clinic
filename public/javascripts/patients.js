@@ -48,3 +48,24 @@ $(document).ready(function () {
         $('.res-tab').show();
     })
 })
+
+// Dropdown
+$('.dropdown-toggle').click(() => {
+    $('.dropdown-menu').toggle()
+})
+
+$(document).ready(function () {
+    $('.dropdown-item').click(function () {
+        var value = $(this).attr('data-filter');
+        if (value == 'all') {
+            $('.doc-box').show('1000');
+        } else {
+            $('.doc-box').filter('.' + value).show('1000');
+            $('.doc-box').not('.' + value).hide('1000');
+        }
+    })
+    $('.dropdown-item').click(function (e) {
+        e.preventDefault();
+        $(this).addClass('active').siblings().removeClass('active');
+    })
+})

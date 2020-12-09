@@ -103,11 +103,26 @@ body {
     position: absolute;
 }
 
-.main-bg img {
+.main-bg {
     width: 100%;
-    height: 25em;
-    object-fit: cover;
-    object-position: 0 0;
+    height: 22em;
+    background-size: cover;
+}
+
+.main-bg h1, .main-bg span {
+    font-family: var(--body-font);
+    font-weight: 700;
+    font-size: 40px;
+    text-align: center;
+    text-shadow: 0 3px 3px rgba(5, 77, 43, 0.350)
+}
+
+.main-bg h1 {
+    color: var(--white-color);
+}
+
+.main-bg span {
+    color: #CFEFE4;
 }
 
 /* Profile Card */
@@ -178,15 +193,13 @@ body {
     color: var(--first-color);
 }
 
-.tab-menu li:first-child a {
+.tab-menu li:first-child a {}
 
-}
-
-.tab-menu li.active a{
+.tab-menu li.active a {
     color: var(--first-color)
 }
 
-.tab-menu li.active::after{
+.tab-menu li.active::after {
     content: '';
     background: var(--first-color);
     display: block;
@@ -197,17 +210,15 @@ body {
     transition: all 0.3s ease;
 }
 
-.tab-menu li.active::before{
+.tab-menu li.active::before {
     display: none;
 }
 
-
 /* Tab-content */
 
-.show-tab, .tab-menu li.active::after{
+.show-tab, .tab-menu li.active::after {
     display: block !important;
 }
-
 
 .tab-content-head {
     display: flex;
@@ -316,9 +327,91 @@ body {
     opacity: 1;
 }
 
+/* Our Doctors */
+
+.dropdown-toggle {
+    background-color: #F8F8F8 !important;
+    color: #383838 !important;
+    height: 30px !important;
+    font-size: 14px !important;
+    box-shadow: 0 5px 5px rgba(71, 141, 0, 0.062);
+    padding: 0px 10px;
+    margin: 5px 0px;
+}
+
+.dropdown-toggle:focus {
+    outline: 0 none !important;
+    box-shadow: none !important;
+    border-color: #28905F !important;
+}
+
+.dropdown-menu {
+    overflow: hidden !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff !important;
+    text-decoration: none !important;
+    background-color: #28905F !important;
+}
+
+.dropdown-item.active::before {
+    display: none;
+}
+
+/* Doctor Cards */
+
+.doc-card {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 15px 0px;
+}
+
+.doc-card h4, .doc-card h2, .doc-card div {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+}
+
+.doc-card h2 {
+    font-size: 16px;
+    color: var(--first-color-light);
+}
+
+.doc-card a {
+    height: 35px;
+    font-size: 14px;
+    margin: 10px 0px;
+}
+
+.drop-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+.drop-item.active, .drop-item:active {
+    color: #fff !important;
+    text-decoration: none !important;
+    background-color: #28905F !important;
+}
+
 @media screen and (max-width: 767.5px) {
-    .main-bg img {
+    .main-bg {
         height: 15em;
+    }
+    .main-bg h1, .main-bg span {
+        font-size: 28px;
     }
 }
 
@@ -382,6 +475,12 @@ body {
     .navbar li a {
         margin-left: 1rem;
         margin-right: 1rem;
+    }
+    .doc-card h4 {
+        font-size: 20px;
+    }
+    .doc-card h2 {
+        font-size: 14px;
     }
 }
 

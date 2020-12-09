@@ -35,5 +35,20 @@ module.exports = {
             let user = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ phone: phone })
             resolve(user)
         })
-    }
+    },
+
+    bookAppointment: (bookingDetails, patientId) => {
+        return new Promise(async (resolve, reject) => {
+            bookingDetails.patientId = patientId
+            db.get().collection(collections.APPOINTMENTS_COLLECTION).insertOne(bookingDetails).then((response) => {
+                console.log(response.ops[0])
+            })
+        })
+    },
+
+    // getAppointments: () => {
+    //     return new Promise(async (resolve, reject) => {
+            
+    //     })
+    // }
 }

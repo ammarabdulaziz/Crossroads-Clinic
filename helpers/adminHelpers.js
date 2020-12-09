@@ -107,5 +107,40 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+
+    addSpeciality: (speciality) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collections.SPECIALITES_COLLECTION).insertOne(speciality).then((response) => {
+                resolve(response)
+            })
+        })
+    },
+
+    getSpecialities: () => {
+        return new Promise(async (resolve, reject) => {
+            let specialities = await db.get().collection(collections.SPECIALITES_COLLECTION).find().toArray()
+            resolve(specialities)
+        })
+    },
+
+    ediSpeciality: (specId, specName) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.SPECIALITES_COLLECTION).updateOne({ _id: objectId(specId) }, {
+                $set: {
+                    speciality: specName.speciality
+                }
+            }).then((response) => {
+                resolve()
+            })
+        })
+    },
+
+    deleteSpeciality: (specID) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.SPECIALITES_COLLECTION).removeOne({ _id: objectId(specID) }).then((response) => {
+                resolve(response)
+            })
+        })
     }
 }

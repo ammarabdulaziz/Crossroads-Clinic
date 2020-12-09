@@ -43,6 +43,13 @@ h3, h4, h5, h6, p, span, body {
     transition: 0.3s ease;
 }
 
+.btn-green-outline {
+    color: #28905F;
+    border: 0.3px solid #28905F;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
 .btn-oauth {
     color: #E7EAE9 !important;
 }
@@ -66,6 +73,11 @@ h3, h4, h5, h6, p, span, body {
     background-color: #0C464C;
 }
 
+.btn-green-outline:hover {
+    background-color: #28905F;
+    color: #e4e4e4;
+}
+
 .btn-green:hover {
     background-color: #19754a;
 }
@@ -73,6 +85,7 @@ h3, h4, h5, h6, p, span, body {
 .btn-white:hover {
     background-color: #cecece;
 }
+
 
 /* hr */
 
@@ -132,11 +145,11 @@ h3, h4, h5, h6, p, span, body {
     cursor: pointer;
 }
 
-@media screen and (min-width: 767px){
-    .btn-oauth{
+@media screen and (min-width: 767px) {
+    .btn-oauth {
         width: 48%
     }
-    .oauth{
+    .oauth {
         display: flex;
         justify-content: space-between;
     }
