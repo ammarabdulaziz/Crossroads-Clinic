@@ -37,18 +37,21 @@ module.exports = {
         })
     },
 
-    bookAppointment: (bookingDetails, patientId) => {
+    bookAppointment: (bookingDetails, patientId, docId) => {
         return new Promise(async (resolve, reject) => {
             bookingDetails.patientId = patientId
+            let doctor = await db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docId) });
+            bookingDetails.doctor = doctor
             db.get().collection(collections.APPOINTMENTS_COLLECTION).insertOne(bookingDetails).then((response) => {
-                console.log(response.ops[0])
+                resolve(response.ops[0])
             })
         })
     },
 
-    // getAppointments: () => {
-    //     return new Promise(async (resolve, reject) => {
-            
-    //     })
-    // }
+    getAppointments: (patientId) => {
+        return new Promise(async (resolve, reject) => {
+            let appointments = await db.get().collection(collections.APPOINTMENTS_COLLECTION).find({ patientId: objectId(patientId) }).toArray();
+            resolve(appointments)
+        })
+    }
 }

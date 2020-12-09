@@ -138,99 +138,38 @@
                 </div>
                 <div class="card3 mb-5 pb-3">
                     <!-- appointment -->
+                    {{#each appointments}}
                     <div class="tab-content col-12 appointment v-center">
-                        <div class="tab-img v-center pr-5 pr-lg-0">
-                            <img src="/images/perfil.jpg" alt="" class="hero-img ">
+                        <div class="tab-img d-flex align-items-center">
+                            <img src="/images/{{this.doctor._id}}.jpg" alt="image" class="hero-img ">
                             <div class="img-name">
-                                <h4>Dr. Alexndro Zignee</h4>
-                                <h6>Endodentist</h6>
+                                <h4>Dr. {{this.doctor.firstname}} {{this.doctor.lastname}}</h4>
+                                <h6>{{this.doctor.speciality}}</h6>
                             </div>
                         </div>
 
-                        <div class="tab-img v-center pr-5 pr-lg-0">
+                        <div class="tab-img d-flex">
                             <div class="img-name">
-                                <h4>Ammar Abdul Aziz</h4>
+                                <h4>{{this.fname}} {{this.lname}}</h4>
                                 <h6>Booking For</h6>
                             </div>
                         </div>
 
-                        <div class="tab-img v-center pr-3 pr-lg-0">
+                        <div class="tab-img d-flex">
                             <div class="img-name">
-                                <h4>22/12/2020 3:00 PM</h4>
+                                <h4>{{this.date}} {{this.time}}</h4>
                                 <h6>Session</h6>
                             </div>
                         </div>
 
-                        <div class="pr-3">
+                        <div class="pr-3 d-flex justify-content-end">
                             <i class='bx bx-dots-vertical-rounded opt-icon' id="opt-icon"></i>
                             <div class="options-box" id="options-box">
-                                <h6>Cancel</h6>
+                                <h6 data-id="{{this._id}}">Cancel</h6>
                             </div>
                         </div>
                     </div>
-                    <!-- --------- -->
-                    <div class="tab-content col-12 appointment v-center">
-                        <div class="tab-img v-center pr-5 pr-lg-0">
-                            <img src="/images/perfil.jpg" alt="" class="hero-img">
-                            <div class="img-name">
-                                <h4>Dr. Alexndro Zignee</h4>
-                                <h6>Endodentist</h6>
-                            </div>
-                        </div>
-
-                        <div class="tab-img v-center pr-5 pr-lg-0">
-                            <div class="img-name">
-                                <h4>Ammar Abdul Aziz</h4>
-                                <h6>Booking For</h6>
-                            </div>
-                        </div>
-
-                        <div class="tab-img v-center pr-3 pr-lg-0">
-                            <div class="img-name">
-                                <h4>22/12/2020 3:00 PM</h4>
-                                <h6>Session</h6>
-                            </div>
-                        </div>
-
-                        <div class="pr-3">
-                            <i class='bx bx-dots-vertical-rounded opt-icon' id="opt-icon"></i>
-                            <div class="options-box" id="options-box">
-                                <h6>Cancel</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- --------- -->
-                    <!-- --------- -->
-                    <div class="tab-content col-12 appointment v-center">
-                        <div class="tab-img v-center pr-5 pr-lg-0">
-                            <img src="/images/perfil.jpg" alt="" class="hero-img">
-                            <div class="img-name">
-                                <h4>Dr. Alexndro Zignee</h4>
-                                <h6>Endodentist</h6>
-                            </div>
-                        </div>
-
-                        <div class="tab-img v-center pr-5 pr-lg-0">
-                            <div class="img-name">
-                                <h4>Ammar Abdul Aziz</h4>
-                                <h6>Booking For</h6>
-                            </div>
-                        </div>
-
-                        <div class="tab-img v-center pr-3 pr-lg-0">
-                            <div class="img-name">
-                                <h4>22/12/2020 3:00 PM</h4>
-                                <h6>Session</h6>
-                            </div>
-                        </div>
-
-                        <div class="pr-3">
-                            <i class='bx bx-dots-vertical-rounded opt-icon' id="opt-icon"></i>
-                            <div class="options-box" id="options-box">
-                                <h6>Cancel</h6>
-                            </div>
-                        </div>
-                    </div>
+                    {{/each}}
                     <!-- --------- -->
                 </div>
             </div>

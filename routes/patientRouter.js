@@ -69,27 +69,29 @@ router.post('/register', (req, res) => {
 });
 
 router.get('/homepage', async (req, res) => {
-  // let appointments = await patientHelpers.getAppointments()
-  res.render('patient/homepage', { patient: true })
+  let appointments = await patientHelpers.getAppointments(req.user._id)
+  res.render('patient/homepage', { appointments, patient: true })
 })
 
-// router.get('/edit-profile', (req, res) => {
-//   res.render('patient/edit-profile', { patient: true })
-// })
-
-router.get('/doctors', (req, res) => {
-  res.render('patient/doctors', { patient: true })
+router.get('/doctors', async (req, res) => {
+  let doctors = await adminHelpers.getDoctors()
+  let specialities = await adminHelpers.getSpecialities()
+  res.render('patient/doctors', { doctors, specialities, patient: true })
 })
 
-router.get('/book-appointment', (req, res) => {
-  // let docId = req.query.docId
-  res.render('patient/book-now', { patient: true })
+router.get('/book-appointment', async (req, res) => {
+  if(!req.query.id){
+    res.redirect('/doctors')
+  }
+  let bookingDocId = req.query.id;
+  res.render('patient/book-now', { bookingDocId, patient: true })
 })
 
 router.post('/book-appointment', (req, res) => {
+  console.log('---docId',req.query.docId)
   console.log(req.body)
   console.log(req.user._id)
-  patientHelpers.bookAppointment(req.body, req.user._id).then(() => {
+  patientHelpers.bookAppointment(req.body, req.user._id, req.query.docId).then(() => {
 
   })
   res.render('patient/book-now', { patient: true })

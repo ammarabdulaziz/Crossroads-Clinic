@@ -17,9 +17,9 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item active" data-filter="all" href="#">All</a>
-                            <a class="dropdown-item" data-filter="neurologist" href="#">Neurologist</a>
-                            <a class="dropdown-item" data-filter="ophthalmologist" href="#">Ophthalmologist</a>
-                            <a class="dropdown-item" data-filter="pediatrician" href="#">Pediatrician</a>
+                            {{#each specialities}}
+                            <a class="dropdown-item" data-filter="{{this.speciality}}" href="#">{{this.speciality}}</a>
+                            {{/each}}
                         </div>
                     </div>
                 </ul>
@@ -30,54 +30,16 @@
 
         <div class="content">
             <div class="row doctors">
-                <div class="col-12 col-md-3 mb-3 doc-box neurologist">
-                    <img src="/images/perfil.jpg" alt="image" width="100%">
+                {{#each doctors}}
+                <div class="col-12 col-md-3 mb-3 doc-box {{this.speciality}}">
+                    <img src="/images/{{this._id}}.jpg" alt="image" width="100%">
                     <div class="doc-card">
-                        <h4>Dr. Lloyd Wilson</h4>
-                        <h2>NEUROLOGIST</h2>
-                        <div><a href="#" class="btn btn-green-outline">Book Now</a></div>
+                        <h4>Dr. {{this.firstname}} {{this.lastname}}</h4>
+                        <h2>{{this.speciality}}</h2>
+                        <div><a href="/book-appointment?id={{this._id}}" class="btn btn-green-outline">Book Now</a></div>
                     </div>
                 </div>
-                <div class="col-12 col-md-3 mb-3 doc-box pediatrician">
-                    <img src="/images/perfil.jpg" alt="image" width="100%">
-                    <div class="doc-card">
-                        <h4>Dr. Lloyd Wilson</h4>
-                        <h2>Pediatrician</h2>
-                        <div><a href="#" class="btn btn-green-outline">Book Now</a></div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 mb-3 doc-box ophthalmologist">
-                    <img src="/images/perfil.jpg" alt="image" width="100%">
-                    <div class="doc-card">
-                        <h4>Dr. Lloyd Wilson</h4>
-                        <h2>Ophthalmologist</h2>
-                        <div><a href="#" class="btn btn-green-outline">Book Now</a></div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 mb-3 doc-box neurologist">
-                    <img src="/images/perfil.jpg" alt="image" width="100%">
-                    <div class="doc-card">
-                        <h4>Dr. Lloyd Wilson</h4>
-                        <h2>NEUROLOGIST</h2>
-                        <div><a href="#" class="btn btn-green-outline">Book Now</a></div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 mb-3 doc-box pediatrician">
-                    <img src="/images/perfil.jpg" alt="image" width="100%">
-                    <div class="doc-card">
-                        <h4>Dr. Lloyd Wilson</h4>
-                        <h2>Pediatrician</h2>
-                        <div><a href="#" class="btn btn-green-outline">Book Now</a></div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 mb-3 doc-box ophthalmologist">
-                    <img src="/images/perfil.jpg" alt="image" width="100%">
-                    <div class="doc-card">
-                        <h4>Dr. Lloyd Wilson</h4>
-                        <h2>Ophthalmologist</h2>
-                        <div><a href="#" class="btn btn-green-outline">Book Now</a></div>
-                    </div>
-                </div>
+                {{/each}}
             </div>
         </div>
     </div>

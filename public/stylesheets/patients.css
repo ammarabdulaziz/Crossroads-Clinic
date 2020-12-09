@@ -261,8 +261,8 @@ body {
 }
 
 .appointment {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
     margin: 15px 0px;
     padding-bottom: 10px;
     transition: 0.5s ease;
@@ -368,6 +368,7 @@ body {
     flex-wrap: wrap;
     width: 100%;
     padding: 15px 0px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.03);
 }
 
 .doc-card h4, .doc-card h2, .doc-card div {
@@ -379,6 +380,11 @@ body {
 .doc-card h2 {
     font-size: 16px;
     color: var(--first-color-light);
+    text-transform: uppercase;
+}
+
+.doc-card h4 {
+    text-transform: capitalize;
 }
 
 .doc-card a {
@@ -413,6 +419,15 @@ body {
     .main-bg h1, .main-bg span {
         font-size: 28px;
     }
+    .tab-content .tab-img:nth-child(1) {
+        min-width: 250px;
+    }
+    .tab-content .tab-img:nth-child(2) {
+        min-width: 200px;
+    }
+    .tab-content .tab-img:nth-child(3) {
+        min-width: 180px;
+    }
 }
 
 @media screen and (min-width:575px) and (max-width:767.5px) {
@@ -425,11 +440,29 @@ body {
     .user-pop {
         margin-right: 100px;
     }
+    .tab-content .tab-img:nth-child(1) {
+        min-width: 200px;
+    }
+    .tab-content .tab-img:nth-child(2) {
+        min-width: 200px;
+    }
+    .tab-content .tab-img:nth-child(3) {
+        min-width: 150px;
+    }
 }
 
 @media screen and (min-width:924px) and (max-width:1390px) {
     .user-pop {
         margin-right: 125px;
+    }
+    .tab-content .tab-img:nth-child(1) {
+        min-width: 250px;
+    }
+    .tab-content .tab-img:nth-child(2) {
+        min-width: 200px;
+    }
+    .tab-content .tab-img:nth-child(3) {
+        min-width: 150px;
     }
 }
 
@@ -440,6 +473,15 @@ body {
     .profile-card {
         margin-top: -8em;
     }
+    .tab-content .tab-img:nth-child(1) {
+        min-width: 300px;
+    }
+    .tab-content .tab-img:nth-child(2) {
+        min-width: 250px;
+    }
+    .tab-content .tab-img:nth-child(3) {
+        min-width: 180px;
+    }
 }
 
 @media screen and (min-width:1555px) and (max-width:1752px) {
@@ -448,6 +490,15 @@ body {
     }
     .profile-card {
         margin-top: -8em;
+    }
+    .tab-content .tab-img:nth-child(1) {
+        min-width: 300px;
+    }
+    .tab-content .tab-img:nth-child(2) {
+        min-width: 250px;
+    }
+    .tab-content .tab-img:nth-child(3) {
+        min-width: 180px;
     }
 }
 
