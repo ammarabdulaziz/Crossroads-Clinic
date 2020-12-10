@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const fs = require('fs');
 const adminHelpers = require('../helpers/adminHelpers')
 const patientHelpers = require('../helpers/patientHelpers')
 const doctorHelpers = require('../helpers/doctorHelpers')
@@ -39,7 +40,7 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
       res.redirect('/doctor');
     }
     else if (req.user.patient) {
-      res.redirect('/');
+      res.redirect('/homepage');
     }
   });
 
@@ -70,7 +71,26 @@ router.post('/register', (req, res) => {
 
 router.get('/homepage', async (req, res) => {
   let appointments = await patientHelpers.getAppointments(req.user._id)
-  res.render('patient/homepage', { appointments, patient: true })
+  let user = req.user
+  res.render('patient/homepage', { appointments, user, patient: true })
+})
+
+router.get('/edit-profile', async (req, res) => {
+  let user = req.user
+  console.log(user)
+  res.render('patient/edit-profile', { user, patient: true })
+})
+
+router.post('/edit-profile', (req, res) => {
+  patientHelpers.editProfile(req.body, req.query.id).then(() => {
+    if (req.body.image) {
+      const path = './public/images/' + req.query.id + '.jpg'
+      const imgdata = req.body.image;
+      const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+      fs.writeFileSync(path, base64Data, { encoding: 'base64' });
+    }
+    res.redirect('/homepage')
+  })
 })
 
 router.get('/doctors', async (req, res) => {
@@ -80,7 +100,7 @@ router.get('/doctors', async (req, res) => {
 })
 
 router.get('/book-appointment', async (req, res) => {
-  if(!req.query.id){
+  if (!req.query.id) {
     res.redirect('/doctors')
   }
   let bookingDocId = req.query.id;

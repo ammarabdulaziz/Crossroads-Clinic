@@ -53,5 +53,29 @@ module.exports = {
             let appointments = await db.get().collection(collections.APPOINTMENTS_COLLECTION).find({ patientId: objectId(patientId) }).toArray();
             resolve(appointments)
         })
+    },
+
+    editProfile: (profileDetails, patientId) => {
+        return new Promise(async (resolve, reject) => {
+            if (profileDetails.password) {
+                profileDetails.password = await bcrypt.hash(profileDetails.password, 10)
+            } else {
+                // Retrieve the existing password
+                let patient = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ _id: objectId(patientId) })
+                profileDetails.password = patient.password
+            }
+            db.get().collection(collections.PATIENTS_COLLECTION).updateOne({ _id: objectId(patientId) }, {
+                $set: {
+                    name: profileDetails.name,
+                    phone: profileDetails.phone,
+                    email: profileDetails.email,
+                    password: profileDetails.password,
+                    gender: profileDetails.gender,
+                    place: profileDetails.place
+                }
+            }).then((response) => {
+                resolve()
+            })
+        })
     }
 }

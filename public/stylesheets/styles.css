@@ -564,8 +564,10 @@ table a {
 }
 
 .content input[type="file"] {
+  cursor: pointer;
   position: absolute;
-  left: -99999rem;
+  /* left: -99999rem; */
+  opacity: 0;
 }
 
 .content label #displayImg, .displayImg, #displayImg-edit {

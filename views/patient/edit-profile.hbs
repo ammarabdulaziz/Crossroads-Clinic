@@ -1,14 +1,19 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css"
+    integrity="sha512-zxBiDORGDEAYDdKLuYU9X/JaJo/DPzE42UubfBw9yg8Qvb2YRRIQ8v4KsGHOx2H1/+sdSXyXxLXv5r7tHc9ygg=="
+    crossorigin="anonymous" />
 <div class="container">
     <div id="tab6" class="tab-content">
 
         <!--  Custom breadcrumb  -->
 
-        <div class="content">
-            <div>
-                <ul class="bar mt-4">
-                    <li class="bar-item"><a href="/homepage">Homepage</a></li>
-                    <span>/</span>
-                    <li class="bar-item active">Edit Profile</li>
+        <div class="content ">
+            <div class="row">
+                <ul class="col-12 col-md-6">
+                    <div class="bar col-12 mt-4">
+                        <li class="bar-item"><a href="/homepage">Homepage</a></li>
+                        <span>/</span>
+                        <li class="bar-item active">Edit Profile</li>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -24,26 +29,18 @@
                         </div>
                     </div>
                     <div class="card2 card">
-                        <form id="update" method="POST" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="form-group col-12 col-md-6">
-                                    <label for="fname">First Name</label>
-                                    <div class="input-group">
-                                        <input id="edit-fname" type="text" name="fname" class="form-control"
-                                            placeholder="John" aria-label="Username" aria-describedby="basic-addon2"
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="form-group col-12 col-md-6">
-                                    <label for="lname">Last Name</label>
-                                    <input id="edit-lname" type="name" class="form-control" name="lname"
-                                        placeholder="Doe" required>
+                        <form action="/edit-profile?id={{user._id}}" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="fname">Name</label>
+                                <div class="input-group">
+                                    <input id="fname" type="text" name="name" class="form-control"
+                                        placeholder="John" value="{{user.name}}" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email address</label>
-                                <input id="edit-email" type="email" name="email" class="form-control"
-                                    placeholder="johndoe@gmail.com" required>
+                                <input id="email" type="email" name="email" class="form-control"
+                                    placeholder="johndoe@gmail.com" value="{{user.email}}" required>
                             </div>
                             <div class="form-group">
                                 <label for="pwd">New Password</label>
@@ -51,59 +48,46 @@
                             </div>
                             <div class="form-group">
                                 <label for="place">Place</label>
-                                <input type="text" class="form-control" name="place" id="edit-place"
-                                    placeholder="Calicut, India">
+                                <input type="text" class="form-control" name="place" id="place"
+                                    placeholder="Calicut, India" value="{{user.place}}">
                             </div>
                             <div class="row ">
                                 <div class="form-group col-12 col-md-6">
                                     <label for="phone">Phone Number</label>
-                                    <input id="edit-phone" type="phone" class="form-control" name="phone"
-                                        placeholder="+91 " required>
+                                    <input id="phone" type="phone" class="form-control" name="phone"
+                                        placeholder="+91 " value="{{user.phone}}" required>
                                 </div>
                                 <div class="col-12 col-md-6 ">
                                     <label>Gender</label>
                                     <div class="radio-box formInputs pl-2">
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" class="custom-control-input" name="gender"
-                                                id="male-edit" value="male">
-                                            <label class="custom-control-label" for="male-edit" required>Male</label>
+                                                id="male" value="male" {{#check user.gender 'male'}}checked{{/check}}>
+                                            <label class="custom-control-label" for="male" required>Male</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" class="custom-control-input" name="gender"
-                                                value="female" id="female-edit">
-                                            <label class="custom-control-label" for="female-edit">Female</label>
+                                                value="female" id="female" {{#check user.gender 'female'}}checked{{/check}}>
+                                            <label class="custom-control-label" for="female">Female</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="card">
-                    </div>
-                    <div class="card2 card no-border">
-                        <div class="row">
-                            <div class="form-group col-12 ">
-                                <label for="disese">Disese</label>
-                                <input id="edit-disese" type="text" class="form-control" name="disese" id="disese-edit"
-                                    placeholder="Infection, etc.">
+                            <div class="formInputs row">
+                                <div class="form-group col-12">
+                                    <label for="image" class="custom-file-upload">
+                                        <div class="formInputs">
+                                            <i class='bx bx-cloud-upload'></i>
+                                            Upload Profile Image
+                                            <input type="file" class="image" id="image">
+                                        </div>
+                                        <img src="/images/{{user._id}}.jpg" class="displayImg" id="displayImg" name="image" alt="">
+                                    </label>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-green">Update</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row formInputs">
-                            <div class="form-group col-12">
-                                <label for="image" class="custom-file-upload">
-                                    <div class="formInputs">
-                                        <i class='bx bx-cloud-upload'></i>
-                                        Upload Profile Image
-                                        <input type="file" class="image" id="image-edit">
-                                    </div>
-                                    <img src="#" class="displayImg" id="displayImg-edit" name="image" alt="">
-                                </label>
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <button type="submit" class="btn btn-green">Update</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <p></p>
@@ -116,12 +100,62 @@
             <div class="modal-bg">
                 <div class="modal-box col-11 col-sm-8 col-md-6 col-lg-4">
                     <i class="fa fa-times-circle-o close-icon" aria-hidden="true"></i>
-                    <div class="col-12" id="image_demo_edit"></div>
+                    <div class="col-12 image_demo" id="image_demo_edit"></div>
                     <a class="btn btn-green formInputs col-12 crop-btn">Crop Image</a>
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+    
+    $('.image').on('change', function () {
+        // Activate model after image select
+        $('.modal-bg').addClass('bg-active')
+        $('.image_demo').croppie('destroy');
+        $('.image-label').attr('value', '');
+        $image_crop = $('.image_demo').croppie({
+            enableExif: true,
+            viewport: {
+                width: 200,
+                height: 200,
+                type: 'square' //circle
+            },
+            boundary: {
+                width: 300,
+                height: 300
+            }
+        });
+
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            $image_crop.croppie('bind', {
+                url: event.target.result
+            }).then(function () {
+                console.log('jQuery bind complete');
+            });
+        }
+        reader.readAsDataURL(this.files[0]);
+
+        $('.close-icon ').on('click', function () {
+            $('.modal-bg').removeClass('bg-active')
+        })
+
+        $('.crop-btn').click(function (event) {
+            $image_crop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function (response) {
+                console.log('response', response)
+                $('.displayImg').attr('src', response);
+                // const base64Data = response.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+                $('.image-label').attr('value', response);
+                $('.modal-bg').removeClass('bg-active')
+            });
+        })
+    })
+
+})
+</script>

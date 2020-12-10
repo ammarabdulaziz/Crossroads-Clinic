@@ -8,13 +8,13 @@
                         <div class="row pt-1">
                             <!-- Image -->
                             <div class="col-4 col-md-4 pr-0">
-                                <img src="/images/perfil.jpg" alt="" class="hero-img">
+                                <img src="/images/{{user._id}}.jpg" onerror="this.src='/images/default.png';" class="hero-img">
                             </div>
                             <!-- Name and Subs -->
                             <div class="col-8 col-md-8">
-                                <h2>Ammar Abdul Aziz</h2>
+                                <h2>{{user.name}}</h2>
                                 <div class="v-start">
-                                    <i class="fa fa-user pr-2 pt-1" aria-hidden="true"></i>
+                                    <i class="fa fa-user pr-2" aria-hidden="true"></i>
                                     <h5>Patient</h5>
                                 </div>
                             </div>
@@ -24,20 +24,28 @@
                         <div class="row details">
                             <div class="col-12 detail-1">
                                 <i class="fa fa-phone pl-1" aria-hidden="true"></i>
-                                <a href="#" class="pl-1 ml-3">+91 9846704120</a>
+                                <a href="#" class="pl-1 ml-3">
+                                    {{#if user.phone}}{{user.phone}}
+                                    {{else}} - - - - -
+                                    {{/if}}
+                                </a>
                             </div>
                             <div class="col-12 detail-2 pt-3">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
-                                <a href="#" class="pl-1 ml-3">ammarabz10@gmail.com</a>
+                                <a href="#" class="pl-1 ml-3">{{#if user.email}}{{user.email}}
+                                    {{else}} - - - - -
+                                    {{/if}}</a>
                             </div>
                             <div class="col-12 detail-3 pt-3">
                                 <i class="fa fa-map-marker pl-1" aria-hidden="true"></i>
-                                <a href="#" class="pl-2 ml-3">Mahe, India</a>
+                                <a href="#" class="pl-2 ml-3">{{#if user.place}}{{user.place}}
+                                    {{else}} - - - - -
+                                    {{/if}}</a>
                             </div>
                         </div>
                         <!-- Btn and Review -->
                         <div class="col-12">
-                            <a href="edit-profile" class="btn btn-blue-outline">Edit Profile</a>
+                            <a href="edit-profile?id={{user._id}}" class="btn btn-blue-outline">Edit Profile</a>
                         </div>
                     </div>
                 </div>

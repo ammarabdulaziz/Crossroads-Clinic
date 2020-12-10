@@ -48,6 +48,15 @@ app.use(function (req, res, next) {
   next();
 });
 
+var hbs = hbs.create({});
+
+// register new function
+hbs.handlebars.registerHelper("check", function (x, y, options) {
+  if (x == y) {
+    return options.fn(this);
+  }
+});
+
 app.use(session({ secret: "key", cookie: { maxAge: 600000 } }));
 
 // Passport middleware
