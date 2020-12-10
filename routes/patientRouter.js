@@ -88,13 +88,9 @@ router.get('/book-appointment', async (req, res) => {
 })
 
 router.post('/book-appointment', (req, res) => {
-  console.log('---docId',req.query.docId)
-  console.log(req.body)
-  console.log(req.user._id)
-  patientHelpers.bookAppointment(req.body, req.user._id, req.query.docId).then(() => {
-
+  patientHelpers.bookAppointment(req.body, req.user._id, req.query.docId).then((appointment) => {
+    res.render('patient/confirm-booking', { appointment, patient: true })
   })
-  res.render('patient/book-now', { patient: true })
 })
 
 module.exports = router;

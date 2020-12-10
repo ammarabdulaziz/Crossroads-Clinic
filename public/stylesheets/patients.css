@@ -412,6 +412,173 @@ body {
     background-color: #28905F !important;
 }
 
+/* Confirm Booking */
+
+.confirm-card {
+    background-color: #ffffff;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.11);
+    margin-top: -5em;
+}
+
+.confirm-card .section-1, .sub-section {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.section-1 .vr{
+    position: absolute;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    border-radius: 100px;
+    background-color: #EEEEEE;
+}
+
+.confirm-card .section-2 {
+    /* position: relative; */
+}
+
+.section-1 i, .section-1 h2, .section-1 h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 100%;
+}
+
+.section-1 {
+    padding: 32px 0px;
+}
+
+
+.sub-section{
+    position: relative;
+}
+
+.fa-check-circle {
+    -webkit-text-stroke: 4px #28905F;
+    color: var(--first-color);
+    font-size: 55px;
+}
+
+.section-1 i{
+    margin-top: 20px;
+}
+
+.section-1 h2 {
+    font-weight: 700;
+    color: #28905F;
+    font-size: 22px;
+    margin-top: -60px;
+}
+
+.section-1 h1 {
+    font-family: var(--body-font2);
+    font-size: 20px;
+    text-align: center;
+    font-weight: 400;
+    margin: 5px 20px;
+}
+
+.section-2 h1 {
+    font-family: var(--body-font2);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.section-2 h2 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.section-2 .container{
+    padding: 30px 12px;
+}
+
+.section-2 h2 span {
+    font-weight: 500;
+}
+
+.scroll-table {
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scroll-table::-webkit-scrollbar {
+    display: none;
+}
+
+.section-2 table {
+    font-size: 16px;
+    overflow: scroll !important;
+    width: 100% !important;
+    margin: 30px 0px 50px 0px;
+}
+
+.section-2 thead th {
+    font-weight: 600;
+    color: #9B9B9B;
+    font-family: var(--body-font);
+}
+
+table thead tr th{
+    padding: 8px 18px !important;
+    border-bottom: 1px solid #E4E4E4 !important;
+    border-top: 1px solid #E4E4E4 !important;
+}
+
+table th, table td {
+    padding: 8px 18px !important;
+    border-bottom: 1px solid #E4E4E4 !important;
+}
+
+.section-2 thead th:nth-child(1){
+    padding-left: 0px !important;
+}
+
+.section-2 tbody td {
+    color: #666666;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.section-2 tbody td:nth-child(1){
+    padding-left: 0px !important;    
+}
+
+.section-2 .hr{
+    margin: 8px 0px;
+}
+
+.details-head {
+    display: flex;
+    color: #9B9B9B;
+    font-family: var(--body-font2);
+}
+
+.details-head h2{
+    font-weight: 600;
+    width: 250px;
+    margin: 0;
+}
+
+.details-body {
+    display: flex;
+    font-family: var(--body-font2);
+}
+
+.details-body h2{
+    margin: 0;
+    color: #666666;
+    font-weight: 600;
+    width: 250px;
+    word-break: break-all;
+}
+
+
+
 @media screen and (max-width: 767.5px) {
     .main-bg {
         height: 15em;
@@ -516,6 +683,12 @@ body {
         padding-top: 35px;
         padding-bottom: 35px;
         background-color: #ffffff !important;
+    }
+    .section-1 i{
+        margin-top: 25px;
+    }
+    .section-1 h2 {
+        margin-top: 25px;
     }
 }
 
