@@ -20,9 +20,25 @@ $(document).ready(function () {
 })
 
 $(document).ready(function () {
+    $('.upcoming').hide()
+    $('.consulted').hide()
     $('.tab-menu li').on('click', function () {
         $('.tab-menu li').removeClass('active')
         $(this).addClass('active')
+        var value = $(this).attr('data-filter');
+        if (value == 'today') {
+            $('.today').show()
+            $('.upcoming').hide()
+            $('.consulted').hide()
+        } else if (value == 'upcoming') {
+            $('.upcoming').show()
+            $('.today').hide()
+            $('.consulted').hide()
+        } else if (value == 'consulted') {
+            $('.consulted').show()
+            $('.today').hide()
+            $('.upcoming').hide()
+        }
     })
 })
 

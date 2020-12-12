@@ -78,7 +78,7 @@ module.exports = function (passport) {
         }
     ));
 
-    // Google Strategy
+    // Facebook Strategy
     passport.use(new FacebookStrategy({
         clientID: "822674468301210",
         clientSecret: "467eaf2ee931843aa6204f9cb95413d2",

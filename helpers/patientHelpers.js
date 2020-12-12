@@ -42,6 +42,7 @@ module.exports = {
             bookingDetails.patientId = patientId
             let doctor = await db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docId) });
             bookingDetails.doctor = doctor
+            bookingDetails.docId = docId
             db.get().collection(collections.APPOINTMENTS_COLLECTION).insertOne(bookingDetails).then((response) => {
                 resolve(response.ops[0])
             })
@@ -71,7 +72,8 @@ module.exports = {
                     email: profileDetails.email,
                     password: profileDetails.password,
                     gender: profileDetails.gender,
-                    place: profileDetails.place
+                    place: profileDetails.place,
+                    dob: profileDetails.dob
                 }
             }).then((response) => {
                 resolve()

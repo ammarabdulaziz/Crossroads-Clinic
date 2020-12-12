@@ -35,14 +35,15 @@
   <link rel="stylesheet" href="/stylesheets/datatable.css">
   <link rel="stylesheet" href="/stylesheets/components.css">
   <link rel="stylesheet" href="/stylesheets/profile.css">
+  <link rel="stylesheet" href="/stylesheets/doctors.css">
   <title>Crossroads Clinic</title>
 </head>
 
 <body id="body-pd">
   {{#if admin}}{{>adminPartial}}{{/if}}
-  {{#if patient}}{{>patientPartial}}{{/if}}
+  {{#if user}}{{>userPartial}}{{/if}}
   {{{body}}}
-  {{#if patient}}{{>footer}}{{/if}}
+  {{#if user}}{{>footer}}{{/if}}
 </body>
 
 <!--===== MAIN JS =====-->
@@ -54,6 +55,7 @@
 <script src="/javascripts/main.js"></script>
 <script src="/javascripts/datatables.js"></script>
 <script src="/javascripts/patients.js"></script>
+<script src="/javascripts/doctors.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"
   integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig=="

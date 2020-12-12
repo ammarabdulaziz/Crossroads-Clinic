@@ -427,7 +427,7 @@ body {
     flex-wrap: wrap;
 }
 
-.section-1 .vr{
+.section-1 .vr {
     position: absolute;
     right: 0;
     width: 3px;
@@ -451,8 +451,7 @@ body {
     padding: 32px 0px;
 }
 
-
-.sub-section{
+.sub-section {
     position: relative;
 }
 
@@ -462,7 +461,7 @@ body {
     font-size: 55px;
 }
 
-.section-1 i{
+.section-1 i {
     margin-top: 20px;
 }
 
@@ -492,7 +491,7 @@ body {
     font-weight: 400;
 }
 
-.section-2 .container{
+.section-2 .container {
     padding: 30px 12px;
 }
 
@@ -523,18 +522,18 @@ body {
     font-family: var(--body-font);
 }
 
-table thead tr th{
+.section-2 table thead tr th {
     padding: 8px 18px !important;
     border-bottom: 1px solid #E4E4E4 !important;
     border-top: 1px solid #E4E4E4 !important;
 }
 
-table th, table td {
+.section-2 table th, .section-2 table td {
     padding: 8px 18px !important;
     border-bottom: 1px solid #E4E4E4 !important;
 }
 
-.section-2 thead th:nth-child(1){
+.section-2 thead th:nth-child(1) {
     padding-left: 0px !important;
 }
 
@@ -544,11 +543,11 @@ table th, table td {
     white-space: nowrap;
 }
 
-.section-2 tbody td:nth-child(1){
-    padding-left: 0px !important;    
+.section-2 tbody td:nth-child(1) {
+    padding-left: 0px !important;
 }
 
-.section-2 .hr{
+.section-2 .hr {
     margin: 8px 0px;
 }
 
@@ -558,7 +557,7 @@ table th, table td {
     font-family: var(--body-font2);
 }
 
-.details-head h2{
+.details-head h2 {
     font-weight: 600;
     width: 250px;
     margin: 0;
@@ -569,15 +568,13 @@ table th, table td {
     font-family: var(--body-font2);
 }
 
-.details-body h2{
+.details-body h2 {
     margin: 0;
     color: #666666;
     font-weight: 600;
     width: 250px;
     word-break: break-all;
 }
-
-
 
 @media screen and (max-width: 767.5px) {
     .main-bg {
@@ -684,7 +681,7 @@ table th, table td {
         padding-bottom: 35px;
         background-color: #ffffff !important;
     }
-    .section-1 i{
+    .section-1 i {
         margin-top: 25px;
     }
     .section-1 h2 {

@@ -1,0 +1,92 @@
+:root {
+    --header-height: 3rem;
+    --nav-width: 68px;
+    /*===== Colors =====*/
+    --first-color: #28905F;
+    --first-color-light: #a1c5b9;
+    --white-color: #E7EAE9;
+    --font-color: #383838;
+    /*===== Font and typography =====*/
+    --body-font: 'Montserrat', sans-serif;
+    --body-font2: 'Barlow', sans-serif;
+    --normal-font-size: 1rem;
+    /*===== z index =====*/
+    --z-fixed: 100;
+}
+
+.mob-tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 0px;
+}
+
+.mob-tabs h3 {
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+.mob-tabs h3::after {
+    content: '';
+    background: var(--first-color);
+    display: block;
+    width: 2rem;
+    height: 3.8px;
+    border-radius: 3px;
+    margin-top: 5px;
+    margin-left: 2px;
+}
+
+.mob-tabs i {
+    font-size: 25px;
+    color: var(--first-color);
+}
+
+ul.display-tabs {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.display-tabs .hr {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+}
+
+.doc-nav {
+    position: relative;
+}
+
+.doc-nav li {
+    top: 0;
+    left: 0;
+    width: 100%;
+    list-style-type: none;
+    cursor: pointer;
+    padding: 20px 25px;
+    font-size: 16px;
+    font-family: var(--body-font);
+    font-weight: 500;
+    width: 100%;
+}
+
+.display-tabs li.active {
+    color: var(--first-color);
+    font-weight: 600;
+    border-left: 6px solid #28905F;
+    /* height: 100%; */
+}
+
+@media (min-width: 991.5px) {
+    .mob-tabs {
+        display: none;
+    }
+    .hide-tabs{
+        display: block;
+    }
+}
+@media (max-width: 991.5px){
+    .hide-tabs{
+        display: none;
+    }
+}

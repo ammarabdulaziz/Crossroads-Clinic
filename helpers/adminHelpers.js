@@ -142,5 +142,20 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+
+    getPetients: () => {
+        return new Promise(async (resolve, reject) => {
+            let patients = await db.get().collection(collections.PATIENTS_COLLECTION).find().toArray()
+            resolve(patients)
+        })
+    },
+
+    deletePatient: (patientId) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.PATIENTS_COLLECTION).removeOne({ _id: objectId(patientId) }).then((response) => {
+                resolve(response)
+            })
+        })
     }
 }

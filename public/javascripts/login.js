@@ -69,7 +69,7 @@ $(document).ready(function () {
                 }
 
                 // Timer code
-                let timeSecond = 30;
+                let timeSecond = 59;
 
                 function displayTime(second) {
                     const min = Math.floor(second / 60);

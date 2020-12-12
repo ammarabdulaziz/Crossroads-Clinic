@@ -1,0 +1,257 @@
+<div class="container">
+    <div class="row">
+        <!-- Profile Div -->
+        <div class="profile-card col-12 col-lg-4">
+            <div class="col-12">
+                <div class="row">
+                    <div class="card col-12">
+                        <div class="row pt-1">
+                            <!-- Image -->
+                            <div class="col-4 col-md-4 pr-0">
+                                <img src="/images/{{user._id}}.jpg" onerror="this.src='/images/default.png';"
+                                    class="hero-img">
+                            </div>
+                            <!-- Name and Subs -->
+                            <div class="col-8 col-md-8">
+                                <h2>Dr. {{user.firstname}} {{user.lastname}}</h2>
+                                <div class="v-start">
+                                    <i class="fa fa-user pr-2" aria-hidden="true"></i>
+                                    <h5>DOCTOR</h5>
+                                </div>
+                                <div class="v-start">
+                                    <i class="fa fa-stethoscope pr-2" aria-hidden="true"></i>
+                                    <h5>{{user.speciality}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        {{!-- Icons --}}
+                        <div class="row details">
+                            <div class="col-12 detail-1">
+                                <i class="fa fa-phone pl-1" aria-hidden="true"></i>
+                                <a href="#" class="pl-1 ml-3">
+                                    {{#if user.phone}}{{user.phone}}
+                                    {{else}} - - - - -
+                                    {{/if}}
+                                </a>
+                            </div>
+                            <div class="col-12 detail-2 pt-3">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <a href="#" class="pl-1 ml-3">{{#if user.email}}{{user.email}}
+                                    {{else}} - - - - -
+                                    {{/if}}</a>
+                            </div>
+                            <div class="col-12 detail-3 pt-3">
+                                <i class="fa fa-map-marker pl-1" aria-hidden="true"></i>
+                                <a href="#" class="pl-2 ml-3">{{#if user.place}}{{user.place}}
+                                    {{else}} - - - - -
+                                    {{/if}}</a>
+                            </div>
+                        </div>
+                        <div class="row doc-tabs doc-nav mb-lg-5">
+                            <div class="mob-tabs col-12 mb-2">
+                                <h3>Tabs</h3>
+                                <i class='bx bx-menu-alt-right'></i>
+                            </div>
+                            <ul class="display-tabs">
+                                <div class="hr"></div>
+                                <li data-filter="appointments" class="active">Appointments</li>
+                                <div class="hr"></div>
+                                <li data-filter="bookings">Bookings</li>
+                                <div class="hr"></div>
+                                <li data-filter="myPatients">My Patients</li>
+                                <div class="hr"></div>
+                                <li data-filter="results">Results</li>
+                                <div class="hr"></div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-8">
+            <div class="tab appointments">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Appointments</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <div class="tab-head pl-1 mb-3 col-12">
+                        <div class="tab-menu">
+                            <li data-filter="today" class="pl-0 active"><a href="#">Today</a></li>
+                            <li data-filter="upcoming"><a href="#">Upcoming</a></li>
+                            <li data-filter="consulted"><a href="#">Consulted</a></li>
+                        </div>
+                    </div>
+                    <div class="today">
+                        <div class="scroll-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="upcoming">
+                        <div class="scroll-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="consulted">
+                        <div class="scroll-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="tab consultation">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Appointments</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    Appointments
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="tab bookings">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Bookings</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <div class="scroll-table">
+                        {{#if bookings}}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each bookings}}
+                                <tr>
+                                    <td>{{this.name}}</td>
+                                    <td>{{this.date}}</td>
+                                    <td>{{this.age}}</td>
+                                    <td>{{this.gender}}</td>
+                                    <td>{{this.phone}}</td>
+                                    <td><a href="#" class="btn btn-success">Accept</a></td>
+                                    <td><a href="#" class="btn btn-danger">Reject</a></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        {{else}}
+                        <h6 class="text-center">No Bookings</h6>
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="tab myPatients">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>My Patients</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <h6 class="text-center">No Patients</h6>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="tab results">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Results</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <h6 class="text-center">No Results</h6>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+    <div style="height: 18em;"></div>
+</div>

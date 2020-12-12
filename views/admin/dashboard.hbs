@@ -131,7 +131,8 @@
                             <td>
                                 <a href="#tab2.3" data-id="{{this._id}}" class="btn-action btn-view"><i
                                         class='bx bxs-user-detail nav__icon'></i></a>
-                                <a href="#tab2.2" data-id="{{this._id}}" class="btn-action btn-edit edit-profile edit-doctor"><i
+                                <a href="#tab2.2" data-id="{{this._id}}"
+                                    class="btn-action btn-edit edit-profile edit-doctor"><i
                                         class='bx bx-pencil nav__icon'></i></a>
                                 <a href="#" data-id="{{this._id}}" class="btn-action btn-delete delete-doctor"><i
                                         class='bx bx-trash nav__icon'></i></a>
@@ -173,22 +174,30 @@
                             <th scope="col">Name</th>
                             <th scope="col">Age</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Place</th>
+                            <th scope="col">Gender</th>
                             <th scope="col">Appointments</th>
-                            <th scope="col" class="actions">Actions</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{#each patients}}
                         <tr>
-                            <td>Mark</td>
-                            <td>Otto loaa Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.dob}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{this.place}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.appointments}}</td>
                             <td>
                                 {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
-                                <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
-                                <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
+                                {{!-- <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a> --}}
+                                <a href="#" data-id="{{this._id}}" class="btn-action btn-delete delete-ptnt"><i class='bx bx-trash nav__icon'></i></a>
                             </td>
                         </tr>
+                        {{/each}}
                     </tbody>
                 </table>
             </div>
@@ -599,7 +608,8 @@
                                 <!-- Btn and Review -->
                                 <div class="col-12 col-md-3">
                                     <a href="#tab2.2" data-id=""
-                                        class="btn btn-blue-outline btn-edit-profile edit-profile edit-doctor">Edit Profile</a>
+                                        class="btn btn-blue-outline btn-edit-profile edit-profile edit-doctor">Edit
+                                        Profile</a>
                                 </div>
                             </div>
                             <!-- Contact Icons -->
@@ -814,7 +824,7 @@
     </div>
 
 
-    
+
     {{!-- --------- Edit Speciality form -------- --}}
     <div id="tab9" class="tab-content">
 

@@ -71,6 +71,8 @@ a {
 }
 
 .header__img img {
+  object-fit: cover;
+  object-position: 50% 50%;
   width: 40px;
   cursor: pointer;
 }
@@ -448,6 +450,11 @@ a {
   font-weight: 600;
   font-size: 20px;
   color: var(--font-color);
+}
+
+#patients-table tbody td{
+  white-space: nowrap;
+  padding-left: 17px;
 }
 
 .table {

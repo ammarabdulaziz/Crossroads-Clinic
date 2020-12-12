@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
-const bcrypt = require('bcrypt');
 const fs = require('fs');
 const adminHelpers = require('../helpers/adminHelpers')
 const patientHelpers = require('../helpers/patientHelpers')
 const doctorHelpers = require('../helpers/doctorHelpers')
-const isAdmin = require('../config/auth').isAdmin
 const isPatient = require('../config/auth').isPatient
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
@@ -69,19 +67,19 @@ router.post('/register', (req, res) => {
   })
 });
 
-router.get('/homepage', async (req, res) => {
+router.get('/homepage', isPatient, async (req, res) => {
   let appointments = await patientHelpers.getAppointments(req.user._id)
   let user = req.user
-  res.render('patient/homepage', { appointments, user, patient: true })
+  res.render('patient/homepage', { appointments, user, home : true })
 })
 
-router.get('/edit-profile', async (req, res) => {
+router.get('/edit-profile', isPatient, async (req, res) => {
   let user = req.user
-  console.log(user)
-  res.render('patient/edit-profile', { user, patient: true })
+  console.log('user',user)
+  res.render('patient/edit-profile', { user })
 })
 
-router.post('/edit-profile', (req, res) => {
+router.post('/edit-profile', isPatient, (req, res) => {
   patientHelpers.editProfile(req.body, req.query.id).then(() => {
     if (req.body.image) {
       const path = './public/images/' + req.query.id + '.jpg'
@@ -93,23 +91,23 @@ router.post('/edit-profile', (req, res) => {
   })
 })
 
-router.get('/doctors', async (req, res) => {
+router.get('/doctors', isPatient, async (req, res) => {
   let doctors = await adminHelpers.getDoctors()
   let specialities = await adminHelpers.getSpecialities()
-  res.render('patient/doctors', { doctors, specialities, patient: true })
+  res.render('patient/doctors', { doctors, specialities, user: true })
 })
 
-router.get('/book-appointment', async (req, res) => {
+router.get('/book-appointment', isPatient, async (req, res) => {
   if (!req.query.id) {
     res.redirect('/doctors')
   }
   let bookingDocId = req.query.id;
-  res.render('patient/book-now', { bookingDocId, patient: true })
+  res.render('patient/book-now', { bookingDocId, user: true })
 })
 
-router.post('/book-appointment', (req, res) => {
+router.post('/book-appointment', isPatient, (req, res) => {
   patientHelpers.bookAppointment(req.body, req.user._id, req.query.docId).then((appointment) => {
-    res.render('patient/confirm-booking', { appointment, patient: true })
+    res.render('patient/confirm-booking', { appointment, user: true })
   })
 })
 

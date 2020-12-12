@@ -38,6 +38,7 @@ if (window.location.hash == "#tab2") showContent(1, 1)
 if (window.location.hash == "#tab3") showContent(2, 2)
 if (window.location.hash == "#tab4") showContent(3, 3)
 if (window.location.hash == "#tab2.1") showContent(1, 4)
+if (window.location.hash == "#tab8") showContent(4, 9)
 
 
 
@@ -151,7 +152,7 @@ $(document).ready(function () {
 });
 
 
-/*===== DELETE DATA AJAX  =====*/
+/*===== DELETE DOCTOR DATA AJAX  =====*/
 $(document).ready(function () {
     // Delete 
     $('.delete-doctor').click(function () {
@@ -185,6 +186,40 @@ $(document).ready(function () {
 });
 
 
+/*===== DELETE PATIENT DATA AJAX  =====*/
+$(document).ready(function () {
+    // Delete 
+    $('.delete-ptnt').click(function () {
+
+        // Delete id
+        var patientID = $(this).data('id');
+
+        // Confirm box
+        var deleteConfirm = confirm("Are you sure you want to delete the record?");
+        if (deleteConfirm) {
+            deletePatient(patientID)
+        }
+        function deletePatient(patientID) {
+            $.ajax({
+                url: '/admin/delete-patient',
+                method: 'post',
+                data: {
+                    id: patientID
+                },
+                success: (response) => {
+                    // Data removed from HTML Table
+                    if (response.status) {
+                        window.location.hash = "#tab3"
+                        window.location.reload();
+                        alert('You have successfully deleted the data')
+                    }
+                }
+            })
+        }
+    });
+});
+
+
 
 /*===== PROFILE EDIT AJAX  =====*/
 $(document).ready(function () {
@@ -201,9 +236,6 @@ $(document).ready(function () {
             method: 'get',
             success: (response) => {
                 // Doctor data recieved in response.response object
-                console.log(response)
-                console.log(response.response._id)
-                console.log(response.response.firstname)
                 $('.profile-content h2').text('Dr. ' + response.response.firstname + ' ' + response.response.lastname);
                 $('.sub-name h5').text(response.response.speciality + ' | ' + response.response.specialized);
                 $('.join-date h5').text('Join date ' + response.response.date);

@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const patientHelpers = require('../helpers/patientHelpers')
-const config = require('../config/config')
+const config = require('../config/config');
+const { session } = require('passport');
 const client = require('twilio')(config.accountSID, config.authToken)
 
 
@@ -51,13 +52,17 @@ router.get('/get-countdown', (req, res) => {
 
 // Login Endpoint
 router.get('/send-otp', async (req, res) => {
-    let timeSecond = 30;
+    let timeSecond = 59;
 
     // Display time Fn defenition
     function displayTime(second) {
         const min = Math.floor(second / 60);
         const sec = Math.floor(second % 60);
         req.session.timer = `${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`;
+        if (timeSecond == 0 || timeSecond < 1) {
+            // Destroy timer session if authentication completed
+            delete req.session.timer;
+        }
     }
 
     displayTime(timeSecond); // Display time Fn declaration
@@ -70,7 +75,7 @@ router.get('/send-otp', async (req, res) => {
         if (timeSecond == 0 || timeSecond < 1) {
             clearInterval(countDown);
             // Destroy timer session if authentication completed
-            if (!req.user) {
+            if (req.user === undefined) {
                 req.session.destroy();
             }
         }
@@ -90,8 +95,9 @@ router.get('/send-otp', async (req, res) => {
         return res.status(200).send({ result: 'redirect', url: '/login?error=' + error })
     }
 
-    var timer = req.session.timer;
-    res.json({ status: true, timer })
+    // var timer = req.session.timer;
+    console.log('-----timer', timer)
+    res.json({ status: true })
 })
 
 // Verify Endpoint
@@ -106,6 +112,7 @@ router.get('/verify-otp', async (req, res) => {
                 req.login(user, function (err) {
                     if (!err) {
                         console.log("Authenticated")
+                        delete req.session.timer;
                         return res.status(200).send({ result: 'redirect', url: '/homepage' })
                     } else {
                         var error = 'Something went wrong. Please login with the Credintials'

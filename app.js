@@ -13,6 +13,7 @@ var flash = require('connect-flash')
 
 var patientRouter = require('./routes/patientRouter');
 var adminRouter = require('./routes/adminRouter');
+var doctorRouter = require('./routes/doctorRouter');
 var authRouter = require('./routes/authRouter');
 
 var app = express();
@@ -67,11 +68,11 @@ app.use(passport.session());
 app.use(flash());
 
 // Console authenticated user and its session
-// app.use((req, res, next) => {
-//   console.log('req.session: ', req.session)
-//   console.log('req.user: ', req.user)
-//   next()
-// })
+app.use((req, res, next) => {
+  console.log('req.session: ', req.session)
+  console.log('req.user: ', req.user)
+  next()
+})
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -83,6 +84,7 @@ db.connect((err) => {
 
 app.use('/', patientRouter);
 app.use('/admin', adminRouter);
+app.use('/doctor', doctorRouter);
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler

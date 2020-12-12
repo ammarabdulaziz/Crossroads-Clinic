@@ -11,29 +11,43 @@
         </div>
         <div class="admin-tab  pop-1" onclick="userPopup1()">
             <div class="admin-name">
-                <h5>John Doe</h5>
-                <h6>PATIENT</h6>
+                <h5>{{#if user.patient}}{{user.name}}{{user.fname}}{{else if user.doctor}}{{user.firstname}} {{user.lastname}}{{else}}Login{{/if}}</h5>
+                <h6>{{#if user.patient}}PATIENT{{else if user.doctor}}DOCTOR{{/if}}</h6>
             </div>
             <div class="header__img">
-                <img id="user-img" class="user-img" src="/images/perfil.jpg" alt="">
+                <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg" onerror="this.src='/images/default.png';">
             </div>
         </div>
     </div>
     <div id="user-pop-1" class="user-pop">
-        <div class="user-pop-head">
-            <h2><span>Hello</span> Admin</h2>
-            <h4>Available</h4>
-        </div>
-        <div class="wrapper">
-            <div class="list">
-                <i class='bx bx-user nav__logo-icon'></i>
-                <a href="/homepage">Profile</a>
+        {{#if user}}
+            <div class="user-pop-head">
+                <h2><span>Hello</span> Admin</h2>
+                <h4>Available</h4>
             </div>
-            <div class="list">
-                <i class='bx bx-log-out'></i>
-                <a href="/logout">Logout</a>
+            {{else}}
+            <div class="user-pop-head">
+                <h2><span>Hello</span> User</h2>
+                <h4>Login to Continue</h4>
             </div>
-        </div>
+            {{/if}}
+            <div class="wrapper">
+                {{#if user}}
+                <div class="list">
+                    <i class='bx bx-user nav__logo-icon'></i>
+                    <a href="/homepage">Profile</a>
+                </div>
+                <div class="list">
+                    <i class='bx bx-log-out'></i>
+                    <a href="/logout">Logout</a>
+                </div>
+                {{else}}
+                <div class="list">
+                    <i class='bx bx-log-in'></i>
+                    <a href="/logout">Login</a>
+                </div>
+                {{/if}}
+            </div>
     </div>
 </div>
 
@@ -48,13 +62,13 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item {{#if home}}active{{/if}}">
+                    <a class="nav-link" href="/homepage">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{#if doctors}}active{{/if}}">
                     <a class="nav-link" href="/doctors">Doctors</a>
                 </li>
                 <li class="nav-item">
@@ -66,19 +80,27 @@
         <!-- To delete -->
         <div class="admin-tab pop-2 pt-2 pb-2" onclick="userPopup2()">
             <div class="admin-name">
-                <h5>Ammar Abdul Aziz</h5>
-                <h6>PATIENT</h6>
+                <h5>{{#if user.patient}}{{user.name}}{{user.fname}}{{else if user.doctor}}{{user.firstname}} {{user.lastname}}{{else}}Login{{/if}}</h5>
+                <h6>{{#if user.patient}}PATIENT{{else if user.doctor}}DOCTOR{{/if}}</h6>
             </div>
             <div class="header__img">
-                <img id="user-img" class="user-img" src="/images/perfil.jpg" alt="">
+                <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg" onerror="this.src='/images/default.png';">
             </div>
         </div>
         <div id="user-pop-2" class="user-pop">
+            {{#if user}}
             <div class="user-pop-head">
                 <h2><span>Hello</span> Admin</h2>
                 <h4>Available</h4>
             </div>
+            {{else}}
+            <div class="user-pop-head">
+                <h2><span>Hello</span> User</h2>
+                <h4>Login to Continue</h4>
+            </div>
+            {{/if}}
             <div class="wrapper">
+                {{#if user}}
                 <div class="list">
                     <i class='bx bx-user nav__logo-icon'></i>
                     <a href="/homepage">Profile</a>
@@ -87,11 +109,17 @@
                     <i class='bx bx-log-out'></i>
                     <a href="/logout">Logout</a>
                 </div>
+                {{else}}
+                <div class="list">
+                    <i class='bx bx-log-in'></i>
+                    <a href="/logout">Login</a>
+                </div>
+                {{/if}}
             </div>
         </div>
 
     </div>
 </nav>
 <div class="main-bg d-flex align-items-center justify-content-center" style="background-image: url(/images/1.png);">
-    <h1>OUR <span>DEDICATED </span>DOCTORS</h1>
+    {{#if doctors}}<h1>OUR <span>DEDICATED </span>DOCTORS</h1>{{/if}}
 </div>
