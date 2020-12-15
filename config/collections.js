@@ -3,5 +3,6 @@ module.exports={
     PATIENTS_COLLECTION:'patient',
     DOCTORS_COLLECTION:'doctor',
     APPOINTMENTS_COLLECTION:'appointments',
-    SPECIALITES_COLLECTION:'specialities'
+    SPECIALITES_COLLECTION:'specialities',
+    CONSULTATIONS_COLLECTION:'consultations',
 }

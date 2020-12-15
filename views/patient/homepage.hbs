@@ -70,9 +70,11 @@
                     </div>
                     <div class="row hr"></div>
                 </div>
-                {{!-- <div class="card3 mb-5 pb-3">
+                <div class="card3 mb-5 pb-3">
+                    <p></p>
+                    <h6 class="text-center">No Appointments</h6>
                     <!-- appointment -->
-                    <div class="tab-content col-12 appointment v-center">
+                    {{!-- <div class="tab-content col-12 appointment v-center">
                         <div class="tab-img v-center pr-5 pr-lg-0">
                             <img src="/images/perfil.jpg" alt="" class="hero-img ">
                             <div class="img-name">
@@ -132,9 +134,9 @@
                                 <h6>Cancel</h6>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- --------- -->
-                </div> --}}
+                </div>
             </div>
             <!-- </div> -->
             <!-- Tab content div -->
@@ -144,10 +146,12 @@
                         <h2>Requests</h2>
                     </div>
                     <div class="row hr"></div>
+
                 </div>
                 <div class="card3 mb-5 pb-3">
                     <!-- appointment -->
-                    {{#each appointments}}
+                    {{#if appointments.requested}}
+                    {{#each appointments.requested}}
                     <div class="tab-content col-12 appointment v-center">
                         <div class="tab-img d-flex align-items-center">
                             <img src="/images/{{this.doctor._id}}.jpg" alt="image" class="hero-img ">
@@ -170,16 +174,21 @@
                                 <h6>Session</h6>
                             </div>
                         </div>
-                        
+
                         <div class="pr-3">
                             <i class='bx bx-dots-vertical-rounded opt-icon'></i>
                             <div class="options-box">
-                                <h6 data-id="{{this._id}}">Cancel</h6>
+                                <h6><a href="/cancel-appointment?id={{this._id}}"
+                                        onclick="return confirm('Are you sure you want to Cancel appointment with Dr. {{this.doctor.firstname}}')">Cancel</a>
+                                </h6>
                             </div>
                         </div>
                     </div>
                     {{/each}}
-                    <!-- --------- -->
+                    {{else}}
+                    <p></p>
+                    <h6 class="text-center">No Requests</h6>
+                    {{/if}}
                 </div>
             </div>
             <!-- </div> -->
@@ -193,36 +202,36 @@
                 </div>
                 <div class="card3 mb-5 pb-3">
                     <!-- appointment -->
-                    {{!-- <div class="tab-content col-12 appointment v-center">
-                        <div class="tab-img v-center pr-5 pr-lg-0">
-                            <img src="/images/perfil.jpg" alt="" class="hero-img ">
+                    {{#if appointments.cancelled}}
+                    {{#each appointments.cancelled}}
+                    <div class="tab-content col-12 appointment v-center cancelled-tab">
+                        <div class="tab-img d-flex align-items-center">
+                            <img src="/images/{{this.doctor._id}}.jpg" alt="image" class="hero-img ">
                             <div class="img-name">
-                                <h4>Dr. Alexndro Zignee</h4>
-                                <h6>Endodentist</h6>
+                                <h4>Dr. {{this.doctor.firstname}} {{this.doctor.lastname}}</h4>
+                                <h6>{{this.doctor.speciality}}</h6>
                             </div>
                         </div>
 
-                        <div class="tab-img v-center pr-5 pr-lg-0">
+                        <div class="tab-img d-flex">
                             <div class="img-name">
-                                <h4>Ammar Abdul Aziz</h4>
+                                <h4>{{this.name}}</h4>
                                 <h6>Booking For</h6>
                             </div>
                         </div>
 
-                        <div class="tab-img v-center pr-3 pr-lg-0">
+                        <div class="tab-img d-flex">
                             <div class="img-name">
-                                <h4>22/12/2020 3:00 PM</h4>
+                                <h4>{{this.date}} {{this.time}}</h4>
                                 <h6>Session</h6>
                             </div>
                         </div>
-
-                        <div class="pr-3">
-                            <i class='bx bx-dots-vertical-rounded opt-icon'></i>
-                            <div class="options-box">
-                                <h6>Cancel</h6>
-                            </div>
-                        </div>
-                    </div> --}}
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p></p>
+                    <h6 class="text-center">No Requests</h6>
+                    {{/if}}
                 </div>
             </div>
             <!-- </div> -->

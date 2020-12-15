@@ -20,24 +20,19 @@ $(document).ready(function () {
 })
 
 $(document).ready(function () {
-    $('.upcoming').hide()
-    $('.consulted').hide()
+    $('.today').show().siblings().hide()
     $('.tab-menu li').on('click', function () {
         $('.tab-menu li').removeClass('active')
         $(this).addClass('active')
         var value = $(this).attr('data-filter');
         if (value == 'today') {
-            $('.today').show()
-            $('.upcoming').hide()
-            $('.consulted').hide()
+            $('.today').show().siblings().hide()
         } else if (value == 'upcoming') {
-            $('.upcoming').show()
-            $('.today').hide()
-            $('.consulted').hide()
+            $('.upcoming').show().siblings().hide()
         } else if (value == 'consulted') {
-            $('.consulted').show()
-            $('.today').hide()
-            $('.upcoming').hide()
+            $('.consulted').show().siblings().hide()
+        }else if (value == 'expired') {
+            $('.expired').show().siblings().hide()
         }
     })
 })
@@ -85,3 +80,6 @@ $(document).ready(function () {
         $(this).addClass('active').siblings().removeClass('active');
     })
 })
+
+// To display the first name of Patient
+

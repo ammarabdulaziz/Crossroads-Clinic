@@ -11,43 +11,46 @@
         </div>
         <div class="admin-tab  pop-1" onclick="userPopup1()">
             <div class="admin-name">
-                <h5>{{#if user.patient}}{{user.name}}{{user.fname}}{{else if user.doctor}}{{user.firstname}} {{user.lastname}}{{else}}Login{{/if}}</h5>
+                <h5>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}
+                    {{user.lastname}}{{else}}Login{{/if}}</h5>
                 <h6>{{#if user.patient}}PATIENT{{else if user.doctor}}DOCTOR{{/if}}</h6>
             </div>
             <div class="header__img">
-                <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg" onerror="this.src='/images/default.png';">
+                <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg"
+                    onerror="this.src='/images/default.png';">
             </div>
         </div>
     </div>
     <div id="user-pop-1" class="user-pop">
         {{#if user}}
-            <div class="user-pop-head">
-                <h2><span>Hello</span> Admin</h2>
-                <h4>Available</h4>
+        <div class="user-pop-head patient-pop">
+            <h2>Hello <span>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}{{/if}}</span>
+            </h2>
+            <h4>Available</h4>
+        </div>
+        {{else}}
+        <div class="user-pop-head patient-pop">
+            <h2>Hello </span>User</span></h2>
+            <h4>Login to Continue</h4>
+        </div>
+        {{/if}}
+        <div class="wrapper">
+            {{#if user}}
+            <div class="list">
+                <i class='bx bx-user nav__logo-icon'></i>
+                <a href="/homepage">Profile</a>
+            </div>
+            <div class="list">
+                <i class='bx bx-log-out'></i>
+                <a href="/logout">Logout</a>
             </div>
             {{else}}
-            <div class="user-pop-head">
-                <h2><span>Hello</span> User</h2>
-                <h4>Login to Continue</h4>
+            <div class="list">
+                <i class='bx bx-log-in'></i>
+                <a href="/logout">Login</a>
             </div>
             {{/if}}
-            <div class="wrapper">
-                {{#if user}}
-                <div class="list">
-                    <i class='bx bx-user nav__logo-icon'></i>
-                    <a href="/homepage">Profile</a>
-                </div>
-                <div class="list">
-                    <i class='bx bx-log-out'></i>
-                    <a href="/logout">Logout</a>
-                </div>
-                {{else}}
-                <div class="list">
-                    <i class='bx bx-log-in'></i>
-                    <a href="/logout">Login</a>
-                </div>
-                {{/if}}
-            </div>
+        </div>
     </div>
 </div>
 
@@ -80,22 +83,25 @@
         <!-- To delete -->
         <div class="admin-tab pop-2 pt-2 pb-2" onclick="userPopup2()">
             <div class="admin-name">
-                <h5>{{#if user.patient}}{{user.name}}{{user.fname}}{{else if user.doctor}}{{user.firstname}} {{user.lastname}}{{else}}Login{{/if}}</h5>
+                <h5>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}
+                    {{user.lastname}}{{else}}Login{{/if}}</h5>
                 <h6>{{#if user.patient}}PATIENT{{else if user.doctor}}DOCTOR{{/if}}</h6>
             </div>
             <div class="header__img">
-                <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg" onerror="this.src='/images/default.png';">
+                <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg"
+                    onerror="this.src='/images/default.png';">
             </div>
         </div>
         <div id="user-pop-2" class="user-pop">
             {{#if user}}
-            <div class="user-pop-head">
-                <h2><span>Hello</span> Admin</h2>
+            <div class="user-pop-head patient-pop">
+                <h2>Hello <span>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}{{/if}}</span>
+                </h2>
                 <h4>Available</h4>
             </div>
             {{else}}
-            <div class="user-pop-head">
-                <h2><span>Hello</span> User</h2>
+            <div class="user-pop-head patient-pop">
+                <h2>Hello </span>User</span></h2>
                 <h4>Login to Continue</h4>
             </div>
             {{/if}}
@@ -123,3 +129,12 @@
 <div class="main-bg d-flex align-items-center justify-content-center" style="background-image: url(/images/1.png);">
     {{#if doctors}}<h1>OUR <span>DEDICATED </span>DOCTORS</h1>{{/if}}
 </div>
+
+{{#if user.patient}}
+<script>
+    $(document).ready(function () {
+        var fname = $(".patient-pop h2 span").text().split(' ');
+        $(".patient-pop h2 span").text(fname[0])
+    })
+</script>
+{{/if}}

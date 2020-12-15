@@ -37,12 +37,14 @@ module.exports = {
         })
     },
 
-    bookAppointment: (bookingDetails, patientId, docId) => {
+    bookAppointment: (bookingDetails, patient, docId) => {
         return new Promise(async (resolve, reject) => {
-            bookingDetails.patientId = patientId
+            bookingDetails.patientId = patient._id
+            bookingDetails.name = patient.name
             let doctor = await db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docId) });
             bookingDetails.doctor = doctor
             bookingDetails.docId = docId
+            bookingDetails.status = 'requested'
             db.get().collection(collections.APPOINTMENTS_COLLECTION).insertOne(bookingDetails).then((response) => {
                 resolve(response.ops[0])
             })
@@ -51,7 +53,16 @@ module.exports = {
 
     getAppointments: (patientId) => {
         return new Promise(async (resolve, reject) => {
-            let appointments = await db.get().collection(collections.APPOINTMENTS_COLLECTION).find({ patientId: objectId(patientId) }).toArray();
+            let appointments = []
+            appointments.requested = await db.get().collection(collections.APPOINTMENTS_COLLECTION).aggregate(
+                [{ $match: { patientId: objectId(patientId), status: "requested" } }]
+            ).toArray()
+            appointments.cancelled = await db.get().collection(collections.APPOINTMENTS_COLLECTION).aggregate(
+                [{ $match: { patientId: objectId(patientId), status: "cancelled" } }]
+            ).toArray()
+            appointments.approved = await db.get().collection(collections.APPOINTMENTS_COLLECTION).aggregate(
+                [{ $match: { patientId: objectId(patientId), status: "approved" } }]
+            ).toArray()
             resolve(appointments)
         })
     },
@@ -77,6 +88,18 @@ module.exports = {
                 }
             }).then((response) => {
                 resolve()
+            })
+        })
+    },
+
+    cancelAppointment: (appId) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.APPOINTMENTS_COLLECTION).updateOne({ _id: objectId(appId) }, {
+                $set: {
+                    status: "cancelled"
+                }
+            }).then((response) => {
+                resolve(response)
             })
         })
     }

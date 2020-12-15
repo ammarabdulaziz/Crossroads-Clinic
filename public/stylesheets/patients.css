@@ -193,8 +193,6 @@ body {
     color: var(--first-color);
 }
 
-.tab-menu li:first-child a {}
-
 .tab-menu li.active a {
     color: var(--first-color)
 }
@@ -321,6 +319,10 @@ body {
     padding: 5px 20px;
     margin: 0;
     color: var(--first-color);
+}
+
+.options-box a {
+    text-decoration: none;
 }
 
 .show-cancel {
@@ -576,6 +578,18 @@ body {
     word-break: break-all;
 }
 
+/* POP */
+
+.patient-pop h2 {
+    font-weight: 400;
+    font-family: var(--body-font2);
+}
+
+.patient-pop h2 span {
+    font-weight: 600;
+    font-family: var(--body-font);
+}
+
 @media screen and (max-width: 767.5px) {
     .main-bg {
         height: 15em;
@@ -721,5 +735,14 @@ body {
     }
     .tab-content-head h2 {
         font-size: 16px;
+    }
+}
+
+@media (max-width:350px) {
+    .tab-head {
+        overflow: scroll;
+    }
+    .tab-head::-webkit-scrollbar {
+        width: 0;
     }
 }

@@ -16,7 +16,7 @@
                                 <h2>Dr. {{user.firstname}} {{user.lastname}}</h2>
                                 <div class="v-start">
                                     <i class="fa fa-user pr-2" aria-hidden="true"></i>
-                                    <h5>DOCTOR</h5>
+                                    <h5>Doctor</h5>
                                 </div>
                                 <div class="v-start">
                                     <i class="fa fa-stethoscope pr-2" aria-hidden="true"></i>
@@ -58,6 +58,8 @@
                                 <div class="hr"></div>
                                 <li data-filter="bookings">Bookings</li>
                                 <div class="hr"></div>
+                                <li data-filter="cancelled">Cancelled</li>
+                                <div class="hr"></div>
                                 <li data-filter="myPatients">My Patients</li>
                                 <div class="hr"></div>
                                 <li data-filter="results">Results</li>
@@ -84,81 +86,161 @@
                             <li data-filter="today" class="pl-0 active"><a href="#">Today</a></li>
                             <li data-filter="upcoming"><a href="#">Upcoming</a></li>
                             <li data-filter="consulted"><a href="#">Consulted</a></li>
+                            <li data-filter="expired"><a href="#">Expired</a></li>
                         </div>
                     </div>
-                    <div class="today">
-                        <div class="scroll-table">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div>
+                        {{!-- Today --}}
+                        <div class="today">
+                            <div class="scroll-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Patient Name</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#if bookings.today}}
+                                        {{#each bookings.today}}
+                                        {{!-- {{#check this.date today}} --}}
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.time}}</td>
+                                            <td>{{this.age}}</td>
+                                            <td>{{this.gender}}</td>
+                                            <td>{{this.phone}}</td>
+                                            <td><a href="/doctor/consult?appId={{this._id}}&patientId={{this.patientId}}&name={{this.name}}&age={{this.age}}" class="btn btn-sm btn-success">Consult</a></td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr>
+                                            <td align="center" colspan="7">
+                                                <h6>No Records</h6>
+                                            </td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="upcoming">
-                        <div class="scroll-table">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="upcoming">
+                            <div class="scroll-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Patient Name</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#if bookings.upcoming}}
+                                        {{#each bookings.upcoming}}
+                                        {{!-- {{#check this.date today}} --}}
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.time}}</td>
+                                            <td>{{this.age}}</td>
+                                            <td>{{this.gender}}</td>
+                                            <td>{{this.phone}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr>
+                                            <td align="center" colspan="7">
+                                                <h6>No Records</h6>
+                                            </td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="consulted">
-                        <div class="scroll-table">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="consulted">
+                            <div class="scroll-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Patient Name</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#if bookings.consulted}}
+                                        {{#each bookings.consulted}}
+                                        {{!-- {{#check this.date today}} --}}
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.age}}</td>
+                                            <td>{{this.gender}}</td>
+                                            <td>{{this.phone}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr>
+                                            <td align="center" colspan="7">
+                                                <h6>No Records</h6>
+                                            </td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="expired">
+                            <div class="scroll-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Patient Name</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#if bookings.expired}}
+                                        {{#each bookings.expired}}
+                                        {{!-- {{#check this.date today}} --}}
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.time}}</td>
+                                            <td>{{this.age}}</td>
+                                            <td>{{this.gender}}</td>
+                                            <td>{{this.phone}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr>
+                                            <td align="center" colspan="7">
+                                                <h6>No Records</h6>
+                                            </td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,7 +271,6 @@
                 <!-- Tab content div -->
                 <div class="tab-content card col-12 mt-4">
                     <div class="scroll-table">
-                        {{#if bookings}}
                         <table class="table">
                             <thead>
                                 <tr>
@@ -203,22 +284,76 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{#each bookings}}
+                                {{#if bookings.requested}}
+                                {{#each bookings.requested}}
                                 <tr>
                                     <td>{{this.name}}</td>
                                     <td>{{this.date}}</td>
                                     <td>{{this.age}}</td>
                                     <td>{{this.gender}}</td>
                                     <td>{{this.phone}}</td>
-                                    <td><a href="#" class="btn btn-success">Accept</a></td>
-                                    <td><a href="#" class="btn btn-danger">Reject</a></td>
+                                    <td><a href="/doctor/approve-appointment?id={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to Approve appointment with {{this.name}}')"
+                                            class="btn btn-sm btn-success">Accept</a></td>
+                                    <td><a href="/doctor/cancel-appointment?id={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to Cancel appointment with {{this.name}}')"
+                                            class="btn btn-sm btn-danger">Reject</a></td>
                                 </tr>
                                 {{/each}}
+                                {{else}}
+                                <tr>
+                                    <td align="center" colspan="7">
+                                        <h6>No Records</h6>
+                                    </td>
+                                </tr>
+                                {{/if}}
                             </tbody>
                         </table>
-                        {{else}}
-                        <h6 class="text-center">No Bookings</h6>
-                        {{/if}}
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="tab cancelled">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Cancelled</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <div class="scroll-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#if bookings.cancelled}}
+                                {{#each bookings.cancelled}}
+                                <tr>
+                                    <td>{{this.name}}</td>
+                                    <td>{{this.date}}</td>
+                                    <td>{{this.age}}</td>
+                                    <td>{{this.gender}}</td>
+                                    <td>{{this.phone}}</td>
+                                </tr>
+                                {{/each}}
+                                {{else}}
+                                <tr>
+                                    <td align="center" colspan="7">
+                                        <h6>No Records</h6>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <!-- </div> -->

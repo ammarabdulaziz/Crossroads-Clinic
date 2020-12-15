@@ -75,9 +75,9 @@ router.get('/send-otp', async (req, res) => {
         if (timeSecond == 0 || timeSecond < 1) {
             clearInterval(countDown);
             // Destroy timer session if authentication completed
-            if (req.user === undefined) {
-                req.session.destroy();
-            }
+            // if (req.user === undefined) {
+            //     req.session.destroy();
+            // }
         }
     }, 1000);
 
@@ -96,7 +96,7 @@ router.get('/send-otp', async (req, res) => {
     }
 
     // var timer = req.session.timer;
-    console.log('-----timer', timer)
+    console.log('timer', timer)
     res.json({ status: true })
 })
 

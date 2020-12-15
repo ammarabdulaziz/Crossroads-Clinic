@@ -75,7 +75,6 @@ router.get('/homepage', isPatient, async (req, res) => {
 
 router.get('/edit-profile', isPatient, async (req, res) => {
   let user = req.user
-  console.log('user',user)
   res.render('patient/edit-profile', { user })
 })
 
@@ -94,7 +93,8 @@ router.post('/edit-profile', isPatient, (req, res) => {
 router.get('/doctors', isPatient, async (req, res) => {
   let doctors = await adminHelpers.getDoctors()
   let specialities = await adminHelpers.getSpecialities()
-  res.render('patient/doctors', { doctors, specialities, user: true })
+  let user = req.user;
+  res.render('patient/doctors', { doctors, specialities, user })
 })
 
 router.get('/book-appointment', isPatient, async (req, res) => {
@@ -106,8 +106,14 @@ router.get('/book-appointment', isPatient, async (req, res) => {
 })
 
 router.post('/book-appointment', isPatient, (req, res) => {
-  patientHelpers.bookAppointment(req.body, req.user._id, req.query.docId).then((appointment) => {
+  patientHelpers.bookAppointment(req.body, req.user, req.query.docId).then((appointment) => {
     res.render('patient/confirm-booking', { appointment, user: true })
+  })
+})
+
+router.get('/cancel-appointment', isPatient, (req, res) => {
+  patientHelpers.cancelAppointment(req.query.id).then(() => {
+    res.redirect('/homepage')
   })
 })
 
