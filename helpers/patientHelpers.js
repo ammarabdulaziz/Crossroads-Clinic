@@ -37,6 +37,34 @@ module.exports = {
         })
     },
 
+    getAvailability: (date, docId) => {
+        return new Promise(async (resolve, reject) => {
+            bookedSessions = await db.get().collection(collections.APPOINTMENTS_COLLECTION).aggregate(
+                [{
+                    $match:
+                    {
+                        date: date,
+                        docId: docId,
+                        status: { $ne: 'cancelled' }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        time: 1
+                    }
+                }]
+            ).toArray()
+
+            let sessionArray = [{ time: '09:00 Am' }, { time: '09:30 Am' }, { time: '10:00 Am' }, { time: '10:30 Am' }, { time: '11:00 Am' }, { time: '11:30 Am' },
+            { time: '12:00 Pm' }, { time: '12:30 Pm' }, { time: '01:00 Pm' }, { time: '02:30 Pm' }, { time: '03:00 Pm' }, { time: '03:30 Pm' },
+            { time: '04:00 Pm' }, { time: '04:30 Pm' }, { time: '05:00 Pm' }, { time: '05:30 Pm' }, { time: '06:00 Pm' }, { time: '06:30 Pm' }, { time: '07:00 Pm' }]
+
+            let result = sessionArray.filter(o1 => !bookedSessions.some(o2 => o1.time === o2.time));
+            resolve(result)
+        })
+    },
+
     bookAppointment: (bookingDetails, patient, docId) => {
         return new Promise(async (resolve, reject) => {
             bookingDetails.patientId = patient._id

@@ -70,7 +70,7 @@ router.post('/register', (req, res) => {
 router.get('/homepage', isPatient, async (req, res) => {
   let appointments = await patientHelpers.getAppointments(req.user._id)
   let user = req.user
-  res.render('patient/homepage', { appointments, user, home : true })
+  res.render('patient/homepage', { appointments, user, home: true })
 })
 
 router.get('/edit-profile', isPatient, async (req, res) => {
@@ -103,6 +103,12 @@ router.get('/book-appointment', isPatient, async (req, res) => {
   }
   let bookingDocId = req.query.id;
   res.render('patient/book-now', { bookingDocId, user: true })
+})
+
+router.get('/get-session-availability', isPatient, (req, res) => {
+  patientHelpers.getAvailability(req.query.date, req.query.docId).then((session) => {
+    res.json({ status: true, session })
+  })
 })
 
 router.post('/book-appointment', isPatient, (req, res) => {

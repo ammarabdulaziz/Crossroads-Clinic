@@ -15,7 +15,7 @@ router.get('/', isDoctor, async (req, res) => {
     let date = dateNow.getDate();
     let month = dateNow.getMonth() + 1;
     let year = dateNow.getFullYear();
-    let today = year + "-" + month + "-" + date;
+    let today = date + "/" + month + "/" + year;
 
     let bookings = await doctorHelpers.getBookings(req.user._id, today)
     let user = req.user
