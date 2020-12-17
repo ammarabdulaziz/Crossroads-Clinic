@@ -45,7 +45,11 @@ module.exports = {
                     {
                         date: date,
                         docId: docId,
-                        status: { $ne: 'cancelled' }
+                        status: {
+                            $not: {
+                                $in: ['cancelled', 'blocked']
+                            }
+                        }
                     }
                 },
                 {
@@ -129,6 +133,35 @@ module.exports = {
             }).then((response) => {
                 resolve(response)
             })
+        })
+    },
+
+    checkBlocked: (docId, patientId) => {
+        return new Promise(async (resolve, reject) => {
+            let blockedArray = null
+            blockedArray = await db.get().collection(collections.PATIENTS_COLLECTION).aggregate([
+                {
+                    $match:
+                    {
+                        _id: objectId(patientId)
+                    }
+                },
+                {
+                    $unwind: "$blockedBy"
+                },
+                {
+                    $project:
+                    {
+                        blockedBy: 1
+                    }
+                }
+            ]).toArray()
+            response.message = undefined
+            check = blockedArray.filter(blocked => blocked.blockedBy.docId === docId);
+            if (check.length != 0) {
+                response.message = "You have been blocked by this Doctor for Malpractices. You may have booking with other doctors. Thank You."
+            }
+            resolve(response)
         })
     }
 }

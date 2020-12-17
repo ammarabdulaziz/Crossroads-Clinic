@@ -25,7 +25,16 @@
                 </ul>
             </div>
         </div>
-
+        {{#if error}}
+        <div class="row mt-3 mb-4 pl-3 pr-3">
+            <div class="col-12 error-box" id="errorDiv">
+                <div class="error-msg">
+                    <p class="m-0">{{error}}</p>
+                </div>
+                <i id="closeMsg" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+        </div>
+        {{/if}}
         <!-- - Doctor Cards  -->
 
         <div class="content">
@@ -36,7 +45,8 @@
                     <div class="doc-card">
                         <h4>Dr. {{this.firstname}} {{this.lastname}}</h4>
                         <h2>{{this.speciality}}</h2>
-                        <div><a href="/book-appointment?id={{this._id}}" class="btn btn-green-outline">Book Now</a></div>
+                        <div><a href="/book-appointment?id={{this._id}}" class="btn btn-green-outline">Book Now</a>
+                        </div>
                     </div>
                 </div>
                 {{/each}}
@@ -44,3 +54,11 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#closeMsg").click(function () {
+            window.location.href = '/doctors'
+            $("#errorDiv").hide();
+        })
+    })
+</script>

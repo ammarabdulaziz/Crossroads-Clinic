@@ -137,6 +137,25 @@ ul.display-tabs {
     background-color: var(--first-color);
 }
 
+/* Error-Box */
+
+.error-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F4E482;
+    color: #867400;
+    font-size: 13px;
+    height: 45px;
+    border-radius: 8px;
+    padding: 0px 18px;
+}
+
+.error-box i:hover {
+    cursor: pointer;
+    color: #5e5100;
+}
+
 @media (min-width: 991.5px) {
     .mob-tabs {
         display: none;

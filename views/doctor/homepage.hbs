@@ -47,6 +47,12 @@
                                     {{/if}}</a>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <a href="/doctor/edit-profile?id={{user._id}}" class="btn btn-blue-outline">Edit
+                                    Profile</a>
+                            </div>
+                        </div>
                         <div class="row doc-tabs doc-nav mb-lg-5">
                             <div class="mob-tabs col-12 mb-2">
                                 <h3>Tabs</h3>
@@ -116,7 +122,8 @@
                                             <td>{{this.age}}</td>
                                             <td>{{this.gender}}</td>
                                             <td>{{this.phone}}</td>
-                                            <td><a href="/doctor/consult?appId={{this._id}}&patientId={{this.patientId}}&name={{this.name}}&age={{this.age}}" class="btn btn-sm btn-success">Consult</a></td>
+                                            <td><a href="/doctor/consult?appId={{this._id}}&patientId={{this.patientId}}&name={{this.name}}&age={{this.age}}"
+                                                    class="btn btn-sm btn-success">Consult</a></td>
                                         </tr>
                                         {{/each}}
                                         {{else}}
@@ -276,8 +283,8 @@
                                 <tr>
                                     <th scope="col">Patient Name</th>
                                     <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
                                     <th scope="col">Age</th>
-                                    <th scope="col">Gender</th>
                                     <th scope="col">Phone</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
@@ -289,8 +296,8 @@
                                 <tr>
                                     <td>{{this.name}}</td>
                                     <td>{{this.date}}</td>
+                                    <td>{{this.time}}</td>
                                     <td>{{this.age}}</td>
-                                    <td>{{this.gender}}</td>
                                     <td>{{this.phone}}</td>
                                     <td><a href="/doctor/approve-appointment?id={{this._id}}"
                                             onclick="return confirm('Are you sure you want to Approve appointment with {{this.name}}')"
@@ -298,6 +305,9 @@
                                     <td><a href="/doctor/cancel-appointment?id={{this._id}}"
                                             onclick="return confirm('Are you sure you want to Cancel appointment with {{this.name}}')"
                                             class="btn btn-sm btn-danger">Reject</a></td>
+                                    <td><a href="/doctor/block-patient?patientId={{this.patientId}}&appId={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to you want to block {{this.name}} permenently?')"
+                                            class="btn btn-sm btn-dark">Block</a></td>
                                 </tr>
                                 {{/each}}
                                 {{else}}
@@ -368,7 +378,38 @@
                 </div>
                 <!-- Tab content div -->
                 <div class="tab-content card col-12 mt-4">
-                    <h6 class="text-center">No Patients</h6>
+                    <div class="scroll-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Place</th>
+                                    <th scope="col">DOB</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#if myPatients}}
+                                {{#each myPatients}}
+                                <tr>
+                                    <td>{{this.patient.name}}</td>
+                                    <td>{{this.patient.place}}</td>
+                                    <td>{{this.patient.dob}}</td>
+                                    <td>{{this.patient.gender}}</td>
+                                    <td>{{this.patient.phone}}</td>
+                                </tr>
+                                {{/each}}
+                                {{else}}
+                                <tr>
+                                    <td align="center" colspan="7">
+                                        <h6>No Patients</h6>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- </div> -->
             </div>

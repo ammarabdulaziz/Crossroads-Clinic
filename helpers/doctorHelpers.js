@@ -73,5 +73,84 @@ module.exports = {
                 })
             })
         })
+    },
+
+    editProfile: (profileDetails, docId) => {
+        return new Promise(async (resolve, reject) => {
+            if (profileDetails.password) {
+                profileDetails.password = await bcrypt.hash(profileDetails.password, 10)
+            } else {
+                // Retrieve the existing password
+                let patient = await db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docId) })
+                profileDetails.password = patient.password
+            }
+            db.get().collection(collections.DOCTORS_COLLECTION).updateOne({ _id: objectId(docId) }, {
+                $set: {
+                    firstname: profileDetails.firstname,
+                    lastname: profileDetails.lastname,
+                    phone: profileDetails.phone,
+                    email: profileDetails.email,
+                    password: profileDetails.password,
+                    gender: profileDetails.gender,
+                    place: profileDetails.place,
+                    specialized: profileDetails.specialized,
+                    dob: profileDetails.dob
+                }
+            }).then((response) => {
+                resolve()
+            })
+        })
+    },
+
+    getMyPatients: (docId) => {
+        return new Promise(async (resolve, reject) => {
+            let myPatients = await db.get().collection(collections.CONSULTATIONS_COLLECTION).aggregate([
+                {
+                    $match:
+                    {
+                        docId: docId
+                    }
+                },
+                {
+                    $group:
+                    {
+                        _id: "$patientId"
+
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'patient',
+                        localField: '_id',
+                        foreignField: '_id',
+                        as: 'patient'
+                    }
+                },
+                {
+                    $unwind: "$patient"
+                }
+            ]).toArray()
+            resolve(myPatients)
+        })
+    },
+
+    blockPatient: (docId, patientId, appId) => {
+        return new Promise((resolve, reject) => {
+            docId = docId.toString()
+            db.get().collection(collections.PATIENTS_COLLECTION).updateOne({ _id: objectId(patientId) }, {
+                $push: {
+                    blockedBy: { docId: docId }
+                }
+            }).then(() => {
+                db.get().collection(collections.APPOINTMENTS_COLLECTION).updateOne({ _id: objectId(appId) }, {
+                    $set: {
+                        status : "blocked"
+                    }
+                }).then((response) => {
+                    resolve(response)
+                })
+            })
+        })
     }
 }

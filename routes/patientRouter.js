@@ -73,7 +73,7 @@ router.get('/homepage', isPatient, async (req, res) => {
   res.render('patient/homepage', { appointments, user, home: true })
 })
 
-router.get('/edit-profile', isPatient, async (req, res) => {
+router.get('/edit-profile', isPatient, (req, res) => {
   let user = req.user
   res.render('patient/edit-profile', { user })
 })
@@ -91,10 +91,15 @@ router.post('/edit-profile', isPatient, (req, res) => {
 })
 
 router.get('/doctors', isPatient, async (req, res) => {
+  let error = []
+  if(req.query.error){
+    error.push(req.query.error)
+    console.log('error----', error)
+  }
   let doctors = await adminHelpers.getDoctors()
   let specialities = await adminHelpers.getSpecialities()
   let user = req.user;
-  res.render('patient/doctors', { doctors, specialities, user })
+  res.render('patient/doctors', { doctors, specialities, user, error })
 })
 
 router.get('/book-appointment', isPatient, async (req, res) => {
@@ -102,7 +107,16 @@ router.get('/book-appointment', isPatient, async (req, res) => {
     res.redirect('/doctors')
   }
   let bookingDocId = req.query.id;
-  res.render('patient/book-now', { bookingDocId, user: true })
+  let patientId = req.user._id;
+  patientHelpers.checkBlocked(bookingDocId, patientId).then((response) => {
+    if(!response.message){
+      user = req.user
+      res.render('patient/book-now', { bookingDocId, user })
+    }else{
+      var error = response.message
+      res.redirect('/doctors?error=' + error)
+    }
+  })
 })
 
 router.get('/get-session-availability', isPatient, (req, res) => {
@@ -112,8 +126,9 @@ router.get('/get-session-availability', isPatient, (req, res) => {
 })
 
 router.post('/book-appointment', isPatient, (req, res) => {
+  user = req.user
   patientHelpers.bookAppointment(req.body, req.user, req.query.docId).then((appointment) => {
-    res.render('patient/confirm-booking', { appointment, user: true })
+    res.render('patient/confirm-booking', { appointment, user })
   })
 })
 
