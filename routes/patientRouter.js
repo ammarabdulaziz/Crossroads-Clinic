@@ -44,6 +44,7 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
 
 router.get('/logout', (req, res, next) => {
   req.logout();
+  req.session.destroy();
   res.redirect('/login');
 });
 
@@ -94,7 +95,6 @@ router.get('/doctors', isPatient, async (req, res) => {
   let error = []
   if(req.query.error){
     error.push(req.query.error)
-    console.log('error----', error)
   }
   let doctors = await adminHelpers.getDoctors()
   let specialities = await adminHelpers.getSpecialities()

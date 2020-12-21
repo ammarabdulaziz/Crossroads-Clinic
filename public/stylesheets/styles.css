@@ -502,6 +502,19 @@ table img {
   border-radius: 50%;
 }
 
+.block-btn{
+  width: 70px;
+}
+
+.block-btn.btn-light{
+  background-color: var(--white-color);
+  transition: .3s ease;
+}
+
+.block-btn.btn-light:hover{
+  background-color: #b6b6b6;
+}
+
 table i {
   font-size: 15px !important;
   color: var(--white-color);

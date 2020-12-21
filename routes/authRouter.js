@@ -52,17 +52,13 @@ router.get('/get-countdown', (req, res) => {
 
 // Login Endpoint
 router.get('/send-otp', async (req, res) => {
-    let timeSecond = 59;
+    let timeSecond = 40;
 
     // Display time Fn defenition
     function displayTime(second) {
         const min = Math.floor(second / 60);
         const sec = Math.floor(second % 60);
         req.session.timer = `${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`;
-        if (timeSecond == 0 || timeSecond < 1) {
-            // Destroy timer session if authentication completed
-            delete req.session.timer;
-        }
     }
 
     displayTime(timeSecond); // Display time Fn declaration
@@ -74,10 +70,8 @@ router.get('/send-otp', async (req, res) => {
         // End Timer
         if (timeSecond == 0 || timeSecond < 1) {
             clearInterval(countDown);
-            // Destroy timer session if authentication completed
-            // if (req.user === undefined) {
-            //     req.session.destroy();
-            // }
+            // Delete timer session if authentication completed
+            delete req.session.timer;
         }
     }, 1000);
 
@@ -95,7 +89,7 @@ router.get('/send-otp', async (req, res) => {
         return res.status(200).send({ result: 'redirect', url: '/login?error=' + error })
     }
 
-    // var timer = req.session.timer;
+    var timer = req.session.timer;
     console.log('timer', timer)
     res.json({ status: true })
 })

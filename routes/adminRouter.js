@@ -6,7 +6,7 @@ const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 /* GET home page. */
-router.get('/', async function (req, res, next) {
+router.get('/', isAdmin, async function (req, res, next) {
   // Get doctor details
   let doctors = await adminHelpers.getDoctors();
   let specialities = await adminHelpers.getSpecialities();
@@ -50,8 +50,23 @@ router.post('/delete-doctor', isAdmin, (req, res) => {
   })
 })
 
+router.post('/block-doctor', isAdmin, (req, res) => {
+
+  adminHelpers.blockDoctor(req.body.id).then(() => {
+    res.json({ status: true })
+  })
+})
+
+router.post('/unblock-doctor', isAdmin, (req, res) => {
+
+  adminHelpers.unblockDoctor(req.body.id).then(() => {
+    res.json({ status: true })
+  })
+})
+
 router.get('/profile', isAdmin, (req, res) => {
   adminHelpers.getDoctorDetails(req.query.id).then((response) => {
+    console.log(response)
     res.json({ response })
   })
 })
@@ -62,6 +77,21 @@ router.post('/delete-patient', isAdmin, (req, res) => {
     res.json({ status: true })
   })
 })
+
+router.post('/block-patient', isAdmin, (req, res) => {
+
+  adminHelpers.blockPatient(req.body.id).then(() => {
+    res.json({ status: true })
+  })
+})
+
+router.post('/unblock-patient', isAdmin, (req, res) => {
+
+  adminHelpers.unblockPatient(req.body.id).then(() => {
+    res.json({ status: true })
+  })
+})
+
 
 // -- Speciality routes --
 router.post('/add-speciality', isAdmin, (req, res) => {

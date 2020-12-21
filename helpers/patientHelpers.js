@@ -14,6 +14,7 @@ module.exports = {
             let userPhone = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ phone: userData.phone })
             if (!userEmail && !userPhone) {
                 userData.patient = true
+                userData.status = 'active'
                 db.get().collection(collections.PATIENTS_COLLECTION).insertOne(userData).then((response) => {
                     resolve(response.ops[0])
                 })

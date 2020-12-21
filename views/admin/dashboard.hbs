@@ -118,6 +118,7 @@
                             <th scope="col">Specialized</th>
                             <th scope="col">Speciality</th>
                             <th scope="col" class="actions">Actions</th>
+                            <th scope="col">Block</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -137,6 +138,17 @@
                                 <a href="#" data-id="{{this._id}}" class="btn-action btn-delete delete-doctor"><i
                                         class='bx bx-trash nav__icon'></i></a>
                             </td>
+                            {{#check this.status "active"}}
+                            <td>
+                                <a href="#" data-id="{{this._id}}"
+                                    class="block-btn btn-sm btn-dark block-doctor text-center">Block</a>
+                            </td>
+                            {{else}}
+                            <td>
+                                <a href="#" data-id="{{this._id}}"
+                                    class="block-btn btn-sm btn-light unblock-doctor text-center">Unblock</a>
+                            </td>
+                            {{/check}}
                         </tr>
                         {{/each}}
                     </tbody>
@@ -179,6 +191,7 @@
                             <th scope="col">Gender</th>
                             <th scope="col">Appointments</th>
                             <th scope="col">Actions</th>
+                            <th scope="col">Block</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -192,10 +205,24 @@
                             <td>{{this.gender}}</td>
                             <td>{{this.appointments}}</td>
                             <td>
-                                {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
-                                {{!-- <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a> --}}
-                                <a href="#" data-id="{{this._id}}" class="btn-action btn-delete delete-ptnt"><i class='bx bx-trash nav__icon'></i></a>
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                {{!-- <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                                --}}
+                                <a href="#" data-id="{{this._id}}" class="btn-action btn-delete delete-ptnt"><i
+                                        class='bx bx-trash nav__icon'></i></a>
                             </td>
+                            {{#check this.status "active"}}
+                            <td>
+                                <a href="#" data-id="{{this._id}}"
+                                    class="block-btn btn-sm btn-dark block-ptnt text-center">Block</a>
+                            </td>
+                            {{else}}
+                            <td>
+                                <a href="#" data-id="{{this._id}}"
+                                    class="block-btn btn-sm btn-light unblock-ptnt text-center">Unblock</a>
+                            </td>
+                            {{/check}}
                         </tr>
                         {{/each}}
                     </tbody>
@@ -244,7 +271,8 @@
                             <td>Abdulla K</td>
                             <td>Morning</td>
                             <td>
-                                {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
                                 <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
                                 <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
                             </td>
@@ -255,7 +283,8 @@
                             <td>Abdul Aziz</td>
                             <td>Evening</td>
                             <td>
-                                {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
                                 <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
                                 <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
                             </td>
@@ -266,7 +295,8 @@
                             <td>Fayiz Kv</td>
                             <td>After Noon</td>
                             <td>
-                                {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
                                 <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
                                 <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
                             </td>
@@ -277,7 +307,8 @@
                             <td>Fawzan</td>
                             <td>Morning</td>
                             <td>
-                                {{!-- <a href="#" class="btn-action btn-view"><i class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
                                 <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
                                 <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
                             </td>
@@ -602,7 +633,8 @@
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star-half-o" aria-hidden="true"></i>
                                             <i class="fa fa-star-o pr-1" aria-hidden="true"></i>
-                                            364 Reviews</p>
+                                            364 Reviews
+                                        </p>
                                     </div>
                                 </div>
                                 <!-- Btn and Review -->

@@ -58,6 +58,7 @@ module.exports = function (passport) {
                 googleId: profile.id,
                 name: profile.displayName,
                 email: profile.emails[0].value,
+                status: 'active',
                 patient: true
             }
 
@@ -90,6 +91,7 @@ module.exports = function (passport) {
             let newUser = {
                 facebookId: profile.id,
                 name: profile.displayName,
+                status: 'active',
                 patient: true
             }
 

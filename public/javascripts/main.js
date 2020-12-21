@@ -185,6 +185,72 @@ $(document).ready(function () {
     });
 });
 
+/*===== BLOCK DOCTOR DATA AJAX  =====*/
+$(document).ready(function () {
+    // Block 
+    $('.block-doctor').click(function () {
+
+        // Block id
+        var docID = $(this).data('id');
+
+        // Confirm box
+        var blockConfirm = confirm("Are you sure you want to block this Doctor?");
+        if (blockConfirm) {
+            blockDoctor(docID)
+        }
+        function blockDoctor(docID) {
+            $.ajax({
+                url: '/admin/block-doctor',
+                method: 'post',
+                data: {
+                    id: docID
+                },
+                success: (response) => {
+                    // Data removed from HTML Table
+                    if (response.status) {
+                        window.location.hash = "#tab2"
+                        window.location.reload();
+                        alert('You have successfully blocked the doctor')
+                    }
+                }
+            })
+        }
+    });
+});
+
+/*===== UNBLOCK DOCTOR DATA AJAX  =====*/
+$(document).ready(function () {
+    // Unblock 
+    $('.unblock-doctor').click(function () {
+
+        // Unblock id
+        var docID = $(this).data('id');
+
+        // Confirm box
+        var unblockConfirm = confirm("Are you sure you want to unblock this Doctor?");
+        if (unblockConfirm) {
+            unblockDoctor(docID)
+        }
+        function unblockDoctor(docID) {
+            $.ajax({
+                url: '/admin/unblock-doctor',
+                method: 'post',
+                data: {
+                    id: docID
+                },
+                success: (response) => {
+                    // Data removed from HTML Table
+                    if (response.status) {
+                        window.location.hash = "#tab2"
+                        window.location.reload();
+                        alert('You have successfully unblocked the doctor')
+                    }
+                }
+            })
+        }
+    });
+});
+
 
 /*===== DELETE PATIENT DATA AJAX  =====*/
 $(document).ready(function () {
@@ -212,6 +278,78 @@ $(document).ready(function () {
                         window.location.hash = "#tab3"
                         window.location.reload();
                         alert('You have successfully deleted the data')
+                    }
+                }
+            })
+        }
+    });
+});
+
+/*===== BLOCK PATIENT DATA AJAX  =====*/
+$(document).ready(function () {
+    // Block 
+    $('.block-ptnt').click(function () {
+        // Load Edit page content
+        showContent(2, 2)
+        window.location.hash = "#tab3"
+
+        // Block id
+        var patientId = $(this).data('id');
+
+        // Confirm box
+        var blockConfirm = confirm("Are you sure you want to block this Patient?");
+        if (blockConfirm) {
+            blockPatient(patientId)
+        }
+        function blockPatient(patientId) {
+            $.ajax({
+                url: '/admin/block-patient',
+                method: 'post',
+                data: {
+                    id: patientId
+                },
+                success: (response) => {
+                    // Data removed from HTML Table
+                    if (response.status) {
+                        window.location.hash = "#tab3"
+                        window.location.reload();
+                        alert('You have successfully blocked the Patient')
+                    }
+                }
+            })
+        }
+    });
+});
+
+/*===== UNBLOCK PATIENT DATA AJAX  =====*/
+$(document).ready(function () {
+    // Block 
+    $('.unblock-ptnt').click(function () {
+        // Load Edit page content
+        showContent(2, 2)
+        window.location.hash = "#tab3"
+
+        // Block id
+        var patientId = $(this).data('id');
+
+        // Confirm box
+        var unblockConfirm = confirm("Are you sure you want to unblock this Patient?");
+        if (unblockConfirm) {
+            unblockPatient(patientId)
+        }
+        function unblockPatient(patientId) {
+            $.ajax({
+                url: '/admin/unblock-patient',
+                method: 'post',
+                data: {
+                    id: patientId
+                },
+                success: (response) => {
+                    // Data removed from HTML Table
+                    if (response.status) {
+                        window.location.hash = "#tab3"
+                        window.location.reload();
+                        alert('You have successfully unblocked the Patient')
                     }
                 }
             })

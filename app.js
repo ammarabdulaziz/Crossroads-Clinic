@@ -60,7 +60,7 @@ hbs.handlebars.registerHelper("check", function (x, y, options) {
   } 
 });
 
-app.use(session({ secret: "key", cookie: { maxAge: 600000 } }));
+app.use(session({ secret: "key", cookie: { maxAge: 8*60*60*1000 } }));
 
 // Passport middleware
 app.use(passport.initialize());

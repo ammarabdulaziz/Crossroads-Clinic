@@ -57,7 +57,7 @@ module.exports = {
     getDoctors: () => {
         return new Promise(async (resolve, reject) => {
             let doctors = await db.get().collection(collections.DOCTORS_COLLECTION).aggregate(
-                [{ $match: { status: "active" } }]
+                [{ $match: { status: { $ne: "deleted"} } }]
             ).toArray()
             resolve(doctors)
         })
@@ -68,6 +68,30 @@ module.exports = {
             db.get().collection(collections.DOCTORS_COLLECTION).updateOne({ _id: objectId(docID) }, {
                 $set: {
                     status: "deleted"
+                }
+            }).then((response) => {
+                resolve()
+            })
+        })
+    },
+
+    blockDoctor: (docID) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.DOCTORS_COLLECTION).updateOne({ _id: objectId(docID) }, {
+                $set: {
+                    status: "blocked"
+                }
+            }).then((response) => {
+                resolve()
+            })
+        })
+    },
+
+    unblockDoctor: (docID) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.DOCTORS_COLLECTION).updateOne({ _id: objectId(docID) }, {
+                $set: {
+                    status: "active"
                 }
             }).then((response) => {
                 resolve()
@@ -155,6 +179,30 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             db.get().collection(collections.PATIENTS_COLLECTION).removeOne({ _id: objectId(patientId) }).then((response) => {
                 resolve(response)
+            })
+        })
+    },
+
+    blockPatient: (patientId) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.PATIENTS_COLLECTION).updateOne({ _id: objectId(patientId) }, {
+                $set: {
+                    status: "blocked"
+                }
+            }).then((response) => {
+                resolve()
+            })
+        })
+    },
+
+    unblockPatient: (patientId) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.PATIENTS_COLLECTION).updateOne({ _id: objectId(patientId) }, {
+                $set: {
+                    status: "active"
+                }
+            }).then((response) => {
+                resolve()
             })
         })
     }
