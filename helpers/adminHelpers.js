@@ -57,7 +57,7 @@ module.exports = {
     getDoctors: () => {
         return new Promise(async (resolve, reject) => {
             let doctors = await db.get().collection(collections.DOCTORS_COLLECTION).aggregate(
-                [{ $match: { status: { $ne: "deleted"} } }]
+                [{ $match: { status: { $ne: "deleted" } } }]
             ).toArray()
             resolve(doctors)
         })
@@ -204,6 +204,32 @@ module.exports = {
             }).then((response) => {
                 resolve()
             })
+        })
+    },
+
+    getDashboardCounts: () => {
+        return new Promise(async (resolve, reject) => {
+            let response = []
+
+            response.doctorsCount = await db.get().collection(collections.DOCTORS_COLLECTION).countDocuments()
+            response.patientsCount = await db.get().collection(collections.PATIENTS_COLLECTION).countDocuments()
+            response.appointments = await db.get().collection(collections.APPOINTMENTS_COLLECTION).countDocuments()
+
+            let appointmentsConsulted = await db.get().collection(collections.CONSULTATIONS_COLLECTION).countDocuments()
+            let appointmentsPending = await db.get().collection(collections.APPOINTMENTS_COLLECTION).aggregate(
+                [{ $match: { status: "approved" } },
+                { $count: 'approved' }]
+            ).toArray()
+            let appointmentsCancelled = await db.get().collection(collections.APPOINTMENTS_COLLECTION).aggregate(
+                [{ $match: { status: "cancelled" } },
+                { $count: 'cancelled' }]
+            ).toArray()
+                
+            response.consulted = appointmentsConsulted
+            response.pending = appointmentsPending[0].approved
+            response.cancelled = appointmentsCancelled[0].cancelled
+        
+            resolve(response)
         })
     }
 }

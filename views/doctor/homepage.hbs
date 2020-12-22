@@ -99,16 +99,16 @@
                         {{!-- Today --}}
                         <div class="today">
                             <div class="scroll-table">
-                                <table class="table">
+                                <table class="table dataTable" id="today-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Patient Name</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Time</th>
-                                            <th scope="col">Age</th>
-                                            <th scope="col">Gender</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col"></th>
+                                            <th>Patient Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Age</th>
+                                            <th>Gender</th>
+                                            <th>Phone</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -123,7 +123,7 @@
                                             <td>{{this.gender}}</td>
                                             <td>{{this.phone}}</td>
                                             <td><a href="/doctor/consult?appId={{this._id}}&patientId={{this.patientId}}&name={{this.name}}&age={{this.age}}"
-                                                    class="btn btn-sm btn-success">Consult</a></td>
+                                                    class="btn btn-sm btn-info">Consult</a></td>
                                         </tr>
                                         {{/each}}
                                         {{else}}
@@ -139,16 +139,15 @@
                         </div>
                         <div class="upcoming">
                             <div class="scroll-table">
-                                <table class="table">
+                                <table class="table dataTable" id="upcoming-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Patient Name</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Time</th>
-                                            <th scope="col">Age</th>
-                                            <th scope="col">Gender</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col"></th>
+                                            <th>Patient Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Age</th>
+                                            <th>Gender</th>
+                                            <th>Phone</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -177,15 +176,14 @@
                         </div>
                         <div class="consulted">
                             <div class="scroll-table">
-                                <table class="table">
+                                <table class="table dataTable" id="consulted-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Patient Name</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Age</th>
-                                            <th scope="col">Gender</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col"></th>
+                                            <th>Patient Name</th>
+                                            <th>Date</th>
+                                            <th>Age</th>
+                                            <th>Gender</th>
+                                            <th>Phone</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -213,16 +211,15 @@
                         </div>
                         <div class="expired">
                             <div class="scroll-table">
-                                <table class="table">
+                                <table class="table dataTable" id="expired-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Patient Name</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Time</th>
-                                            <th scope="col">Age</th>
-                                            <th scope="col">Gender</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col"></th>
+                                            <th>Patient Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Age</th>
+                                            <th>Gender</th>
+                                            <th>Phone</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -278,7 +275,7 @@
                 <!-- Tab content div -->
                 <div class="tab-content card col-12 mt-4">
                     <div class="scroll-table">
-                        <table class="table">
+                        <table class="table" id="bookings">
                             <thead>
                                 <tr>
                                     <th scope="col">Patient Name</th>
@@ -334,7 +331,7 @@
                 <!-- Tab content div -->
                 <div class="tab-content card col-12 mt-4">
                     <div class="scroll-table">
-                        <table class="table">
+                        <table class="table" id="cancelled">
                             <thead>
                                 <tr>
                                     <th scope="col">Patient Name</th>
@@ -379,7 +376,7 @@
                 <!-- Tab content div -->
                 <div class="tab-content card col-12 mt-4">
                     <div class="scroll-table">
-                        <table class="table">
+                        <table class="table" id="myPatients">
                             <thead>
                                 <tr>
                                     <th scope="col">Patient Name</th>
@@ -431,3 +428,49 @@
     </div>
     <div style="height: 18em;"></div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#today-table').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#upcoming-table').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#consulted-table').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#expired-table').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#bookings').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#cancelled').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#myPatients').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+</script>

@@ -96,7 +96,6 @@ $(document).ready(function () {
 
 
 /*===== SWITCH TO ADD PAGE  =====*/
-
 $(document).ready(function () {
     $('.btn-add').click(() => {
         $('.image-label').attr('value', '');
@@ -113,9 +112,7 @@ $(document).ready(function () {
 })
 
 
-
 /*===== DOCTORS EDIT DATA AJAX  =====*/
-
 $(document).ready(function () {
     // Edit 
     $('.edit-doctor').click(function () {
@@ -358,7 +355,6 @@ $(document).ready(function () {
 });
 
 
-
 /*===== PROFILE EDIT AJAX  =====*/
 $(document).ready(function () {
     // Edit 
@@ -389,9 +385,7 @@ $(document).ready(function () {
 });
 
 
-
 /*===== SPECIALITY EDIT DATA  =====*/
-
 $(document).ready(function () {
     // Edit 
     $('.edit-speciality').click(function () {
@@ -411,7 +405,6 @@ $(document).ready(function () {
 
     });
 });
-
 
 
 /*===== DELETE DATA AJAX  =====*/

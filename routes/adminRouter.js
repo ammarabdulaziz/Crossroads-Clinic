@@ -6,12 +6,14 @@ const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 /* GET home page. */
-router.get('/', isAdmin, async function (req, res, next) {
+router.get('/',  async function (req, res, next) {
   // Get doctor details
+  let counts = await adminHelpers.getDashboardCounts();
+  console.log('------', counts)
   let doctors = await adminHelpers.getDoctors();
   let specialities = await adminHelpers.getSpecialities();
   let patients = await adminHelpers.getPetients();
-  res.render('admin/dashboard', { doctors, specialities, patients, admin: true });
+  res.render('admin/dashboard', { doctors, counts, specialities, patients, admin: true });
 });
 
 
@@ -58,7 +60,6 @@ router.post('/block-doctor', isAdmin, (req, res) => {
 })
 
 router.post('/unblock-doctor', isAdmin, (req, res) => {
-
   adminHelpers.unblockDoctor(req.body.id).then(() => {
     res.json({ status: true })
   })
@@ -79,7 +80,6 @@ router.post('/delete-patient', isAdmin, (req, res) => {
 })
 
 router.post('/block-patient', isAdmin, (req, res) => {
-
   adminHelpers.blockPatient(req.body.id).then(() => {
     res.json({ status: true })
   })
