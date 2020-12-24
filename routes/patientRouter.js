@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const fs = require('fs');
+const ExcelJs = require('exceljs');
+const tempfile = require('tempfile');
 const adminHelpers = require('../helpers/adminHelpers')
 const patientHelpers = require('../helpers/patientHelpers')
 const doctorHelpers = require('../helpers/doctorHelpers')
@@ -71,6 +73,7 @@ router.post('/register', (req, res) => {
 router.get('/homepage', isPatient, async (req, res) => {
   let appointments = await patientHelpers.getAppointments(req.user._id)
   let consultations = await patientHelpers.getConsultations(req.user._id)
+  // console.log(consultations)
   let user = req.user
   res.render('patient/homepage', { appointments, consultations, user, home: true })
 })
@@ -94,7 +97,7 @@ router.post('/edit-profile', isPatient, (req, res) => {
 
 router.get('/doctors', isPatient, async (req, res) => {
   let error = []
-  if(req.query.error){
+  if (req.query.error) {
     error.push(req.query.error)
   }
   let doctors = await adminHelpers.getDoctors()
@@ -109,13 +112,11 @@ router.get('/book-appointment', isPatient, async (req, res) => {
   }
   let bookingDocId = req.query.id;
   let patientId = req.user._id;
-  console.log(typeof bookingDocId)
-  console.log(typeof patientId)
   patientHelpers.checkBlocked(bookingDocId, patientId).then((response) => {
-    if(!response.message){
+    if (!response.message) {
       user = req.user
       res.render('patient/book-now', { bookingDocId, user })
-    }else{
+    } else {
       var error = response.message
       res.redirect('/doctors?error=' + error)
     }
@@ -143,9 +144,69 @@ router.get('/cancel-appointment', isPatient, (req, res) => {
 
 router.get('/previous', isPatient, (req, res) => {
   doctorHelpers.getPreviousConsultations(req.query.id, req.user._id).then((response) => {
-    console.log(response)
-      res.json({ response })
+    res.json({ response })
   })
+})
+
+router.get('/app-sheet', isPatient, async (req, res) => {
+  let presc = await patientHelpers.getPrescriptionDetails(req.query.appId)
+  presc[0].prescription = presc[0].prescription.toString()
+  const workbook = new ExcelJs.Workbook();
+  const worksheet = workbook.addWorksheet('Prescription');
+  worksheet.columns = [
+    { header: 'Patient Name', key: 'name', width: 25 },
+    { header: 'Date', key: 'date', width: 20 },
+    { header: 'Age', key: 'age', width: 8 },
+    { header: 'Doctor Name', key: 'docName', width: 25 },
+    { header: 'Speciality', key: 'speciality', width: 20 },
+    { header: 'Prescription', key: 'prescription', width: 50 },
+  ];
+  worksheet.addRow(presc[0]);
+
+  worksheet.getRow(1).eachCell((cell) => {
+    cell.font = { bold: true };
+  });
+
+  var tempFilePath = tempfile('.xlsx');
+  workbook.xlsx.writeFile(tempFilePath).then(function () {
+    console.log('file is written');
+    res.sendFile(tempFilePath, function (err) {
+      console.log('error downloading file: ' + err);
+    });
+  });
+})
+
+router.get('/previous-sheet', isPatient, async (req, res) => {
+  let presc = await patientHelpers.exportData(req.user._id, req.query.docId)
+  console.log(presc)
+
+  const workbook = new ExcelJs.Workbook();
+  const worksheet = workbook.addWorksheet('Prescription');
+  worksheet.columns = [
+    { header: 'Patient Name', key: 'name', width: 25 },
+    { header: 'Date', key: 'date', width: 20 },
+    { header: 'Age', key: 'age', width: 8 },
+    { header: 'Doctor Name', key: 'docName', width: 25 },
+    { header: 'Speciality', key: 'speciality', width: 20 },
+    { header: 'Prescription', key: 'prescription', width: 50 },
+  ];
+
+  presc.forEach(element => {
+    element.prescription = element.prescription.toString()
+    worksheet.addRow(element);
+  });
+
+  worksheet.getRow(1).eachCell((cell) => {
+    cell.font = { bold: true };
+  });
+
+  var tempFilePath = tempfile('.xlsx');
+  workbook.xlsx.writeFile(tempFilePath).then(function () {
+    console.log('file is written');
+    res.sendFile(tempFilePath, function (err) {
+      console.log('error downloading file: ' + err);
+    });
+  });
 })
 
 module.exports = router;

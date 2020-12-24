@@ -9,7 +9,6 @@ const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 router.get('/',  async function (req, res, next) {
   // Get doctor details
   let counts = await adminHelpers.getDashboardCounts();
-  console.log('------', counts)
   let doctors = await adminHelpers.getDoctors();
   let specialities = await adminHelpers.getSpecialities();
   let patients = await adminHelpers.getPetients();
@@ -67,7 +66,6 @@ router.post('/unblock-doctor', isAdmin, (req, res) => {
 
 router.get('/profile', isAdmin, (req, res) => {
   adminHelpers.getDoctorDetails(req.query.id).then((response) => {
-    console.log(response)
     res.json({ response })
   })
 })

@@ -11,7 +11,6 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             userData.password = await bcrypt.hash(userData.password, 10)
             db.get().collection(collections.DOCTORS_COLLECTION).insertOne(userData).then((response) => {
-                console.log(response)
                 resolve(response)
             })
         })
@@ -64,6 +63,7 @@ module.exports = {
             consultDetails.docId = doctorDetails._id
             consultDetails.docName = doctorDetails.firstname + " " + doctorDetails.lastname
             consultDetails.speciality = doctorDetails.speciality
+            consultDetails.appId = objectId(appId)
             db.get().collection(collections.CONSULTATIONS_COLLECTION).insertOne(consultDetails).then(() => {
                 db.get().collection(collections.APPOINTMENTS_COLLECTION).updateOne({ _id: objectId(appId) }, {
                     $set: {
@@ -203,8 +203,6 @@ module.exports = {
 
     getPreviousConsultations: (docId, patientId) => {
         return new Promise(async (resolve, reject) => {
-            console.log(typeof patientId)
-            console.log(patientId)
             let previous = await db.get().collection(collections.CONSULTATIONS_COLLECTION).aggregate([
                 {
                     $match:
@@ -214,7 +212,6 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            console.log(previous)
             resolve(previous)
         })
     }

@@ -172,5 +172,21 @@ module.exports = {
             let consultations = await db.get().collection(collections.CONSULTATIONS_COLLECTION).find({ patientId: objectId(patientId) }).toArray()
             resolve(consultations)
         })
+    },
+
+    getPrescriptionDetails: (appId) => {
+        return new Promise(async (resolve, reject) => {
+            let presc = await db.get().collection(collections.CONSULTATIONS_COLLECTION).find({ appId: objectId(appId) }).toArray()
+            resolve(presc)
+        })
+    },
+
+    exportData: (patientId, docId) => {
+        return new Promise(async (resolve, reject) => {
+            let presc = await db.get().collection(collections.CONSULTATIONS_COLLECTION).aggregate(
+                [{ $match: { patientId: objectId(patientId), docId: objectId(docId) } }]
+            ).toArray()
+            resolve(presc)
+        })
     }
 }

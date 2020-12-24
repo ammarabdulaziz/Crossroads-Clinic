@@ -605,6 +605,7 @@ body {
 }
 
 .download-icon:hover{
+    text-decoration: none;
     color: var(--first-color);
     font-size: 30px;
     cursor: pointer;

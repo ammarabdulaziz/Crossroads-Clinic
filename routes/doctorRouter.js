@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const fs = require('fs');
+const ExcelJs = require('exceljs');
+const tempfile = require('tempfile');
 const adminHelpers = require('../helpers/adminHelpers')
 const patientHelpers = require('../helpers/patientHelpers')
 const doctorHelpers = require('../helpers/doctorHelpers');
@@ -86,6 +88,67 @@ router.get('/previous', isDoctor, (req, res) => {
     doctorHelpers.getPreviousConsultations(req.user._id, req.query.id).then((response) => {
         res.json({ response })
     })
+})
+
+router.get('/app-sheet', isDoctor, async (req, res) => {
+    let presc = await patientHelpers.getPrescriptionDetails(req.query.appId)
+    presc[0].prescription = presc[0].prescription.toString()
+    const workbook = new ExcelJs.Workbook();
+    const worksheet = workbook.addWorksheet('Prescription');
+    worksheet.columns = [
+        { header: 'Patient Name', key: 'name', width: 25 },
+        { header: 'Date', key: 'date', width: 20 },
+        { header: 'Age', key: 'age', width: 8 },
+        { header: 'Doctor Name', key: 'docName', width: 25 },
+        { header: 'Speciality', key: 'speciality', width: 20 },
+        { header: 'Prescription', key: 'prescription', width: 50 },
+    ];
+    worksheet.addRow(presc[0]);
+
+    worksheet.getRow(1).eachCell((cell) => {
+        cell.font = { bold: true };
+    });
+
+    var tempFilePath = tempfile('.xlsx');
+    workbook.xlsx.writeFile(tempFilePath).then(function () {
+        console.log('file is written');
+        res.sendFile(tempFilePath, function (err) {
+            console.log('error downloading file: ' + err);
+        });
+    });
+})
+
+router.get('/previous-sheet', isDoctor, async (req, res) => {
+    let presc = await patientHelpers.exportData(req.query.patientId, req.user._id)
+    console.log(presc)
+
+    const workbook = new ExcelJs.Workbook();
+    const worksheet = workbook.addWorksheet('Prescription');
+    worksheet.columns = [
+        { header: 'Patient Name', key: 'name', width: 25 },
+        { header: 'Date', key: 'date', width: 20 },
+        { header: 'Age', key: 'age', width: 8 },
+        { header: 'Doctor Name', key: 'docName', width: 25 },
+        { header: 'Speciality', key: 'speciality', width: 20 },
+        { header: 'Prescription', key: 'prescription', width: 50 },
+    ];
+
+    presc.forEach(element => {
+        element.prescription = element.prescription.toString()
+        worksheet.addRow(element);
+    });
+
+    worksheet.getRow(1).eachCell((cell) => {
+        cell.font = { bold: true };
+    });
+
+    var tempFilePath = tempfile('.xlsx');
+    workbook.xlsx.writeFile(tempFilePath).then(function () {
+        console.log('file is written');
+        res.sendFile(tempFilePath, function (err) {
+            console.log('error downloading file: ' + err);
+        });
+    });
 })
 
 module.exports = router;

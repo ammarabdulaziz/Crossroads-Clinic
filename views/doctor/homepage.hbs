@@ -123,7 +123,7 @@
                                             <td>{{this.gender}}</td>
                                             <td>{{this.phone}}</td>
                                             <td><a href="/doctor/consult?appId={{this._id}}&patientId={{this.patientId}}&name={{this.name}}&age={{this.age}}"
-                                                    class="btn btn-sm btn-info">Consult</a></td>
+                                                    class="btn-sm btn-info">Consult</a></td>
                                         </tr>
                                         {{/each}}
                                         {{else}}
@@ -197,7 +197,7 @@
                                             <td>{{this.age}}</td>
                                             <td>{{this.gender}}</td>
                                             <td>{{this.phone}}</td>
-                                            <td><a href="" class="btn-sm btn-info">download</a></td>
+                                            <td><a href="/doctor/app-sheet?appId={{this._id}}" class="btn-sm btn-info">download</a></td>
                                         </tr>
                                         {{/each}}
                                         {{else}}
@@ -299,13 +299,13 @@
                                     <td>{{this.phone}}</td>
                                     <td><a href="/doctor/approve-appointment?id={{this._id}}"
                                             onclick="return confirm('Are you sure you want to Approve appointment with {{this.name}}')"
-                                            class="btn btn-sm btn-success">Accept</a></td>
+                                            class="btn-sm btn-success">Accept</a></td>
                                     <td><a href="/doctor/cancel-appointment?id={{this._id}}"
                                             onclick="return confirm('Are you sure you want to Cancel appointment with {{this.name}}')"
-                                            class="btn btn-sm btn-danger">Reject</a></td>
+                                            class="btn-sm btn-danger">Reject</a></td>
                                     <td><a href="/doctor/block-patient?patientId={{this.patientId}}&appId={{this._id}}"
                                             onclick="return confirm('Are you sure you want to you want to block {{this.name}} permenently?')"
-                                            class="btn btn-sm btn-dark">Block</a></td>
+                                            class="btn-sm btn-dark">Block</a></td>
                                 </tr>
                                 {{/each}}
                                 {{else}}
@@ -426,7 +426,7 @@
                 <div class="tab-content card col-12 mt-4 previous-tab">
                     <div class="d-flex justify-content-between align-items-center p-3">
                         <h4><i class="fa fa-chevron-circle-left back-icon pr-2"></i> Previous Consultations</h4>
-                        </i><a href="#"><i class="fa fa-download pr-2"></i>Export Data</a>
+                        </i><a href="#" class="export"><i class="fa fa-download pr-2"></i>Export Data</a>
                     </div>
                     <div class="row presc-table">
                     </div>
@@ -502,10 +502,12 @@
     $(document).ready(function () {
         $('.previous-tab').hide()
         $("#myPatients tbody tr").click(function () {
+            $('.export').attr('href', '#');
             $('.previous-tab').show().siblings().hide()
             $('.presc-table').empty();
 
             var patientId = $(this).data('id');
+            $('.export').attr('href', '/doctor/previous-sheet?patientId=' + patientId);
             //$(this).
             $.ajax({
                 url: '/doctor/previous?id=' + patientId,
