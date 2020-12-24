@@ -172,6 +172,12 @@ body {
 
 .tab-menu {
     display: flex;
+    overflow: scroll;
+}
+
+.tab-menu::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 
 .tab-menu li {
@@ -588,6 +594,24 @@ body {
 .patient-pop h2 span {
     font-weight: 600;
     font-family: var(--body-font);
+}
+
+/* tab */
+
+.download-icon{
+    font-size: 28px;
+    color: var(--font-color);
+    transition: 0.3s ease;
+}
+
+.download-icon:hover{
+    color: var(--first-color);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#consulted{
+    cursor: pointer;
 }
 
 @media screen and (max-width: 767.5px) {

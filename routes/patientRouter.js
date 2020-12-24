@@ -70,8 +70,9 @@ router.post('/register', (req, res) => {
 
 router.get('/homepage', isPatient, async (req, res) => {
   let appointments = await patientHelpers.getAppointments(req.user._id)
+  let consultations = await patientHelpers.getConsultations(req.user._id)
   let user = req.user
-  res.render('patient/homepage', { appointments, user, home: true })
+  res.render('patient/homepage', { appointments, consultations, user, home: true })
 })
 
 router.get('/edit-profile', isPatient, (req, res) => {
@@ -108,6 +109,8 @@ router.get('/book-appointment', isPatient, async (req, res) => {
   }
   let bookingDocId = req.query.id;
   let patientId = req.user._id;
+  console.log(typeof bookingDocId)
+  console.log(typeof patientId)
   patientHelpers.checkBlocked(bookingDocId, patientId).then((response) => {
     if(!response.message){
       user = req.user
@@ -135,6 +138,13 @@ router.post('/book-appointment', isPatient, (req, res) => {
 router.get('/cancel-appointment', isPatient, (req, res) => {
   patientHelpers.cancelAppointment(req.query.id).then(() => {
     res.redirect('/homepage')
+  })
+})
+
+router.get('/previous', isPatient, (req, res) => {
+  doctorHelpers.getPreviousConsultations(req.query.id, req.user._id).then((response) => {
+    console.log(response)
+      res.json({ response })
   })
 })
 

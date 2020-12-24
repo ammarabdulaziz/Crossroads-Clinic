@@ -137,9 +137,10 @@ module.exports = {
         })
     },
 
-    checkBlocked: (docId, patientId) => {
+    checkBlocked: (docId, patientId, myPatient) => {
         return new Promise(async (resolve, reject) => {
             let blockedArray = null
+            let docDetails = await db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docId) })
             blockedArray = await db.get().collection(collections.PATIENTS_COLLECTION).aggregate([
                 {
                     $match:
@@ -160,9 +161,16 @@ module.exports = {
             response.message = undefined
             check = blockedArray.filter(blocked => blocked.blockedBy.docId === docId);
             if (check.length != 0) {
-                response.message = "You have been blocked by this Doctor for Malpractices. You may have booking with other doctors. Thank You."
+                response.message = `You have been blocked by Dr. ${docDetails.firstname} ${docDetails.lastname} for Malpractices. You may have booking with other doctors. Thank You.`
             }
             resolve(response)
+        })
+    },
+
+    getConsultations: (patientId) => {
+        return new Promise(async (resolve, reject) => {
+            let consultations = await db.get().collection(collections.CONSULTATIONS_COLLECTION).find({ patientId: objectId(patientId) }).toArray()
+            resolve(consultations)
         })
     }
 }

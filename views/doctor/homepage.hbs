@@ -184,6 +184,7 @@
                                             <th>Age</th>
                                             <th>Gender</th>
                                             <th>Phone</th>
+                                            <th>Prescription</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -196,6 +197,7 @@
                                             <td>{{this.age}}</td>
                                             <td>{{this.gender}}</td>
                                             <td>{{this.phone}}</td>
+                                            <td><a href="" class="btn-sm btn-info">download</a></td>
                                         </tr>
                                         {{/each}}
                                         {{else}}
@@ -281,8 +283,8 @@
                                     <th scope="col">Patient Name</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Time</th>
-                                    <th scope="col">Age</th>
                                     <th scope="col">Phone</th>
+                                    <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                 </tr>
@@ -294,7 +296,6 @@
                                     <td>{{this.name}}</td>
                                     <td>{{this.date}}</td>
                                     <td>{{this.time}}</td>
-                                    <td>{{this.age}}</td>
                                     <td>{{this.phone}}</td>
                                     <td><a href="/doctor/approve-appointment?id={{this._id}}"
                                             onclick="return confirm('Are you sure you want to Approve appointment with {{this.name}}')"
@@ -379,22 +380,36 @@
                         <table class="table" id="myPatients">
                             <thead>
                                 <tr>
-                                    <th scope="col">Patient Name</th>
-                                    <th scope="col">Place</th>
-                                    <th scope="col">DOB</th>
-                                    <th scope="col">Gender</th>
-                                    <th scope="col">Phone</th>
+                                    <th>Patient Name</th>
+                                    <th>Place</th>
+                                    <th>DOB</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Block</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#if myPatients}}
                                 {{#each myPatients}}
-                                <tr>
+                                <tr data-id="{{this._id}}">
                                     <td>{{this.patient.name}}</td>
                                     <td>{{this.patient.place}}</td>
                                     <td>{{this.patient.dob}}</td>
                                     <td>{{this.patient.gender}}</td>
                                     <td>{{this.patient.phone}}</td>
+                                    {{#check this.status "active"}}
+                                    <td>
+                                        <a href="/doctor/block-patient?patientId={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to you want to block {{this.patient.name}} permenently?')"
+                                            class="block-btn btn-sm btn-dark block-doctor text-center">Block</a>
+                                    </td>
+                                    {{else}}
+                                    <td>
+                                        <a href="/doctor/unblock-patient?patientId={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to you want to unblock {{this.patient.name}}?')"
+                                            class="block-btn btn-sm btn-light unblock-doctor text-center">Unblock</a>
+                                    </td>
+                                    {{/check}}
                                 </tr>
                                 {{/each}}
                                 {{else}}
@@ -408,8 +423,17 @@
                         </table>
                     </div>
                 </div>
-                <!-- </div> -->
+                <div class="tab-content card col-12 mt-4 previous-tab">
+                    <div class="d-flex justify-content-between align-items-center p-3">
+                        <h4><i class="fa fa-chevron-circle-left back-icon pr-2"></i> Previous Consultations</h4>
+                        </i><a href="#"><i class="fa fa-download pr-2"></i>Export Data</a>
+                    </div>
+                    <div class="row presc-table">
+                    </div>
+                </div>
             </div>
+
+
             <div class="tab results">
                 <!-- Tab Head Div -->
                 <div class="tab-head card mb-3 col-12  mt-4">
@@ -473,4 +497,37 @@
         $input.parent().after($input);
         $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
     });
+
+    // Previous Consultations AJAX
+    $(document).ready(function () {
+        $('.previous-tab').hide()
+        $("#myPatients tbody tr").click(function () {
+            $('.previous-tab').show().siblings().hide()
+            $('.presc-table').empty();
+
+            var patientId = $(this).data('id');
+            //$(this).
+            $.ajax({
+                url: '/doctor/previous?id=' + patientId,
+                method: 'get',
+                success: (response) => {
+                    // Doctor data recieved in response.response object
+                    let prescriptions = response.response
+                    prescriptions.forEach(function (presc) {
+                        var columns = ""
+                        for (i = 0; i < presc.prescription.length; i++) {
+                            var column = '<tr><td>' + presc.prescription[i] + '</td></tr>'
+                            columns += column;
+                        }
+                        $('.presc-table').append('<div class="col-12 col-md-6"><table class="table"><thead><tr><th>' + presc.date +
+                            '</th></tr></thead><tbody>' + columns + '</tbody></table></div>')
+                    })
+
+                }
+            })
+        })
+        $('.previous-tab h4 i').on('click', () => {
+            $('.previous-tab').hide().siblings().show()
+        })
+    })
 </script>

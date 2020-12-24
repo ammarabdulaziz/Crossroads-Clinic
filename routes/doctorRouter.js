@@ -7,7 +7,8 @@ const patientHelpers = require('../helpers/patientHelpers')
 const doctorHelpers = require('../helpers/doctorHelpers');
 const { isDoctor } = require('../config/auth');
 const isAdmin = require('../config/auth').isAdmin
-const isNotAuthenticated = require('../config/auth').isNotAuthenticated
+const isNotAuthenticated = require('../config/auth').isNotAuthenticated;
+const { ok } = require('assert');
 
 router.get('/', isDoctor, async (req, res) => {
     // Get todays date
@@ -67,10 +68,23 @@ router.post('/consult', isDoctor, (req, res) => {
     })
 })
 
-router.get('/block-patient', isDoctor, (req,res) => {
+router.get('/block-patient', isDoctor, (req, res) => {
     let docId = req.user._id
     doctorHelpers.blockPatient(docId, req.query.patientId, req.query.appId).then(() => {
         res.redirect('/doctor')
+    })
+})
+
+router.get('/unblock-patient', isDoctor, (req, res) => {
+    let docId = req.user._id
+    doctorHelpers.unBlockPatient(docId, req.query.patientId, req.query.appId).then(() => {
+        res.redirect('/doctor')
+    })
+})
+
+router.get('/previous', isDoctor, (req, res) => {
+    doctorHelpers.getPreviousConsultations(req.user._id, req.query.id).then((response) => {
+        res.json({ response })
     })
 })
 

@@ -63,6 +63,7 @@ module.exports = {
             consultDetails.patientId = objectId(patientId)
             consultDetails.docId = doctorDetails._id
             consultDetails.docName = doctorDetails.firstname + " " + doctorDetails.lastname
+            consultDetails.speciality = doctorDetails.speciality
             db.get().collection(collections.CONSULTATIONS_COLLECTION).insertOne(consultDetails).then(() => {
                 db.get().collection(collections.APPOINTMENTS_COLLECTION).updateOne({ _id: objectId(appId) }, {
                     $set: {
@@ -131,6 +132,33 @@ module.exports = {
                     $unwind: "$patient"
                 }
             ]).toArray()
+            let blockedArray = null
+            for (i = 0; i < myPatients.length; i++) {
+                patientId = myPatients[i]._id
+                blockedArray = await db.get().collection(collections.PATIENTS_COLLECTION).aggregate([
+                    {
+                        $match:
+                        {
+                            _id: objectId(patientId)
+                        }
+                    },
+                    {
+                        $unwind: "$blockedBy"
+                    },
+                    {
+                        $project:
+                        {
+                            blockedBy: 1
+                        }
+                    }
+                ]).toArray()
+                check = blockedArray.filter(blocked => blocked.blockedBy.docId === docId.toString());
+                if (check.length != 0) {
+                    myPatients[i].status = "blocked"
+                } if (check.length == 0) {
+                    myPatients[i].status = "active"
+                }
+            }
             resolve(myPatients)
         })
     },
@@ -145,12 +173,49 @@ module.exports = {
             }).then(() => {
                 db.get().collection(collections.APPOINTMENTS_COLLECTION).updateOne({ _id: objectId(appId) }, {
                     $set: {
-                        status : "blocked"
+                        status: "blocked"
                     }
                 }).then((response) => {
                     resolve(response)
                 })
             })
+        })
+    },
+
+    unBlockPatient: (docId, patientId, appId) => {
+        return new Promise((resolve, reject) => {
+            docId = docId.toString()
+            db.get().collection(collections.PATIENTS_COLLECTION).updateOne({ _id: objectId(patientId) }, {
+                $unset : {
+                    blockedBy: { docId: docId }
+                }
+            }).then(() => {
+                db.get().collection(collections.APPOINTMENTS_COLLECTION).updateOne({ _id: objectId(appId) }, {
+                    $set: {
+                        status: "requested"
+                    }
+                }).then((response) => {
+                    resolve(response)
+                })
+            })
+        })
+    },
+
+    getPreviousConsultations: (docId, patientId) => {
+        return new Promise(async (resolve, reject) => {
+            console.log(typeof patientId)
+            console.log(patientId)
+            let previous = await db.get().collection(collections.CONSULTATIONS_COLLECTION).aggregate([
+                {
+                    $match:
+                    {
+                        docId: objectId(docId),
+                        patientId: objectId(patientId)
+                    }
+                }
+            ]).toArray()
+            console.log(previous)
+            resolve(previous)
         })
     }
 }

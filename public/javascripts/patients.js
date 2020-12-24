@@ -31,32 +31,28 @@ $(document).ready(function () {
             $('.upcoming').show().siblings().hide()
         } else if (value == 'consulted') {
             $('.consulted').show().siblings().hide()
-        }else if (value == 'expired') {
+        } else if (value == 'expired') {
             $('.expired').show().siblings().hide()
         }
     })
 })
 
 $(document).ready(function () {
-    $('.req-tab').hide();
-    $('.res-tab').hide();
+    $('.app-tab').show().siblings().hide();
     $('.tab-menu a').click((e) => {
         e.preventDefault();
     })
     $('#app-tab').on('click', () => {
-        $('.req-tab').hide();
-        $('.res-tab').hide();
-        $('.app-tab').show();
+        $('.app-tab').show().siblings().hide();
     })
     $('#req-tab').on('click', () => {
-        $('.app-tab').hide();
-        $('.res-tab').hide();
-        $('.req-tab').show();
+        $('.req-tab').show().siblings().hide();
     })
     $('#res-tab').on('click', () => {
-        $('.app-tab').hide();
-        $('.req-tab').hide();
-        $('.res-tab').show();
+        $('.res-tab').show().siblings().hide();
+    })
+    $('#consulted-tab').on('click', () => {
+        $('.consulted-tab').show().siblings().hide();
     })
 })
 
