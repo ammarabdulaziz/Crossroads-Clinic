@@ -100,7 +100,12 @@ module.exports = {
 
     getDoctorDetails: (docID) => {
         return new Promise((resolve, reject) => {
-            db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docID) }).then((response) => {
+            db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docID) }).then(async (response) => {
+                doctorId = docID.toString()
+                let bookings = await db.get().collection(collections.APPOINTMENTS_COLLECTION).aggregate(
+                    [{ $match: { docId: doctorId } }]
+                ).toArray()
+                response.bookings = bookings
                 resolve(response)
             })
         })
@@ -223,11 +228,15 @@ module.exports = {
                 [{ $match: { status: "cancelled" } },
                 { $count: 'cancelled' }]
             ).toArray()
-                
+
             response.consulted = appointmentsConsulted
-            response.pending = appointmentsPending[0].approved
-            response.cancelled = appointmentsCancelled[0].cancelled
-        
+            if (response.pending) {
+                response.pending = appointmentsPending[0].approved
+            }
+            if (response.cancelled) {
+                response.cancelled = appointmentsCancelled[0].cancelled
+            }
+
             resolve(response)
         })
     }

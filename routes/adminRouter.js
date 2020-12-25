@@ -6,7 +6,7 @@ const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 
 /* GET home page. */
-router.get('/',  async function (req, res, next) {
+router.get('/', isAdmin, async function (req, res, next) {
   // Get doctor details
   let counts = await adminHelpers.getDashboardCounts();
   let doctors = await adminHelpers.getDoctors();
@@ -66,6 +66,20 @@ router.post('/unblock-doctor', isAdmin, (req, res) => {
 
 router.get('/profile', isAdmin, (req, res) => {
   adminHelpers.getDoctorDetails(req.query.id).then((response) => {
+    let approved = 0;
+    let requests = 0;
+    let consulted = 0;
+    let cancelled = 0;
+    let bookings = response.bookings;
+    response.report = []
+    bookings.forEach(booking => {
+      if (booking.status === 'approved') { approved++ }
+      if (booking.status === 'consulted') { consulted++ }
+      if (booking.status === 'cancelled') { cancelled++ }
+      if (booking.status === 'requested') { requests++ }
+    });
+    response.report.push(consulted, approved, requests, cancelled)
+    console.log(response.report)
     res.json({ response })
   })
 })

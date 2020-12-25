@@ -43,7 +43,6 @@ if (window.location.hash == "#tab8") showContent(4, 9)
 
 
 /*===== CROP IMAGE AND DISPLAY  =====*/
-
 $(document).ready(function () {
 
     $('.image').on('change', function () {
@@ -355,7 +354,7 @@ $(document).ready(function () {
 });
 
 
-/*===== PROFILE EDIT AJAX  =====*/
+/*===== PROFILE AJAX  =====*/
 $(document).ready(function () {
     // Edit 
     $('.btn-view').click(function () {
@@ -379,6 +378,45 @@ $(document).ready(function () {
                 $('.detail-3 a').text(response.response.place);
                 $('.edit-profile').attr('data-id', response.response._id);
                 $('.hero-img').attr('src', '../images/' + response.response._id + '.jpg');
+
+                console.log('response.response', response.response)
+                console.log('response.report', response.response.report)
+                //Graph
+                let doctorReport = document.getElementById("myChart");
+                Chart.defaults.global.defaultFontFamily = 'Montserrat'
+                let myChart = new Chart(doctorReport, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Consulted', 'Approved', 'Requests', 'Cancelled'],
+                        datasets: [{
+                            label: 'Of Orders',
+                            data: response.response.report,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                            ], borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: .5
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Doctor Appointment Status',
+                            fontSize: 25
+                        }
+                    }
+                });
             }
         })
     });
@@ -401,7 +439,7 @@ $(document).ready(function () {
         console.log(specName)
 
         $('.speciality').attr('value', specName);
-        $('.edit-spec-form').attr('action', '/admin/edit-speciality?id=' + specID );
+        $('.edit-spec-form').attr('action', '/admin/edit-speciality?id=' + specID);
 
     });
 });
