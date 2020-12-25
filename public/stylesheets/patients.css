@@ -238,6 +238,16 @@ body {
     padding: 10px 0px;
 }
 
+.tab-content-head input{
+    border-radius: 10px;
+    padding: 5px 5px;
+    border: 2px solid #E7E7E7;
+}
+
+.tab-content-head input:focus{
+    outline: none ;
+}
+
 .hr {
     height: 1px;
     background-color: #E7E7E7;
@@ -611,7 +621,7 @@ body {
     cursor: pointer;
 }
 
-#consulted{
+.consulted{
     cursor: pointer;
 }
 

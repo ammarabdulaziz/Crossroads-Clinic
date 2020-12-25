@@ -148,6 +148,24 @@ router.get('/previous', isPatient, (req, res) => {
   })
 })
 
+router.get('/get-consulted', isPatient, async (req, res) => {
+  let response = await patientHelpers.getConsultations(req.user._id)
+  res.json({ response })
+})
+
+router.get('/get-cancelled', isPatient, async (req, res) => {
+  let appointments = await patientHelpers.getAppointments(req.user._id)
+  let response = appointments.cancelled
+  res.json({ response })
+})
+
+router.get('/get-requests', isPatient, async (req, res) => {
+  let appointments = await patientHelpers.getAppointments(req.user._id)
+  let response = appointments.requested
+  console.log(response)
+  res.json({ response })
+})
+
 router.get('/app-sheet', isPatient, async (req, res) => {
   let presc = await patientHelpers.getPrescriptionDetails(req.query.appId)
   presc[0].prescription = presc[0].prescription.toString()

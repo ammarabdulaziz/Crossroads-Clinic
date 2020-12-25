@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+
 <div class="container">
     <div class="row">
         <!-- Profile Div -->
@@ -64,7 +66,7 @@
             </div>
             <div>
                 <!-- Tab content div -->
-                <div id="appointments" class="app-tab">
+                <div id="appointments" class="app-tab cancel-opt-tab">
                     <div class="tab-content card col-12">
                         <div class="row tab-content-head">
                             <h2>Appointments</h2>
@@ -116,15 +118,16 @@
                     </div>
                 </div>
                 <!-- Tab content div -->
-                <div id="requests" class="req-tab">
+                <div id="requests" class="req-tab cancel-opt-tab">
                     <div class="tab-content card col-12">
                         <div class="row tab-content-head">
                             <h2>Requests</h2>
+                            <input id="requests-input" type="text" placeholder="Search">
                         </div>
                         <div class="row hr"></div>
 
                     </div>
-                    <div class="card3 mb-5 pb-3">
+                    <div id="requests-div" class="card3 mb-5 pb-3">
                         <!-- appointment -->
                         {{#if appointments.requested}}
                         {{#each appointments.requested}}
@@ -175,14 +178,15 @@
                     <div class="tab-content card col-12">
                         <div class="row tab-content-head">
                             <h2>Consultations</h2>
+                            <input id="consult-input" type="text" placeholder="Search">
                         </div>
                         <div class="row hr"></div>
                     </div>
-                    <div class="card3 mb-5 pb-3">
+                    <div id="consulted-div" class="card3 mb-5 pb-3">
                         <!-- appointment -->
                         {{#if consultations}}
                         {{#each consultations}}
-                        <div id="consulted" class="consulted" data-id="{{this.docId}}">
+                        <div class="consulted" data-id="{{this.docId}}">
                             <div class="tab-content col-12 appointment v-center cancelled-tab">
                                 <div class="tab-img d-flex align-items-center">
                                     <img src="/images/{{this.docId}}.jpg" alt="image" class="hero-img ">
@@ -207,7 +211,8 @@
                                 </div>
 
                                 <div class="tab-img d-flex">
-                                    <a href="/app-sheet?appId={{this.appId}}" class='bx bx-cloud-download download-icon'></a>
+                                    <a href="/app-sheet?appId={{this.appId}}"
+                                        class='bx bx-cloud-download download-icon'></a>
                                 </div>
                             </div>
                         </div>
@@ -239,10 +244,11 @@
                     <div class="tab-content card col-12">
                         <div class="row tab-content-head">
                             <h2>Cancelled</h2>
+                            <input id="cancelled-input" type="text" placeholder="Search">
                         </div>
                         <div class="row hr"></div>
                     </div>
-                    <div class="card3 mb-5 pb-3">
+                    <div id="cancelled-div" class="card3 mb-5 pb-3">
                         <!-- appointment -->
                         {{#if appointments.cancelled}}
                         {{#each appointments.cancelled}}
@@ -283,37 +289,57 @@
 </div>
 
 <script>
-    // Previous Consultations AJAX
     $(document).ready(function () {
-        $('.prev-tab').hide()
-        $(".consulted").click(function () {
-            $('.export').attr('href', '#');
-            $('.prev-tab').show().siblings().hide()
-            $('.presc-table').empty();
-
-            var docId = $(this).data('id');
-            $('.export').attr('href', '/previous-sheet?docId=' + docId);
-            //$(this).
-            $.ajax({
-                url: '/previous?id=' + docId,
-                method: 'get',
-                success: (response) => {
-                    // Doctor data recieved in response.response object
-                    let prescriptions = response.response
-                    prescriptions.forEach(function (presc) {
-                        var columns = ""
-                        for (i = 0; i < presc.prescription.length; i++) {
-                            var column = '<tr><td>' + presc.prescription[i] + '</td></tr>'
-                            columns += column;
+        $('#requests-input').keyup(function () {
+            var searchValue = ($('#requests-input').val()).trim();
+            if (searchValue != '') {
+                $.ajax({
+                    url: '/get-requests',
+                    method: 'get',
+                    success: (response) => {
+                        var list = response.response;
+                        const options = {
+                            shouldSort: true,
+                            location: 0,
+                            threshold: 0.6,
+                            distance: 100,
+                            maxPatternLength: 32,
+                            minMatchCharLength: 1,
+                            includeMatches: true,
+                            keys: [
+                                "_id",
+                                "name",
+                                "age",
+                                "phone",
+                                "gender",
+                                "date",
+                                "patientId",
+                                "docId",
+                                "doctor.firstname",
+                                "doctor.lastname",
+                                "doctor.speciality",
+                                "doctor._id",
+                                "speciality",
+                                "time",
+                            ]
+                        };
+                        var fuse = new Fuse(list, options);
+                        var searchResult = fuse.search(searchValue)
+                        console.log(searchResult)
+                        if (searchResult.length > 0) {
+                            console.log(searchResult)
+                            $('#requests-div').empty();
+                            for (i = 0; i < searchResult.length; i++) {
+                                $('#requests-div').append('<div class="tab-content col-12 appointment v-center"><div class="tab-img d-flex align-items-center"><img src="/images/' + searchResult[i].item.doctor._id + '.jpg" alt="image" class="hero-img "><div class="img-name"><h4>Dr. ' + searchResult[i].item.doctor.firstname + ' ' + searchResult[i].item.doctor.lastname + '</h4><h6>' + searchResult[i].item.doctor.speciality + '</h6></div></div><div class="tab-img d-flex"><div class="img-name"><h4>' + searchResult[i].item.name + '</h4><h6>Booking For</h6></div></div><div class="tab-img d-flex"><div class="img-name"><h4>' + searchResult[i].item.date + ' ' + searchResult[i].item.time + '</h4><h6>Session</h6></div></div><div class="pr-3"><i class="bx bx-dots-vertical-rounded opt-icon"></i><div class="options-box"><h6><a href="/cancel-appointment?id=' + searchResult[i].item._id + '" onclick="return confirm("Are you sure you want to Cancel appointment with Dr. ' + searchResult[i].item.doctor.firstname + '")">Cancel</a></h6></div></div></div>')
+                            }
+                        } else {
+                            $('#requests-div').empty();
+                            $('#requests-div').append('<p></p><h6 class="text-center">No Results</h6>')
                         }
-                        $('.presc-table').append('<div class="col-12 col-md-6"><table class="table"><thead><tr><th>' + presc.date +
-                            '</th></tr></thead><tbody>' + columns + '</tbody></table></div>')
-                    })
-                }
-            })
-        })
-        $('.prev-tab h4 i').on('click', () => {
-            $('.consulted-tab').show().siblings().hide()
+                    }
+                })
+            }
         })
     })
 </script>
+
