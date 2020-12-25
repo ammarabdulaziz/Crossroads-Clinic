@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="confirm-card">
+        <div class="row">
+            <div class="section-1 col-12 col-lg-5">
+                <div class="sub-section">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    <h2>Booking Confirmed</h2>
+                    <h1>Your appointment for Dr. {{appointment.doctor.firstname}} {{appointment.doctor.lastname}}<br>has been confirmed</h1>
+                    <div class="vr"></div>
+                </div>
+            </div>
+            <div class="section-2 col-12 col-lg-7">
+                <div class="container">
+                    <h1>Booking Details</h1>
+                    <h2>Booking Id : <span>#{{appointment._id}}</span></h2>
+                    <div class="scroll-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Doctor</th>
+                                    <th scope="col">Department</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Dr. {{appointment.doctor.firstname}} {{appointment.doctor.lastname}}</td>
+                                    <td>{{appointment.doctor.speciality}}</td>
+                                    <td>{{appointment.date}}</td>
+                                    <td>{{appointment.time}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="details-head">
+                        <h2>Booking For</h2>
+                        <h2>Patient Id</h2>
+                    </div>
+                    <div class="hr"></div>
+                    <div class="details-body">
+                        <h2>{{appointment.name}}</h2>
+                        <h2>#{{appointment.patientId}}</h2>
+                    </div>
+                    <a href="/homepage" class="btn btn-green-outline mt-4 mb-2">My Appointments</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

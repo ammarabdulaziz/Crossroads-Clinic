@@ -1,0 +1,140 @@
+<link rel="stylesheet" href="/stylesheets/patients.css">
+<div class="top-head">
+    <div class="container header-content">
+        <div class="header-contact v-center">
+            <i class="fa fa-phone-square" aria-hidden="true"></i>
+            <h2>+91 9846704120</h2>
+            <i class='bx bx-mail-send ml-5'></i>
+            <h2>crossroadsclinic@gmail.com</h2>
+            <i class='bx bxs-time-five ml-5'></i>
+            <h2>Mon to Sat 9:00am to 18:00pm</h2>
+        </div>
+        <div class="admin-tab  pop-1" onclick="userPopup1()">
+            <div class="admin-name">
+                <h5>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}
+                    {{user.lastname}}{{else}}Login{{/if}}</h5>
+                <h6>{{#if user.patient}}PATIENT{{else if user.doctor}}DOCTOR{{/if}}</h6>
+            </div>
+            <div class="header__img">
+                <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg"
+                    onerror="this.src='/images/default.png';">
+            </div>
+        </div>
+    </div>
+    <div id="user-pop-1" class="user-pop">
+        {{#if user}}
+        <div class="user-pop-head patient-pop">
+            <h2>Hello <span>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}{{/if}}</span>
+            </h2>
+            <h4>Available</h4>
+        </div>
+        {{else}}
+        <div class="user-pop-head patient-pop">
+            <h2>Hello </span>User</span></h2>
+            <h4>Login to Continue</h4>
+        </div>
+        {{/if}}
+        <div class="wrapper">
+            {{#if user}}
+            <div class="list">
+                <i class='bx bx-user nav__logo-icon'></i>
+                <a href="/homepage">Profile</a>
+            </div>
+            <div class="list">
+                <i class='bx bx-log-out'></i>
+                <a href="/logout">Logout</a>
+            </div>
+            {{else}}
+            <div class="list">
+                <i class='bx bx-log-in'></i>
+                <a href="/logout">Login</a>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Crossroads Clinic</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item {{#if home}}active{{/if}}">
+                    <a class="nav-link" href="/homepage">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item {{#if doctors}}active{{/if}}">
+                    <a class="nav-link" href="/doctors">Doctors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- To delete -->
+        <div class="admin-tab pop-2 pt-2 pb-2" onclick="userPopup2()">
+            <div class="admin-name">
+                <h5>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}
+                    {{user.lastname}}{{else}}Login{{/if}}</h5>
+                <h6>{{#if user.patient}}PATIENT{{else if user.doctor}}DOCTOR{{/if}}</h6>
+            </div>
+            <div class="header__img">
+                <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg"
+                    onerror="this.src='/images/default.png';">
+            </div>
+        </div>
+        <div id="user-pop-2" class="user-pop">
+            {{#if user}}
+            <div class="user-pop-head patient-pop">
+                <h2>Hello <span>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}{{/if}}</span>
+                </h2>
+                <h4>Available</h4>
+            </div>
+            {{else}}
+            <div class="user-pop-head patient-pop">
+                <h2>Hello </span>User</span></h2>
+                <h4>Login to Continue</h4>
+            </div>
+            {{/if}}
+            <div class="wrapper">
+                {{#if user}}
+                <div class="list">
+                    <i class='bx bx-user nav__logo-icon'></i>
+                    <a href="/homepage">Profile</a>
+                </div>
+                <div class="list">
+                    <i class='bx bx-log-out'></i>
+                    <a href="/logout">Logout</a>
+                </div>
+                {{else}}
+                <div class="list">
+                    <i class='bx bx-log-in'></i>
+                    <a href="/logout">Login</a>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+
+    </div>
+</nav>
+<div class="main-bg d-flex align-items-center justify-content-center" style="background-image: url(/images/1.png);">
+    {{#if doctors}}<h1>OUR <span>DEDICATED </span>DOCTORS</h1>{{/if}}
+</div>
+
+{{#if user.patient}}
+<script>
+    $(document).ready(function () {
+        var fname = $(".patient-pop h2 span").text().split(' ');
+        $(".patient-pop h2 span").text(fname[0])
+    })
+</script>
+{{/if}}

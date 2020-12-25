@@ -4,12 +4,12 @@
     <div class="header__toggle">
         <i class='bx bx-menu' id="header-toggle" onclick="navToggle()"></i>
     </div>
-    <div class="admin-tab">
+    <div class="admin-tab" onclick="userPopup()">
         <div class="admin-name">
             <h5>John Doe</h5>
             <h6>ADMIN</h6>
         </div>
-        <div class="header__img" onclick="userPopup()">
+        <div class="header__img">
             <img id="user-img" class="user-img" src="/images/perfil.jpg" alt="">
         </div>
     </div>
@@ -41,30 +41,32 @@
                 <span class="nav__logo-name">Crossroads Clinic</span>
             </div>
 
-            <div class="nav__list">
-                <a href="/admin" class="nav__link active">
+            <div class="nav__list" id="tab">
+                <a href="#tab1" class="nav__link" onclick="showContent(0, 0)">
                     <i class='bx bx-grid-alt nav__icon'></i>
                     <span class="nav__name">Dashboard</span>
                 </a>
 
-                <a href="/admin/view-doctors" class="nav__link">
+                <a href="#tab2" class="nav__link" onclick="showContent(1, 1)">
                     <i class='bx bx-user nav__icon'></i>
                     <span class="nav__name">Doctors</span>
                 </a>
 
-                <a href="/admin/view-patients" class="nav__link">
+                <a href="#tab3" class="nav__link" onclick="showContent(2, 2)">
                     <i class='bx bx-message-square-detail nav__icon'></i>
                     <span class="nav__name">Patients</span>
                 </a>
 
-                <a href="/admin/view-appointments" class="nav__link">
+                <a href="#tab4" class="nav__link" onclick="showContent(3, 3)">
                     <i class='bx bx-bookmark nav__icon'></i>
                     <span class="nav__name">Appointments</span>
+                </a>
+                
+                <a href="#tab8" class="nav__link" onclick="showContent(4, 7)">
+                    <i class='bx bxs-widget'></i>
+                    <span class="nav__name">Specialities</span>
                 </a>
             </div>
         </div>
     </nav>
 </div>
-
-
-<script src="/javascripts/main.js"></script>

@@ -3,8 +3,6 @@ module.exports = {
         if (req.isAuthenticated() && req.user.admin) {
             return next();
         }
-        // res.status(401).json({ msg: 'Not authorized' })
-        // req.flash('error_msg', 'Please log in to view that resource');
         res.redirect('/login');
     },
 
@@ -12,8 +10,6 @@ module.exports = {
         if (req.isAuthenticated() && req.user.doctor) {
             return next();
         }
-        // res.status(401).json({ msg: 'Not authorized' })
-        // req.flash('error_msg', 'Please log in to view that resource');
         res.redirect('/login');
     },
 
@@ -21,8 +17,6 @@ module.exports = {
         if (req.isAuthenticated() && req.user.patient) {
             return next();
         }
-        // res.status(401).json({ msg: 'Not authorized' })
-        // req.flash('error_msg', 'Please log in to view that resource');
         res.redirect('/login');
     },
 
@@ -38,6 +32,9 @@ module.exports = {
         }
         else if (req.user.patient) {
             res.redirect('/')
+        }
+        else{
+            res.redirect('/login')
         }
     }
 }

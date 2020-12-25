@@ -1,0 +1,70 @@
+<div class="container">
+
+    <div id="tab6" class="tab-content">
+        <!--  Custom breadcrumb  -->
+
+        <div class="content ">
+            <div class="row">
+                <ul class="col-12 col-md-6">
+                    <div class="bar col-12 mt-4">
+                        <li class="bar-item"><a href="/homepage">Homepage</a></li>
+                        <span>/</span>
+                        <li class="bar-item active">Consult</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- - Form  -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>Consult</div>
+                        </div>
+                    </div>
+                    <div class="card2 card">
+                        <form action="/doctor/consult?appId={{body.appId}}&patientId={{body.patientId}}" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="fname">Name</label>
+                                <div class="input-group">
+                                    <input id="fname" type="text" name="name" class="form-control" value="{{body.name}}"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="text" class="form-control" name="age" id="edit-age" value="{{body.age}}" readonly>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12 mb-4">
+                                    <label for="note">Note</label>
+                                    <textarea type="textarea" rows="4" class="form-control" name="note" placeholder="Note"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="prescription">Prescription</label>
+                                <div class="row pl-3 pr-3">
+                                    <input type="text" class="form-control presc-input col-11" placeholder="Priscribe">
+                                    <button class="presc-button col-1">
+                                        <i class="fa fa-plus-square"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12 mb-4">
+                                    <ol class="presc-list"></ol>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-green">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,175 @@
+:root {
+    --header-height: 3rem;
+    --nav-width: 68px;
+    /*===== Colors =====*/
+    --first-color: #28905F;
+    --first-color-light: #a1c5b9;
+    --white-color: #E7EAE9;
+    --font-color: #383838;
+    /*===== Font and typography =====*/
+    --body-font: 'Montserrat', sans-serif;
+    --body-font2: 'Barlow', sans-serif;
+    --normal-font-size: 1rem;
+    /*===== z index =====*/
+    --z-fixed: 100;
+}
+
+/*===== BASE =====*/
+
+.box-padding {
+    padding: 35px 26px;
+}
+
+.v-center {
+    display: flex;
+    align-items: center;
+}
+
+.v-start {
+    display: flex;
+    align-items: flex-start;
+}
+
+.h-center {
+    display: flex;
+    justify-content: center;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.profile-content .card, .recent-review .card {
+    border-radius: 15px;
+}
+
+.hero-img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.profile-content h2 {
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: var(--font-color);
+}
+
+.profile-content h5 {
+    font-size: 16px;
+    margin: 0;
+    padding-left: 5px;
+    color: var(--first-color);
+}
+
+.fa-user-md, .fa-clock-o,.fa-user {
+    font-size: 15px;
+    padding-top: 3px;
+    color: var(--first-color);
+}
+
+#h-l {
+    margin: 0px 5px;
+}
+
+.profile-content .btn {
+    color: #1D1D35;
+    padding: 20px 20px;
+    line-height: 16px;
+}
+
+.rating i {
+    color: #F4E482;
+}
+
+.rating p {
+    color: var(--font-color);
+}
+
+/* Details */
+
+.details i, .details a {
+    display: block;
+}
+
+.details i {
+    font-size: 28px;
+}
+
+.details a {
+    padding: 15px 0px 0px 0px;
+    font-size: 14px;
+}
+
+.detail-1, .detail-1 a {
+    color: #2F4858;
+}
+
+.detail-2, .detail-2 a {
+    color: #5B6B4B;
+}
+
+.detail-3, .detail-3 a {
+    color: #217585;
+}
+
+.patients-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 15px;
+}
+
+/* Recent review */
+
+.recent-review h2 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #217585;
+}
+
+.review-box {
+    border-radius: 15px;
+    border: 0.5px solid #eeeeeec7;
+    padding: 10px 0px;
+    margin: 10px 0px 0px 0px;
+}
+
+.recent-review .rating {
+    padding: 0;
+    margin: 0;
+}
+
+.review-box h5 {
+    font-size: 18px;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.review-box h6 {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+@media only screen and (max-width: 992px) {
+    .profile-content h2 {
+        font-size: 28px;
+    }
+    .profile-content .hero-img {
+        width: 110%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .box-padding {
+        padding: 0px 26px;
+    }
+}
+
+@media only screen and (min-width: 768px) {}
+
+.details {
+    margin: 40px 0px 30px 0px;
+}

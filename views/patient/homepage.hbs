@@ -1,0 +1,345 @@
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+
+<div class="container">
+    <div class="row">
+        <!-- Profile Div -->
+        <div class="profile-card col-12 col-lg-4">
+            <div class="col-12">
+                <div class="row">
+                    <div class="card col-12">
+                        <div class="row pt-1">
+                            <!-- Image -->
+                            <div class="col-4 col-md-4 pr-0">
+                                <img src="/images/{{user._id}}.jpg" onerror="this.src='/images/default.png';"
+                                    class="hero-img">
+                            </div>
+                            <!-- Name and Subs -->
+                            <div class="col-8 col-md-8">
+                                <h2>{{user.name}}</h2>
+                                <div class="v-start">
+                                    <i class="fa fa-user pr-2" aria-hidden="true"></i>
+                                    <h5>{{#if user.patient}}Patient{{else if user.doctor}}Doctor{{/if}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Contact Icons -->
+
+                        <div class="row details">
+                            <div class="col-12 detail-1">
+                                <i class="fa fa-phone pl-1" aria-hidden="true"></i>
+                                <a href="#" class="pl-1 ml-3">
+                                    {{#if user.phone}}{{user.phone}}
+                                    {{else}} - - - - -
+                                    {{/if}}
+                                </a>
+                            </div>
+                            <div class="col-12 detail-2 pt-3">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <a href="#" class="pl-1 ml-3">{{#if user.email}}{{user.email}}
+                                    {{else}} - - - - -
+                                    {{/if}}</a>
+                            </div>
+                            <div class="col-12 detail-3 pt-3">
+                                <i class="fa fa-map-marker pl-1" aria-hidden="true"></i>
+                                <a href="#" class="pl-2 ml-3">{{#if user.place}}{{user.place}}
+                                    {{else}} - - - - -
+                                    {{/if}}</a>
+                            </div>
+                        </div>
+                        <!-- Btn and Review -->
+                        <div class="col-12">
+                            <a href="edit-profile?id={{user._id}}" class="btn btn-blue-outline">Edit Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab col-12 col-lg-8">
+            <!-- Tab Head Div -->
+            <div class="tab-head card mb-3 col-12  mt-4">
+                <div class="tab-menu">
+                    <li id="app-tab" class="active"><a href="#">Appointments</a></li>
+                    <li id="req-tab"><a href="#">Requests</a></li>
+                    <li id="consulted-tab"><a href="#">Consulted</a></li>
+                    <li id="res-tab"><a href="#">Cancelled</a></li>
+                </div>
+            </div>
+            <div>
+                <!-- Tab content div -->
+                <div id="appointments" class="app-tab cancel-opt-tab">
+                    <div class="tab-content card col-12">
+                        <div class="row tab-content-head">
+                            <h2>Appointments</h2>
+                            <a href="/book-appointment" class="btn btn-white">Book Now</a>
+                        </div>
+                        <div class="row hr"></div>
+                    </div>
+                    <div class="card3 mb-5 pb-3">
+                        <!-- appointment -->
+                        {{#if appointments.approved}}
+                        {{#each appointments.approved}}
+                        <div class="tab-content col-12 appointment v-center">
+                            <div class="tab-img d-flex align-items-center">
+                                <img src="/images/{{this.doctor._id}}.jpg" alt="image" class="hero-img ">
+                                <div class="img-name">
+                                    <h4>Dr. {{this.doctor.firstname}} {{this.doctor.lastname}}</h4>
+                                    <h6>{{this.doctor.speciality}}</h6>
+                                </div>
+                            </div>
+
+                            <div class="tab-img d-flex">
+                                <div class="img-name">
+                                    <h4>{{this.name}}</h4>
+                                    <h6>Booking For</h6>
+                                </div>
+                            </div>
+
+                            <div class="tab-img d-flex">
+                                <div class="img-name">
+                                    <h4>{{this.date}} {{this.time}}</h4>
+                                    <h6>Session</h6>
+                                </div>
+                            </div>
+
+                            <div class="pr-3">
+                                <i class='bx bx-dots-vertical-rounded opt-icon'></i>
+                                <div class="options-box">
+                                    <h6><a href="/cancel-appointment?id={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to Cancel appointment with Dr. {{this.doctor.firstname}}')">Cancel</a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p></p>
+                        <h6 class="text-center">No Requests</h6>
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- Tab content div -->
+                <div id="requests" class="req-tab cancel-opt-tab">
+                    <div class="tab-content card col-12">
+                        <div class="row tab-content-head">
+                            <h2>Requests</h2>
+                            <input id="requests-input" type="text" placeholder="Search">
+                        </div>
+                        <div class="row hr"></div>
+
+                    </div>
+                    <div id="requests-div" class="card3 mb-5 pb-3">
+                        <!-- appointment -->
+                        {{#if appointments.requested}}
+                        {{#each appointments.requested}}
+                        <div class="tab-content col-12 appointment v-center">
+                            <div class="tab-img d-flex align-items-center">
+                                <img src="/images/{{this.doctor._id}}.jpg" alt="image" class="hero-img ">
+                                <div class="img-name">
+                                    <h4>Dr. {{this.doctor.firstname}} {{this.doctor.lastname}}</h4>
+                                    <h6>{{this.doctor.speciality}}</h6>
+                                </div>
+                            </div>
+
+                            <div class="tab-img d-flex">
+                                <div class="img-name">
+                                    <h4>{{this.name}}</h4>
+                                    <h6>Booking For</h6>
+                                </div>
+                            </div>
+
+                            <div class="tab-img d-flex">
+                                <div class="img-name">
+                                    <h4>{{this.date}} {{this.time}}</h4>
+                                    <h6>Session</h6>
+                                </div>
+                            </div>
+
+                            <div class="pr-3">
+                                <i class='bx bx-dots-vertical-rounded opt-icon'></i>
+                                <div class="options-box">
+                                    <h6><a href="/cancel-appointment?id={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to Cancel appointment with Dr. {{this.doctor.firstname}}')">Cancel</a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p></p>
+                        <h6 class="text-center">No Requests</h6>
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- Tab content div -->
+
+
+
+                <div class="consulted-tab">
+                    <div class="tab-content card col-12">
+                        <div class="row tab-content-head">
+                            <h2>Consultations</h2>
+                            <input id="consult-input" type="text" placeholder="Search">
+                        </div>
+                        <div class="row hr"></div>
+                    </div>
+                    <div id="consulted-div" class="card3 mb-5 pb-3">
+                        <!-- appointment -->
+                        {{#if consultations}}
+                        {{#each consultations}}
+                        <div class="consulted" data-id="{{this.docId}}">
+                            <div class="tab-content col-12 appointment v-center cancelled-tab">
+                                <div class="tab-img d-flex align-items-center">
+                                    <img src="/images/{{this.docId}}.jpg" alt="image" class="hero-img ">
+                                    <div class="img-name">
+                                        <h4>Dr. {{this.docName}}</h4>
+                                        <h6>{{this.speciality}}</h6>
+                                    </div>
+                                </div>
+
+                                <div class="tab-img d-flex">
+                                    <div class="img-name">
+                                        <h4>{{this.name}}</h4>
+                                        <h6>Booking For</h6>
+                                    </div>
+                                </div>
+
+                                <div class="tab-img d-flex">
+                                    <div class="img-name">
+                                        <h4>{{this.date}}</h4>
+                                        <h6>Session</h6>
+                                    </div>
+                                </div>
+
+                                <div class="tab-img d-flex">
+                                    <a href="/app-sheet?appId={{this.appId}}"
+                                        class='bx bx-cloud-download download-icon'></a>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p></p>
+                        <h6 class="text-center">No Consultations</h6>
+                        {{/if}}
+                    </div>
+                </div>
+
+                <div class="prev-tab">
+                    <div class="tab-content card col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4><i class="fa fa-chevron-circle-left back-icon pr-2"></i> Previous Consultations</h4>
+                            </i><a href="#" class="export"><i class="fa fa-download pr-2"></i>Export Data</a>
+                        </div>
+                    </div>
+                    <div class="card3 mb-5 pb-3 pr-2 pl-2">
+                        <div class="row presc-table">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Tab content div -->
+                <div id="results" class="res-tab">
+                    <div class="tab-content card col-12">
+                        <div class="row tab-content-head">
+                            <h2>Cancelled</h2>
+                            <input id="cancelled-input" type="text" placeholder="Search">
+                        </div>
+                        <div class="row hr"></div>
+                    </div>
+                    <div id="cancelled-div" class="card3 mb-5 pb-3">
+                        <!-- appointment -->
+                        {{#if appointments.cancelled}}
+                        {{#each appointments.cancelled}}
+                        <div class="tab-content col-12 appointment v-center cancelled-tab">
+                            <div class="tab-img d-flex align-items-center">
+                                <img src="/images/{{this.doctor._id}}.jpg" alt="image" class="hero-img ">
+                                <div class="img-name">
+                                    <h4>Dr. {{this.doctor.firstname}} {{this.doctor.lastname}}</h4>
+                                    <h6>{{this.doctor.speciality}}</h6>
+                                </div>
+                            </div>
+
+                            <div class="tab-img d-flex">
+                                <div class="img-name">
+                                    <h4>{{this.name}}</h4>
+                                    <h6>Booking For</h6>
+                                </div>
+                            </div>
+
+                            <div class="tab-img d-flex">
+                                <div class="img-name">
+                                    <h4>{{this.date}} {{this.time}}</h4>
+                                    <h6>Session</h6>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p></p>
+                        <h6 class="text-center">No Requests</h6>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 18em;"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#requests-input').keyup(function () {
+            var searchValue = ($('#requests-input').val()).trim();
+            if (searchValue != '') {
+                $.ajax({
+                    url: '/get-requests',
+                    method: 'get',
+                    success: (response) => {
+                        var list = response.response;
+                        const options = {
+                            shouldSort: true,
+                            location: 0,
+                            threshold: 0.6,
+                            distance: 100,
+                            maxPatternLength: 32,
+                            minMatchCharLength: 1,
+                            includeMatches: true,
+                            keys: [
+                                "_id",
+                                "name",
+                                "age",
+                                "phone",
+                                "gender",
+                                "date",
+                                "patientId",
+                                "docId",
+                                "doctor.firstname",
+                                "doctor.lastname",
+                                "doctor.speciality",
+                                "doctor._id",
+                                "speciality",
+                                "time",
+                            ]
+                        };
+                        var fuse = new Fuse(list, options);
+                        var searchResult = fuse.search(searchValue)
+                        console.log(searchResult)
+                        if (searchResult.length > 0) {
+                            console.log(searchResult)
+                            $('#requests-div').empty();
+                            for (i = 0; i < searchResult.length; i++) {
+                                $('#requests-div').append('<div class="tab-content col-12 appointment v-center"><div class="tab-img d-flex align-items-center"><img src="/images/' + searchResult[i].item.doctor._id + '.jpg" alt="image" class="hero-img "><div class="img-name"><h4>Dr. ' + searchResult[i].item.doctor.firstname + ' ' + searchResult[i].item.doctor.lastname + '</h4><h6>' + searchResult[i].item.doctor.speciality + '</h6></div></div><div class="tab-img d-flex"><div class="img-name"><h4>' + searchResult[i].item.name + '</h4><h6>Booking For</h6></div></div><div class="tab-img d-flex"><div class="img-name"><h4>' + searchResult[i].item.date + ' ' + searchResult[i].item.time + '</h4><h6>Session</h6></div></div><div class="pr-3"><i class="bx bx-dots-vertical-rounded opt-icon"></i><div class="options-box"><h6><a href="/cancel-appointment?id=' + searchResult[i].item._id + '" onclick="return confirm("Are you sure you want to Cancel appointment with Dr. ' + searchResult[i].item.doctor.firstname + '")">Cancel</a></h6></div></div></div>')
+                            }
+                        } else {
+                            $('#requests-div').empty();
+                            $('#requests-div').append('<p></p><h6 class="text-center">No Results</h6>')
+                        }
+                    }
+                })
+            }
+        })
+    })
+</script>
+

@@ -12,6 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/components.css">
     <link rel="stylesheet" href="/stylesheets/login.css">
@@ -19,37 +20,107 @@
 </head>
 
 <body>
-    
+
 
     <div class="login-card">
         <div class="login-content">
-            {{!-- {{>messages}} --}}
             <h1>LOGIN</h1>
             <h4>Login to your account to continue</h4>
             <div class="login-register">
-                <h5 class="login-tab active"><a href="">Login</a></h5>
-                <h5 class="register-tab "><a href="">Register</a></h5>
+                <div>
+                    <h5 class="login-tab active"><a href="">Login</a></h5>
+                    <h5 class="register-tab "><a href="">Register</a></h5>
+                </div>
+
             </div>
-            <form action="/login" method="POST">
+            {{#if errors}}
+            <div class="error-box" id="errorDiv">
+                <div class="error-msg">
+                    <p>{{errors}}</p>
+                </div>
+                <i id="closeMsg" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            {{/if}}
+            {{!-- ----------------- --}}
+            <form action="/auth/send-otp" method="POST" id="otp-form">
+                <label for="email">Phone Number (10 digit number)</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <input type="text" maxlength="10" id="phone" name="phone" placeholder="+91"><br>
+                </div>
+                <div class="submit">
+                    <button class="btn btn-green send-otp">Send OTP</button>
+                    <h6 href="" class="send-otp-timer otp">Multiple Requests. Try again later</h6>
+                </div>
+            </form>
+            {{!-- ----------------- --}}
+            <form action="/auth/verify-otp" method="POST" id="otp-verify">
+                <b>Do Not Refresh.</b> Please enter the OTP recieved.<br>
+                <label for="password">Enter OTP</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="text" maxlength="4" id="otp" name="code" placeholder="****">
+                </div>
+                <div class="submit">
+                    <button class="btn btn-green verify-otp" type="submit">Login</button>
+                    <a class="verify-otp-timer"></a>
+                    <h6 class="resendOTP"></h6>
+                </div>
+            </form>
+            {{!-- ----------------- --}}
+            <form action="/login" method="POST" id="login-form">
                 <label for="email">Email Address</label><br>
                 <div class="form-icon-input">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input type="text" id="email" name="email" placeholder="johndoe@gmail.com"><br>
+                    <input type="text" name="email" placeholder="johndoe@gmail.com"><br>
                 </div>
                 <label for="password">Password</label><br>
                 <div class="form-icon-input">
                     <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" id="password" name="password" placeholder="*****">
+                    <input type="password" name="password" placeholder="*****">
                 </div>
                 <div class="submit">
                     <button class="btn btn-green" type="submit">Login</button>
-                    <h5><a href="">Forgot password</a></h5>
+                    <h6 href="" class="otp">Login with OTP</h6>
                 </div>
             </form>
-            <br>
-            <br>
+            {{!-- ----------------- --}}
+            <form action="/register" method="POST" id="register-form">
+                <label for="name">Full Name</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" name="name" placeholder="John Doe"><br>
+                </div>
+                <label for="phone">Phone Number</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" maxlength="10" name="phone" placeholder="+91"><br>
+                </div>
+                <label for="email">Email Address</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input type="text" name="email" placeholder="johndoe@gmail.com"><br>
+                </div>
+                <label for="password">Password</label><br>
+                <div class="form-icon-input">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" name="password" placeholder="*****">
+                </div>
+                <div class="submit">
+                    <button class="btn btn-green" type="submit">Register</button>
+                </div>
+            </form>
+            <hr>
+            <div class="oauth">
+                <a href="/auth/google" class="btn btn-oauth btn-google-plus"><i class="fa fa-google-plus"
+                        aria-hidden="true"></i>Sign In with Google</a>
+                <a href="/auth/facebook" class="btn btn-oauth btn-facebook"><i class="fa fa-facebook"
+                        aria-hidden="true"></i>Sign In with Facebook</a>
+            </div>
+            <div class="forgot-pwd"><a href="">Forgot your password?</a></div>
         </div>
     </div>
 </body>
 
 </html>
+<script src="/javascripts/login.js"></script>

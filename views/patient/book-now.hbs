@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div class="container">
+
+    <div id="tab6" class="tab-content">
+        <!--  Custom breadcrumb  -->
+
+        <div class="content ">
+            <div class="row">
+                <ul class="col-12 col-md-6">
+                    <div class="bar col-12 mt-4">
+                        <li class="bar-item"><a href="/homepage">Homepage</a></li>
+                        <span>/</span>
+                        <li class="bar-item active">Book Your Appoinment</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- - Form  -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>Booking Details</div>
+                        </div>
+                    </div>
+                    <div class="card2 card">
+                        <form action="/book-appointment?docId={{bookingDocId}}" method="POST"
+                            enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input data-id="{{bookingDocId}}" type="text" name="date" class="form-control book-date"
+                                    placeholder="dd-mm-yyyy" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Available Session</label>
+                                <select class="form-control" id="session" name="time">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="text" class="form-control" name="age" id="edit-age" placeholder="18">
+                            </div>
+                            <div class="row ">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="phone">Phone Number</label>
+                                    <input id="edit-phone" type="phone" class="form-control" name="phone"
+                                        placeholder="+91 " required>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label>Gender</label>
+                                    <div class="radio-box formInputs pl-2">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="gender"
+                                                id="male-edit" value="male">
+                                            <label class="custom-control-label" for="male-edit" required>Male</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="gender"
+                                                value="female" id="female-edit">
+                                            <label class="custom-control-label" for="female-edit">Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12 mb-4">
+                                    <label for="disese">Disese</label>
+                                    <textarea id="edit-disese" type="textarea" rows="4" class="form-control"
+                                        name="disese" id="disese-edit" placeholder="Infection, etc."></textarea>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-green">Book Now</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.book-date').datepicker({
+        dateFormat: 'dd/mm/yy',
+        onSelect: function (date) {
+            var docID = $(this).data('id');
+            $.ajax({
+                url: '/get-session-availability?date=' + date + '&docId=' + docID,
+                method: 'get',
+                success: (response) => {
+                    var sessionArray = response.session
+                    if (sessionArray.length == 0) {
+                        var session = document.getElementById('session');
+                        var option = document.createElement('option');
+                        option.innerHTML = "No sessions available on this date. Please try again after some time";
+                        session.appendChild(option);
+                    } else {
+                        for (var i = 0; i < sessionArray.length; i++) {
+                            var session = document.getElementById('session');
+                            var option = document.createElement('option');
+                            option.innerHTML = sessionArray[i].time;
+                            option.value = sessionArray[i].time;
+                            session.appendChild(option);
+                        }
+                    }
+                }
+            })
+        }
+    });
+</script>

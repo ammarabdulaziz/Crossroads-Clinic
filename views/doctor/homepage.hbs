@@ -1,0 +1,535 @@
+<div class="container">
+    <div class="row">
+        <!-- Profile Div -->
+        <div class="profile-card col-12 col-lg-4">
+            <div class="col-12">
+                <div class="row">
+                    <div class="card col-12">
+                        <div class="row pt-1">
+                            <!-- Image -->
+                            <div class="col-4 col-md-4 pr-0">
+                                <img src="/images/{{user._id}}.jpg" onerror="this.src='/images/default.png';"
+                                    class="hero-img">
+                            </div>
+                            <!-- Name and Subs -->
+                            <div class="col-8 col-md-8">
+                                <h2>Dr. {{user.firstname}} {{user.lastname}}</h2>
+                                <div class="v-start">
+                                    <i class="fa fa-user pr-2" aria-hidden="true"></i>
+                                    <h5>Doctor</h5>
+                                </div>
+                                <div class="v-start">
+                                    <i class="fa fa-stethoscope pr-2" aria-hidden="true"></i>
+                                    <h5>{{user.speciality}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        {{!-- Icons --}}
+                        <div class="row details">
+                            <div class="col-12 detail-1">
+                                <i class="fa fa-phone pl-1" aria-hidden="true"></i>
+                                <a href="#" class="pl-1 ml-3">
+                                    {{#if user.phone}}{{user.phone}}
+                                    {{else}} - - - - -
+                                    {{/if}}
+                                </a>
+                            </div>
+                            <div class="col-12 detail-2 pt-3">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <a href="#" class="pl-1 ml-3">{{#if user.email}}{{user.email}}
+                                    {{else}} - - - - -
+                                    {{/if}}</a>
+                            </div>
+                            <div class="col-12 detail-3 pt-3">
+                                <i class="fa fa-map-marker pl-1" aria-hidden="true"></i>
+                                <a href="#" class="pl-2 ml-3">{{#if user.place}}{{user.place}}
+                                    {{else}} - - - - -
+                                    {{/if}}</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <a href="/doctor/edit-profile?id={{user._id}}" class="btn btn-blue-outline">Edit
+                                    Profile</a>
+                            </div>
+                        </div>
+                        <div class="row doc-tabs doc-nav mb-lg-5">
+                            <div class="mob-tabs col-12 mb-2">
+                                <h3>Tabs</h3>
+                                <i class='bx bx-menu-alt-right'></i>
+                            </div>
+                            <ul class="display-tabs">
+                                <div class="hr"></div>
+                                <li data-filter="appointments" class="active">Appointments</li>
+                                <div class="hr"></div>
+                                <li data-filter="bookings">Bookings</li>
+                                <div class="hr"></div>
+                                <li data-filter="cancelled">Cancelled</li>
+                                <div class="hr"></div>
+                                <li data-filter="myPatients">My Patients</li>
+                                <div class="hr"></div>
+                                <li data-filter="results">Results</li>
+                                <div class="hr"></div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-8">
+            <div class="tab appointments">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Appointments</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <div class="tab-head pl-1 mb-3 col-12">
+                        <div class="tab-menu">
+                            <li data-filter="today" class="pl-0 active"><a href="#">Today</a></li>
+                            <li data-filter="upcoming"><a href="#">Upcoming</a></li>
+                            <li data-filter="consulted"><a href="#">Consulted</a></li>
+                            <li data-filter="expired"><a href="#">Expired</a></li>
+                        </div>
+                    </div>
+                    <div>
+                        {{!-- Today --}}
+                        <div class="today">
+                            <div class="scroll-table">
+                                <table class="table dataTable" id="today-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Age</th>
+                                            <th>Gender</th>
+                                            <th>Phone</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#if bookings.today}}
+                                        {{#each bookings.today}}
+                                        {{!-- {{#check this.date today}} --}}
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.time}}</td>
+                                            <td>{{this.age}}</td>
+                                            <td>{{this.gender}}</td>
+                                            <td>{{this.phone}}</td>
+                                            <td><a href="/doctor/consult?appId={{this._id}}&patientId={{this.patientId}}&name={{this.name}}&age={{this.age}}"
+                                                    class="btn-sm btn-info">Consult</a></td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr>
+                                            <td align="center" colspan="7">
+                                                <h6>No Records</h6>
+                                            </td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="upcoming">
+                            <div class="scroll-table">
+                                <table class="table dataTable" id="upcoming-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Age</th>
+                                            <th>Gender</th>
+                                            <th>Phone</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#if bookings.upcoming}}
+                                        {{#each bookings.upcoming}}
+                                        {{!-- {{#check this.date today}} --}}
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.time}}</td>
+                                            <td>{{this.age}}</td>
+                                            <td>{{this.gender}}</td>
+                                            <td>{{this.phone}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr>
+                                            <td align="center" colspan="7">
+                                                <h6>No Records</h6>
+                                            </td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="consulted">
+                            <div class="scroll-table">
+                                <table class="table dataTable" id="consulted-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient Name</th>
+                                            <th>Date</th>
+                                            <th>Age</th>
+                                            <th>Gender</th>
+                                            <th>Phone</th>
+                                            <th>Prescription</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#if bookings.consulted}}
+                                        {{#each bookings.consulted}}
+                                        {{!-- {{#check this.date today}} --}}
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.age}}</td>
+                                            <td>{{this.gender}}</td>
+                                            <td>{{this.phone}}</td>
+                                            <td><a href="/doctor/app-sheet?appId={{this._id}}" class="btn-sm btn-info">download</a></td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr>
+                                            <td align="center" colspan="7">
+                                                <h6>No Records</h6>
+                                            </td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="expired">
+                            <div class="scroll-table">
+                                <table class="table dataTable" id="expired-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Age</th>
+                                            <th>Gender</th>
+                                            <th>Phone</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#if bookings.expired}}
+                                        {{#each bookings.expired}}
+                                        {{!-- {{#check this.date today}} --}}
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.date}}</td>
+                                            <td>{{this.time}}</td>
+                                            <td>{{this.age}}</td>
+                                            <td>{{this.gender}}</td>
+                                            <td>{{this.phone}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr>
+                                            <td align="center" colspan="7">
+                                                <h6>No Records</h6>
+                                            </td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="tab consultation">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Appointments</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    Appointments
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="tab bookings">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Bookings</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <div class="scroll-table">
+                        <table class="table" id="bookings">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#if bookings.requested}}
+                                {{#each bookings.requested}}
+                                <tr>
+                                    <td>{{this.name}}</td>
+                                    <td>{{this.date}}</td>
+                                    <td>{{this.time}}</td>
+                                    <td>{{this.phone}}</td>
+                                    <td><a href="/doctor/approve-appointment?id={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to Approve appointment with {{this.name}}')"
+                                            class="btn-sm btn-success">Accept</a></td>
+                                    <td><a href="/doctor/cancel-appointment?id={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to Cancel appointment with {{this.name}}')"
+                                            class="btn-sm btn-danger">Reject</a></td>
+                                    <td><a href="/doctor/block-patient?patientId={{this.patientId}}&appId={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to you want to block {{this.name}} permenently?')"
+                                            class="btn-sm btn-dark">Block</a></td>
+                                </tr>
+                                {{/each}}
+                                {{else}}
+                                <tr>
+                                    <td align="center" colspan="7">
+                                        <h6>No Records</h6>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="tab cancelled">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Cancelled</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <div class="scroll-table">
+                        <table class="table" id="cancelled">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#if bookings.cancelled}}
+                                {{#each bookings.cancelled}}
+                                <tr>
+                                    <td>{{this.name}}</td>
+                                    <td>{{this.date}}</td>
+                                    <td>{{this.age}}</td>
+                                    <td>{{this.gender}}</td>
+                                    <td>{{this.phone}}</td>
+                                </tr>
+                                {{/each}}
+                                {{else}}
+                                <tr>
+                                    <td align="center" colspan="7">
+                                        <h6>No Records</h6>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="tab myPatients">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>My Patients</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <div class="scroll-table">
+                        <table class="table" id="myPatients">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Place</th>
+                                    <th>DOB</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Block</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#if myPatients}}
+                                {{#each myPatients}}
+                                <tr data-id="{{this._id}}">
+                                    <td>{{this.patient.name}}</td>
+                                    <td>{{this.patient.place}}</td>
+                                    <td>{{this.patient.dob}}</td>
+                                    <td>{{this.patient.gender}}</td>
+                                    <td>{{this.patient.phone}}</td>
+                                    {{#check this.status "active"}}
+                                    <td>
+                                        <a href="/doctor/block-patient?patientId={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to you want to block {{this.patient.name}} permenently?')"
+                                            class="block-btn btn-sm btn-dark block-doctor text-center">Block</a>
+                                    </td>
+                                    {{else}}
+                                    <td>
+                                        <a href="/doctor/unblock-patient?patientId={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to you want to unblock {{this.patient.name}}?')"
+                                            class="block-btn btn-sm btn-light unblock-doctor text-center">Unblock</a>
+                                    </td>
+                                    {{/check}}
+                                </tr>
+                                {{/each}}
+                                {{else}}
+                                <tr>
+                                    <td align="center" colspan="7">
+                                        <h6>No Patients</h6>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-content card col-12 mt-4 previous-tab">
+                    <div class="d-flex justify-content-between align-items-center p-3">
+                        <h4><i class="fa fa-chevron-circle-left back-icon pr-2"></i> Previous Consultations</h4>
+                        </i><a href="#" class="export"><i class="fa fa-download pr-2"></i>Export Data</a>
+                    </div>
+                    <div class="row presc-table">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tab results">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Results</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <h6 class="text-center">No Results</h6>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+    <div style="height: 18em;"></div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#today-table').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#upcoming-table').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#consulted-table').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#expired-table').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#bookings').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#cancelled').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+    $(document).ready(function () {
+        $('#myPatients').DataTable();
+        var $input = $('.dataTables_filter label > input');
+        $input.parent().after($input);
+        $('.dataTables_wrapper input[type=search]').attr("placeholder", "Search");
+    });
+
+    // Previous Consultations AJAX
+    $(document).ready(function () {
+        $('.previous-tab').hide()
+        $("#myPatients tbody tr").click(function () {
+            $('.export').attr('href', '#');
+            $('.previous-tab').show().siblings().hide()
+            $('.presc-table').empty();
+
+            var patientId = $(this).data('id');
+            $('.export').attr('href', '/doctor/previous-sheet?patientId=' + patientId);
+            //$(this).
+            $.ajax({
+                url: '/doctor/previous?id=' + patientId,
+                method: 'get',
+                success: (response) => {
+                    // Doctor data recieved in response.response object
+                    let prescriptions = response.response
+                    prescriptions.forEach(function (presc) {
+                        var columns = ""
+                        for (i = 0; i < presc.prescription.length; i++) {
+                            var column = '<tr><td>' + presc.prescription[i] + '</td></tr>'
+                            columns += column;
+                        }
+                        $('.presc-table').append('<div class="col-12 col-md-6"><table class="table"><thead><tr><th>' + presc.date +
+                            '</th></tr></thead><tbody>' + columns + '</tbody></table></div>')
+                    })
+
+                }
+            })
+        })
+        $('.previous-tab h4 i').on('click', () => {
+            $('.previous-tab').hide().siblings().show()
+        })
+    })
+</script>

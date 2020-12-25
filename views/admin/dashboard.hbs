@@ -1,83 +1,910 @@
-<!--  Custom breadcrumb  -->
+<div class="tab-container">
 
-<div class="content">
-    <div>
-        <ul class="bar">
-            <li class="bar-item"><a href="/admin">Dashboard</a></li>
-        </ul>
+
+    {{!-- ----------------------- Dashboard ----------------------- --}}
+    <div id="tab1" class="tab-content">
+        <!--  breadcrumb  -->
+        <div class="content">
+            <div>
+                <ul class="bar">
+                    <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Dashboard Cards -->
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 col-xl-4 mb-3">
+                    <div class="dash-card">
+                        <div class="icon-bg">
+                            <i class='bx bx-heart nav__icon color-1'></i>
+                        </div>
+                        <div class="card-content color-1">
+                            <h4>Doctors</h4>
+                            <h3>{{counts.doctorsCount}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 mb-3">
+                    <div class="dash-card">
+                        <div class="icon-bg">
+                            <i class='bx bx-bookmark nav__icon color-2'></i>
+                        </div>
+                        <div class="card-content color-2">
+                            <h4>Patients</h4>
+                            <h3>{{counts.patientsCount}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 mb-3">
+                    <div class="dash-card">
+                        <div class="icon-bg">
+                            <i class='bx bx-bookmark nav__icon color-3'></i>
+                        </div>
+                        <div class="card-content color-3">
+                            <h4>Appointments</h4>
+                            <h3>{{counts.appointments}}</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-4 mb-3">
+                    <div class="dash-card">
+                        <div class="icon-bg">
+                            <i class='bx bx-bookmark nav__icon color-4'></i>
+                        </div>
+                        <div class="card-content color-4">
+                            <h4>Appointments<br>Consulted</h4>
+                            <h3>{{counts.consulted}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 mb-3">
+                    <div class="dash-card">
+                        <div class="icon-bg">
+                            <i class='bx bx-bookmark nav__icon color-6'></i>
+                        </div>
+                        <div class="card-content color-5">
+                            <h4>Appointments<br>Pending</h4>
+                            <h3>{{counts.pending}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 mb-3">
+                    <div class="dash-card">
+                        <div class="icon-bg">
+                            <i class='bx bx-bookmark nav__icon color-6'></i>
+                        </div>
+                        <div class="card-content color-6">
+                            <h4>Appointments<br>Cancelled</h4>
+                            <h3>{{counts.cancelled}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- Dashboard Cards -->
 
-<div class="content">
-    <div class="row">
-        <div class="col-12 col-md-6 col-xl-4 mb-3">
-            <div class="dash-card">
-                <div class="icon-bg">
-                    <i class='bx bx-heart nav__icon color-1'></i>
-                </div>
-                <div class="card-content color-1">
-                    <h4>Doctors</h4>
-                    <h3>76</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4 mb-3">
-            <div class="dash-card">
-                <div class="icon-bg">
-                    <i class='bx bx-bookmark nav__icon color-2'></i>
-                </div>
-                <div class="card-content color-2">
-                    <h4>Patients</h4>
-                    <h3>76</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4 mb-3">
-            <div class="dash-card">
-                <div class="icon-bg">
-                    <i class='bx bx-bookmark nav__icon color-3'></i>
-                </div>
-                <div class="card-content color-3">
-                    <h4>Appointments</h4>
-                    <h3>76</h3>
-                </div>
+    {{!-- ----------------------- Doctors ----------------------- --}}
+    <div id="tab2" class="tab-content">
+        <!--  breadcrumb  -->
+        <div class="content">
+            <div>
+                <ul class="bar">
+                    <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                    <span>/</span>
+                    <li class="bar-item active">Doctors</li>
+                </ul>
             </div>
         </div>
 
-        <div class="col-12 col-md-6 col-xl-4 mb-3">
-            <div class="dash-card">
-                <div class="icon-bg">
-                    <i class='bx bx-bookmark nav__icon color-4'></i>
-                </div>
-                <div class="card-content color-4">
-                    <h4>Appointments<br>Consulted</h4>
-                    <h3>76</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4 mb-3">
-            <div class="dash-card">
-                <div class="icon-bg">
-                    <i class='bx bx-bookmark nav__icon color-5'></i>
-                </div>
-                <div class="card-content color-5">
-                    <h4>Appointments<br>Pending</h4>
-                    <h3>76</h3>
+        <!-- Table -->
+        <div class="content">
+            <div class="card">
+                <div class="card-head">
+                    <div>Doctors</div>
+                    <a href="#tab2.1" class="btn btn-green formInputs btn-add"><i class='bx bxs-user-plus'></i>Add
+                        Doctor</a>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4 mb-3">
-            <div class="dash-card">
-                <div class="icon-bg">
-                    <i class='bx bx-bookmark nav__icon color-6'></i>
-                </div>
-                <div class="card-content color-6">
-                    <h4>Appointments<br>Cancelled</h4>
-                    <h3>76</h3>
-                </div>
+            <div class="card2 card mb-4">
+                <table class="table table-hover" id="doctors-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width : 30px">Profile</th>
+                            <th scope="col" style="min-width : 140px; ">Name</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Specialized</th>
+                            <th scope="col">Speciality</th>
+                            <th scope="col" class="actions">Actions</th>
+                            <th scope="col">Block</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each doctors}}
+                        <tr>
+                            <td><img src="/images/{{this._id}}.jpg" alt=""></td>
+                            <td>Dr. {{this.firstname}} {{this.lastname}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.specialized}}</td>
+                            <td>{{this.speciality}}</td>
+                            <td>
+                                <a href="#tab2.3" data-id="{{this._id}}" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a>
+                                <a href="#tab2.2" data-id="{{this._id}}"
+                                    class="btn-action btn-edit edit-profile edit-doctor"><i
+                                        class='bx bx-pencil nav__icon'></i></a>
+                                <a href="#" data-id="{{this._id}}" class="btn-action btn-delete delete-doctor"><i
+                                        class='bx bx-trash nav__icon'></i></a>
+                            </td>
+                            {{#check this.status "active"}}
+                            <td>
+                                <a href="#" data-id="{{this._id}}"
+                                    class="block-btn btn-sm btn-dark block-doctor text-center">Block</a>
+                            </td>
+                            {{else}}
+                            <td>
+                                <a href="#" data-id="{{this._id}}"
+                                    class="block-btn btn-sm btn-light unblock-doctor text-center">Unblock</a>
+                            </td>
+                            {{/check}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-</div>
+
+
+
+    {{!-- ----------------------- Patients ----------------------- --}}
+    <div id="tab3" class="tab-content">
+        <!--  breadcrumb  -->
+        <div class="content">
+            <div>
+                <ul class="bar">
+                    <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                    <span>/</span>
+                    <li class="bar-item active">Patients</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="content">
+            <div class="card">
+                <div class="card-head">
+                    <div>Patients</div>
+                </div>
+            </div>
+            <div class="card2 card mb-4">
+                <table class="table table-hover" id="patients-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Place</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Appointments</th>
+                            <th scope="col">Actions</th>
+                            <th scope="col">Block</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each patients}}
+                        <tr>
+                            <td>{{this.name}}</td>
+                            <td>{{this.dob}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{this.place}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.appointments}}</td>
+                            <td>
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                {{!-- <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                                --}}
+                                <a href="#" data-id="{{this._id}}" class="btn-action btn-delete delete-ptnt"><i
+                                        class='bx bx-trash nav__icon'></i></a>
+                            </td>
+                            {{#check this.status "active"}}
+                            <td>
+                                <a href="#" data-id="{{this._id}}"
+                                    class="block-btn btn-sm btn-dark block-ptnt text-center">Block</a>
+                            </td>
+                            {{else}}
+                            <td>
+                                <a href="#" data-id="{{this._id}}"
+                                    class="block-btn btn-sm btn-light unblock-ptnt text-center">Unblock</a>
+                            </td>
+                            {{/check}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    {{!-- ----------------------- Appointments ----------------------- --}}
+    <div id="tab4" class="tab-content">
+        <!--  breadcrumb  -->
+        <div class="content">
+            <div>
+                <ul class="bar">
+                    <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                    <span>/</span>
+                    <li class="bar-item active">Appointments</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="content">
+            <div class="card">
+                <div class="card-head">
+                    <div>Appointments</div>
+                </div>
+            </div>
+            <div class="card2 card mb-4">
+                <table class="table table-hover" id="appointment-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date-Time</th>
+                            <th scope="col">Doctor Name</th>
+                            <th scope="col">Booking For</th>
+                            <th scope="col">Session</th>
+                            <th scope="col" class="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>24/12/2020 : 6 PM</td>
+                            <td>Dr. Prashanth</td>
+                            <td>Abdulla K</td>
+                            <td>Morning</td>
+                            <td>
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                                <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>24/12/2020 : 4 PM</td>
+                            <td>Dr. Amith</td>
+                            <td>Abdul Aziz</td>
+                            <td>Evening</td>
+                            <td>
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                                <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>19/12/2020 : 9 PM</td>
+                            <td>Dr. Rajeev</td>
+                            <td>Fayiz Kv</td>
+                            <td>After Noon</td>
+                            <td>
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                                <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>13/12/2020 : 1 PM</td>
+                            <td>Dr. Hameed</td>
+                            <td>Fawzan</td>
+                            <td>Morning</td>
+                            <td>
+                                {{!-- <a href="#" class="btn-action btn-view"><i
+                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
+                                <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
+                                <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+    {{!-- ----------------------- Add Doctor Forms ----------------------- --}}
+    <div id="tab5" class="tab-content">
+
+        <!--  Custom breadcrumb  -->
+
+        <div class="content ">
+            <div>
+                <ul class="bar">
+                    <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                    <span>/</span>
+                    <li class="bar-item"><a href="/admin/view-doctors">Doctors</a></li>
+                    <span>/</span>
+                    <li class="bar-item active">Add</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- - Form  -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>Add Details</div>
+                        </div>
+                    </div>
+                    <div class="card2 card">
+                        <form action="/admin/add-dcotor" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="fname">First Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Dr.</span>
+                                        </div>
+                                        <input type="text" name="fname" class="form-control side-rectangle"
+                                            placeholder="John" aria-label="Username" aria-describedby="basic-addon1"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="lname">Last Name</label>
+                                    <input type="name" class="form-control" name="lname" id="lname" placeholder="Doe"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" name="email" class="form-control" id="email"
+                                    placeholder="johndoe@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password</label>
+                                <input type="password" class="form-control" name="password" id="pwd"
+                                    placeholder="******">
+                            </div>
+                            <div class="form-group">
+                                <label for="place">Place</label>
+                                <input type="text" class="form-control" name="place" id="place"
+                                    placeholder="Calicut, India">
+                            </div>
+                            <div class="row ">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="phone" class="form-control" name="phone" id="phone" placeholder="+91 "
+                                        required>
+                                </div>
+                                <div class="col-12 col-md-6 ">
+                                    <label>Gender</label>
+                                    <div class="radio-box formInputs pl-2">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="gender" value="male"
+                                                id="male">
+                                            <label class="custom-control-label" for="male" required>Male</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="gender"
+                                                value="female" id="female">
+                                            <label class="custom-control-label" for="female">Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card">
+                    </div>
+                    <div class="card2 card no-border">
+                        <div class="row">
+                            <div class="form-group col-12 col-md-6">
+                                <label for="speciality">Speciality</label>
+                                <select class="form-control" name="speciality">
+                                    {{#each specialities}}
+                                    <option>{{this.speciality}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group col-12 col-md-6">
+                                <label for="specialized">Specialized</label>
+                                <input type="text" class="form-control" name="specialized" placeholder="BDS" required>
+                            </div>
+                        </div>
+                        <div class="row formInputs">
+                            <div class="form-group col-12">
+                                <label for="image" class="custom-file-upload">
+                                    <div class="formInputs">
+                                        <i class='bx bx-cloud-upload'></i>
+                                        Upload Profile Image
+                                        <input type="file" class="image" id="image">
+                                    </div>
+                                    <img src="#" class="displayImg" name="image" alt="">
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <button type="submit" class="btn btn-green">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+            <p></p>
+            {{!-- Input hidden for sending image base64 data --}}
+            <input type="text" class="form-control image-label" style="visibility: hidden; position:absolute;"
+                name="image" style="">
+            </form>
+        </div>
+        <div class="modal-bg">
+            <div class="modal-box col-11 col-sm-8 col-md-6 col-lg-4">
+                <i class="fa fa-times-circle-o close-icon" aria-hidden="true"></i>
+                <div class="col-12 image_demo" id="image_demo_add"></div>
+                <a class="btn btn-green formInputs col-12 crop-btn">Crop Image</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    {{!-- ----------------------- Edit Doctor Forms ----------------------- --}}
+    <div id="tab6" class="tab-content">
+
+        <!--  Custom breadcrumb  -->
+
+        <div class="content">
+            <div>
+                <ul class="bar">
+                    <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                    <span>/</span>
+                    <li class="bar-item"><a href="/admin/view-doctors">Doctors</a></li>
+                    <span>/</span>
+                    <li class="bar-item active">Edit</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- - Form  -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>Edit Details</div>
+                        </div>
+                    </div>
+                    <div class="card2 card">
+                        <form id="update" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="fname">First Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon2">Dr.</span>
+                                        </div>
+                                        <input id="edit-fname" type="text" name="fname"
+                                            class="form-control side-rectangle" placeholder="John" aria-label="Username"
+                                            aria-describedby="basic-addon2" required>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="lname">Last Name</label>
+                                    <input id="edit-lname" type="name" class="form-control" name="lname"
+                                        placeholder="Doe" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input id="edit-email" type="email" name="email" class="form-control"
+                                    placeholder="johndoe@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">New Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="******">
+                            </div>
+                            <div class="form-group">
+                                <label for="place">Place</label>
+                                <input type="text" class="form-control" name="place" id="edit-place"
+                                    placeholder="Calicut, India">
+                            </div>
+                            <div class="row ">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="phone">Phone Number</label>
+                                    <input id="edit-phone" type="phone" class="form-control" name="phone"
+                                        placeholder="+91 " required>
+                                </div>
+                                <div class="col-12 col-md-6 ">
+                                    <label>Gender</label>
+                                    <div class="radio-box formInputs pl-2">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="gender"
+                                                id="male-edit" value="male">
+                                            <label class="custom-control-label" for="male-edit" required>Male</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="gender"
+                                                value="female" id="female-edit">
+                                            <label class="custom-control-label" for="female-edit">Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card">
+                    </div>
+                    <div class="card2 card no-border">
+                        <div class="row">
+                            <div class="form-group col-12 col-md-6">
+                                <label for="speciality">Speciality</label>
+                                <select class="form-control" id="speciality" name="speciality">
+                                    {{#each specialities}}
+                                    <option>{{this.speciality}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group col-12 col-md-6">
+                                <label for="specialized">Specialized</label>
+                                <input type="text" class="form-control" name="specialized" id="edit-specialized"
+                                    placeholder="BDS" required>
+                            </div>
+                        </div>
+                        <div class="row formInputs">
+                            <div class="form-group col-12">
+                                <label for="image" class="custom-file-upload">
+                                    <div class="formInputs">
+                                        <i class='bx bx-cloud-upload'></i>
+                                        Upload Profile Image
+                                        <input type="file" class="image" id="image-edit">
+                                    </div>
+                                    <img src="#" class="displayImg" id="displayImg-edit" name="image" alt="">
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <button type="submit" class="btn btn-green">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <p></p>
+                {{!-- Input hidden for sending image base64 data --}}
+                <input type="text" class="form-control image-label" style="visibility: hidden; position:absolute;"
+                    name="image" style="">
+                </form>
+            </div>
+            <div class="modal-bg">
+                <div class="modal-box col-11 col-sm-8 col-md-6 col-lg-4">
+                    <i class="fa fa-times-circle-o close-icon" aria-hidden="true"></i>
+                    <div class="col-12" id="image_demo_edit"></div>
+                    <a class="btn btn-green formInputs col-12 crop-btn">Crop Image</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    {{!-- ----------------------- Profile ----------------------- --}}
+    <div id="tab7" class="tab-content">
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-8 box-padding profile-content">
+                    <div class="row">
+                        <div class="card col-12">
+                            <div class="row pt-1">
+                                <!-- Image -->
+                                <div class="col-4 col-md-3">
+                                    <img src="" alt="" class="hero-img">
+                                </div>
+                                <!-- Name and Subs -->
+                                <div class="col-8 col-md-6">
+                                    <h2></h2>
+                                    <div class="v-start sub-name">
+                                        <i class="fa fa-user-md" aria-hidden="true"></i>
+                                        <h5></h5>
+                                    </div>
+                                    <div class="v-start pt-1 join-date">
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                        <h5></h5>
+                                    </div>
+                                    <div class="v-center rating pt-1">
+                                        <p>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o pr-1" aria-hidden="true"></i>
+                                            364 Reviews
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Btn and Review -->
+                                <div class="col-12 col-md-3">
+                                    <a href="#tab2.2" data-id=""
+                                        class="btn btn-blue-outline btn-edit-profile edit-profile edit-doctor">Edit
+                                        Profile</a>
+                                </div>
+                            </div>
+                            <!-- Contact Icons -->
+
+                            <div class="row details">
+                                <div class="col-12 col-md-4 pb-3 pb-md-0 text-center detail-1">
+                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                    <a href="#"></a>
+                                </div>
+                                <div class="col-12 col-md-4 pt-3 pb-3 pb-md-0 pt-md-0 text-center detail-2">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    <a href="#"></a>
+                                </div>
+                                <div class="col-12 col-md-4 pt-3 pt-md-0 text-center detail-3">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <a href="#"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="card col-12">
+                            <div class="patients-card">
+                                <div class="icon-bg">
+                                    <i class='bx bx-bookmark nav__icon color-5'></i>
+                                </div>
+                                <div class="card-content color-5">
+                                    <h4>Patients</h4>
+                                    <h3>75</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <br>
+                </div>
+                <!-- Recent review -->
+                <div class="col-12 col-md-4 box-padding recent-review">
+                    <div class="row card">
+                        <h2>Recent Review</h2>
+                        <!-- Review box -->
+                        <div class="review-box row">
+                            <div class="col-3 pl-2 pr-0 pt-1">
+                                <img src="/images/perfil.jpg" alt="" class="hero-img">
+                            </div>
+                            <div class="col-9 pt-1">
+                                <h5>John Doe</h5>
+                                <div class="v-center rating pb-1">
+                                    3.8
+                                    <i class="fa fa-star pl-1" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </div>
+                                <h6>Hospital & staff were extremely warm & quick in getting me start with the
+                                    procedures.
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="review-box row">
+                            <div class="col-3 pl-2 pr-0 pt-1">
+                                <img src="/images/perfil.jpg" alt="" class="hero-img">
+                            </div>
+                            <div class="col-9 pt-1">
+                                <h5>John Doe</h5>
+                                <div class="v-center rating pb-1">
+                                    3.8
+                                    <i class="fa fa-star pl-1" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </div>
+                                <h6>Hospital & staff were extremely warm & quick in getting me start with the
+                                    procedures.
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="review-box row">
+                            <div class="col-3 pl-2 pr-0 pt-1">
+                                <img src="/images/perfil.jpg" alt="" class="hero-img">
+                            </div>
+                            <div class="col-9 pt-1">
+                                <h5>John Doe</h5>
+                                <div class="v-center rating pb-1">
+                                    3.8
+                                    <i class="fa fa-star pl-1" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </div>
+                                <h6>Hospital & staff were extremely warm & quick in getting me start with the
+                                    procedures.
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+
+
+    {{!-- ----------------------- Specialities Table ----------------------- --}}
+    <div id="tab8" class="tab-content">
+        <!--  breadcrumb  -->
+        <div class="content">
+            <div>
+                <ul class="bar">
+                    <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                    <span>/</span>
+                    <li class="bar-item active">Specialities</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="content">
+            <div class="card">
+                <div class="card-head">
+                    <div>Specialities</div>
+                    <a href="#tab8.2" class="btn btn-green formInputs btn-add-speciality"><i
+                            class='bx bxs-user-plus'></i>Add
+                        Speciality</a>
+                </div>
+            </div>
+            <div class="card2 card mb-4">
+                <table class="table table-hover" id="specialities-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width : 250px; ">Speciality</th>
+                            <th scope="col" class="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each specialities}}
+                        <tr>
+                            <td>{{this.speciality}}</td>
+                            <td>
+                                <a href="#tab2.2" data-id="{{this._id}}" name="{{this.speciality}}"
+                                    class="btn-action btn-edit edit-speciality"><i
+                                        class='bx bx-pencil nav__icon'></i></a>
+                                <a href="#" data-id="{{this._id}}" class="btn-action btn-delete dlt-spec"><i
+                                        class='bx bx-trash nav__icon'></i></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    {{!-- ----------------------- Add Speciality Forms ----------------------- --}}
+    <div id="tab9" class="tab-content">
+
+        <!--  Custom breadcrumb  -->
+
+        <div class="content ">
+            <div class="row">
+                <ul class="col-12 col-md-6">
+                    <div class="bar col-12 mt-4">
+                        <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                        <span>/</span>
+                        <li class="bar-item"><a href="/admin/view-doctors">Specialities</a></li>
+                        <span>/</span>
+                        <li class="bar-item active">Add</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- - Form  -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>Add Speciality</div>
+                        </div>
+                    </div>
+                    <div class="card2 card">
+                        <form action="/admin/add-speciality" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="speciality">Speciality</label>
+                                    <div class="input-group">
+                                        <input type="text" name="speciality" class="form-control"
+                                            placeholder="Orthology" aria-label="Username"
+                                            aria-describedby="basic-addon1" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-green">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+        </div>
+    </div>
+
+
+
+    {{!-- --------- Edit Speciality form -------- --}}
+    <div id="tab9" class="tab-content">
+
+        <!--  Custom breadcrumb  -->
+
+        <div class="content ">
+            <div class="row">
+                <ul class="col-12 col-md-6">
+                    <div class="bar col-12 mt-4">
+                        <li class="bar-item"><a href="/admin">Dashboard</a></li>
+                        <span>/</span>
+                        <li class="bar-item"><a href="/admin/view-doctors">Specialities</a></li>
+                        <span>/</span>
+                        <li class="bar-item active">Edit</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- - Form  -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-head">
+                            <div>Edit Speciality</div>
+                        </div>
+                    </div>
+                    <div class="card2 card">
+                        <form action="" class="edit-spec-form" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="speciality">Speciality</label>
+                                    <div class="input-group">
+                                        <input type="text" name="speciality" class="form-control speciality"
+                                            placeholder="Orthology" aria-label="Username"
+                                            aria-describedby="basic-addon1" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-green">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+        </div>
+    </div>

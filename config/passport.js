@@ -2,6 +2,8 @@ var db = require('./connection')
 var collections = require('./collections')
 var objectId = require('mongodb').ObjectID
 const LocalStrategy = require('passport-local').Strategy
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const bcrypt = require('bcrypt')
 
 
@@ -9,9 +11,9 @@ module.exports = function (passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
             // Match user email in 3 different collections
-            db.get().collection(collections.ADMIN_COLLECTION).findOne({ email: email }).then(user => {
+            db.get().collection(collections.ADMIN_COLLECTION).findOne({ email: email }).then((user) => {
                 if (!user) {
-                    db.get().collection(collections.PATIENTS_COLLECTION).findOne({ email: email }).then(user => {
+                    db.get().collection(collections.PATIENTS_COLLECTION).findOne({ email: email }).then((user) => {
                         if (!user) {
                             db.get().collection(collections.DOCTORS_COLLECTION).findOne({ email: email }).then((user) => {
                                 if (!user) {
@@ -25,7 +27,7 @@ module.exports = function (passport) {
                 } else { matchPassword(password, user) }
 
             });
-            
+
             // Match password function
             function matchPassword(password, user) {
                 console.log('password', password)
@@ -43,6 +45,74 @@ module.exports = function (passport) {
             }
         })
     );
+
+    // Google Strategy
+    passport.use(new GoogleStrategy({
+        clientID: '342345441039-borvs3jfm5rps6pin8d179qiv9otme0k.apps.googleusercontent.com',
+        clientSecret: '2Nk5M0B7roDZhXlS36wXAUMO',
+        callbackURL: "/auth/google/callback"
+    },
+        async function (accessToken, refreshToken, profile, done) {
+            // profile contains user details
+            let newUser = {
+                googleId: profile.id,
+                name: profile.displayName,
+                email: profile.emails[0].value,
+                status: 'active',
+                patient: true
+            }
+
+            try {
+                let user = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ googleId: profile.id })
+                if (user) {
+                    done(null, user)
+                } else {
+                    // Register new user if user not found
+                    db.get().collection(collections.PATIENTS_COLLECTION).insertOne(newUser).then((user) => {
+                        done(null, user.ops[0])
+                    })
+                }
+            } catch (err) {
+                console.error(err)
+                return done(null, false, { message: 'Somethin went wrong. Please try again.' });
+            }
+        }
+    ));
+
+    // Facebook Strategy
+    passport.use(new FacebookStrategy({
+        clientID: "822674468301210",
+        clientSecret: "467eaf2ee931843aa6204f9cb95413d2",
+        callbackURL: "http://localhost:3000/auth/facebook/callback",
+        profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)', 'email']
+    },
+        async function (accessToken, refreshToken, profile, done) {
+            // profile contains user details
+            let newUser = {
+                facebookId: profile.id,
+                name: profile.displayName,
+                status: 'active',
+                patient: true
+            }
+
+            try {
+                let user = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ facebookId: profile.id })
+                if (user) {
+                    done(null, user)
+                } else {
+                    // Register new user if user not found
+                    db.get().collection(collections.PATIENTS_COLLECTION).insertOne(newUser).then((user) => {
+                        done(null, user.ops[0])
+                    })
+                }
+            } catch (err) {
+                console.error(err)
+                return done(null, false, { message: 'Somethin went wrong. Please try again.' });
+            }
+        }
+    ));
+
+
 
     passport.serializeUser((user, done) => {
         done(null, user._id);

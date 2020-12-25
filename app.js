@@ -3,14 +3,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var dotenv = require('dotenv')
 var hbs = require('express-handlebars');
+var fileUpload = require('express-fileupload');
 var db = require('./config/connection');
 var passport = require('passport');
-const flash = require('connect-flash');
 var session = require('express-session');
+var flash = require('connect-flash')
 
 var patientRouter = require('./routes/patientRouter');
 var adminRouter = require('./routes/adminRouter');
+var doctorRouter = require('./routes/doctorRouter');
+var authRouter = require('./routes/authRouter');
 
 var app = express();
 
@@ -29,6 +33,7 @@ app.engine('hbs', hbs({
   partialsDir: __dirname + '/views/partials/'
 }));
 
+app.use(fileUpload());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -44,28 +49,32 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(session({ secret: "key", cookie: { maxAge: 600000 } }));
+var hbs = hbs.create({});
+
+// register new function
+hbs.handlebars.registerHelper("check", function (x, y, options) {
+  if (x == y) {
+    return options.fn(this);
+  } else if( x != y){
+    return options.inverse(this);
+  } 
+});
+
+app.use(session({ secret: "key", cookie: { maxAge: 8*60*60*1000 } }));
 
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Connect flash
+app.use(flash());
+
+// Console authenticated user and its session
 // app.use((req, res, next) => {
 //   console.log('req.session: ', req.session)
 //   console.log('req.user: ', req.user)
 //   next()
 // })
-
-// Connect flash
-// app.use(flash());
-
-// Global variables
-// app.use(function(req, res, next) {
-//   res.locals.success_msg = req.flash('success_msg');
-//   res.locals.error_msg = req.flash('error_msg');
-//   res.locals.error = req.flash('error');
-//   next();
-// });
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -77,6 +86,8 @@ db.connect((err) => {
 
 app.use('/', patientRouter);
 app.use('/admin', adminRouter);
+app.use('/doctor', doctorRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

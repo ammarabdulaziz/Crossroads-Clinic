@@ -8,12 +8,13 @@ html {
 
 body {
     min-height: 100vh;
-    background-image: url(/images/Artboard\ 2.png);
+    background-image: url(/images/Artboard\ 2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     color: #383838;
     line-height: 5px;
+    background-attachment:fixed;
 }
 
 .login-card {
@@ -25,6 +26,12 @@ body {
     box-shadow: 10px 10px 0px 0px rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
+    overflow: scroll;
+    -ms-overflow-style: none;
+}
+
+.login-card::-webkit-scrollbar {
+    display: none;
 }
 
 .login-card h1 {
@@ -34,6 +41,7 @@ body {
 .login-card h4 {
     font-weight: 400;
     font-size: 19px;
+    line-height: 20px;
 }
 
 .login-card h5 {
@@ -42,7 +50,7 @@ body {
     display: inline-block;
 }
 
-.login-card a{
+.login-card a {
     text-decoration: none;
     color: #383838;
 }
@@ -51,11 +59,17 @@ body {
     font-weight: 700;
 }
 
-.login-register a{
+.login-register {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-register a {
     padding-right: 10px;
 }
 
-.login-register h5::after{
+.login-register h5::after {
     content: '';
     background: #DFDFDF;
     display: block;
@@ -66,21 +80,44 @@ body {
     transition: 0.3s ease;
 }
 
+.login-tab, .register-tab {
+    margin-bottom: 10px;
+}
+
 .login-register .active::after {
     background: #28905F;
 }
 
-.login-register h5:hover::after{
+.login-register h5:hover::after {
     background: #28905F;
     cursor: pointer;
 }
 
-.login-tab::after{
+.login-tab::after {
     width: 2.3rem;
 }
 
-.register-tab::after{
+.register-tab::after {
     width: 3.7em;
+}
+
+/* Error-Box */
+
+.error-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F4E482;
+    color: #867400;
+    font-size: 13px;
+    height: 45px;
+    border-radius: 8px;
+    padding: 0px 18px;
+}
+
+.error-box i:hover {
+    cursor: pointer;
+    color: #5e5100;
 }
 
 form {
@@ -139,10 +176,24 @@ form i {
     align-items: center;
     margin-top: 5px;
     transition: 0.3s ease;
+    margin: 10px 0px;
 }
 
-.submit a:hover{
+.forgot-pwd a:hover, .otp:hover, h6:hover {
     color: #28905F;
+}
+
+.otp, h6 {
+    font-size: 15px;
+    margin: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.forgot-pwd{
+    display: flex;
+    justify-content: center;
+    margin: 25px 0px;
 }
 
 /* Desktop */
@@ -170,5 +221,9 @@ form i {
 @media only screen and (max-width: 767px) {
     .login-card {
         justify-content: center;
+    }
+    .login-content {
+        padding: 0px 20px;
+        width: 100%;
     }
 }
