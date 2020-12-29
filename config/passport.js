@@ -20,8 +20,14 @@ module.exports = function (passport) {
                                     console.log('That email is not registered')
                                     return done(null, false, { message: 'This email is not registered' });
                                     // Match passwords if user exists
+                                } else if (user && user.status === 'blocked') {
+                                    console.log('Blocked')
+                                    return done(null, false, { message: 'Sorry, You have been blocked for Malpractices' });
                                 } else { matchPassword(password, user) }
                             })
+                        } else if (user && user.status === 'blocked') {
+                            console.log('Blocked')
+                            return done(null, false, { message: 'Sorry, You have been blocked for Malpractices' });
                         } else { matchPassword(password, user) }
                     })
                 } else { matchPassword(password, user) }
@@ -30,8 +36,6 @@ module.exports = function (passport) {
 
             // Match password function
             function matchPassword(password, user) {
-                console.log('password', password)
-                console.log('user.password', user.password)
                 bcrypt.compare(password, user.password, (err, isMatch) => {
                     if (err) throw err;
                     if (isMatch) {
@@ -64,8 +68,11 @@ module.exports = function (passport) {
 
             try {
                 let user = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ googleId: profile.id })
-                if (user) {
+                if (user && user.status === 'active') {
                     done(null, user)
+                } else if (user && user.status === 'blocked') {
+                    console.log('Blocked')
+                    return done(null, false, { message: 'Sorry, You have been blocked for Malpractices' });
                 } else {
                     // Register new user if user not found
                     db.get().collection(collections.PATIENTS_COLLECTION).insertOne(newUser).then((user) => {
@@ -97,8 +104,11 @@ module.exports = function (passport) {
 
             try {
                 let user = await db.get().collection(collections.PATIENTS_COLLECTION).findOne({ facebookId: profile.id })
-                if (user) {
+                if (user && user.status === 'active') {
                     done(null, user)
+                } else if (user && user.status === 'blocked') {
+                    console.log('Blocked')
+                    return done(null, false, { message: 'Sorry, You have been blocked for Malpractices' });
                 } else {
                     // Register new user if user not found
                     db.get().collection(collections.PATIENTS_COLLECTION).insertOne(newUser).then((user) => {

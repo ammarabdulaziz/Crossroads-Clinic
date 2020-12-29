@@ -262,59 +262,24 @@
                             <th scope="col">Date-Time</th>
                             <th scope="col">Doctor Name</th>
                             <th scope="col">Booking For</th>
-                            <th scope="col">Session</th>
-                            <th scope="col" class="actions">Actions</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{#if appointments}}
+                        {{#each appointments}}
                         <tr>
-                            <td>24/12/2020 : 6 PM</td>
-                            <td>Dr. Prashanth</td>
-                            <td>Abdulla K</td>
-                            <td>Morning</td>
-                            <td>
-                                {{!-- <a href="#" class="btn-action btn-view"><i
-                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
-                                <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
-                                <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
-                            </td>
+                            <td>{{this.date}} {{this.time}}</td>
+                            <td>Dr. {{this.doctor.firstname}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.age}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.status}}</td>
                         </tr>
-                        <tr>
-                            <td>24/12/2020 : 4 PM</td>
-                            <td>Dr. Amith</td>
-                            <td>Abdul Aziz</td>
-                            <td>Evening</td>
-                            <td>
-                                {{!-- <a href="#" class="btn-action btn-view"><i
-                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
-                                <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
-                                <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>19/12/2020 : 9 PM</td>
-                            <td>Dr. Rajeev</td>
-                            <td>Fayiz Kv</td>
-                            <td>After Noon</td>
-                            <td>
-                                {{!-- <a href="#" class="btn-action btn-view"><i
-                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
-                                <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
-                                <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>13/12/2020 : 1 PM</td>
-                            <td>Dr. Hameed</td>
-                            <td>Fawzan</td>
-                            <td>Morning</td>
-                            <td>
-                                {{!-- <a href="#" class="btn-action btn-view"><i
-                                        class='bx bxs-user-detail nav__icon'></i></a> --}}
-                                <a href="#" class="btn-action btn-edit"><i class='bx bx-pencil nav__icon'></i></a>
-                                <a href="#" class="btn-action btn-delete"><i class='bx bx-trash nav__icon'></i></a>
-                            </td>
-                        </tr>
+                        {{/each}}
+                        {{/if}}
                     </tbody>
                 </table>
             </div>
@@ -673,7 +638,7 @@
                                 </div>
                                 <div class="card-content color-5">
                                     <h4>Patients</h4>
-                                    <h3>75</h3>
+                                    <h3 class="myPatientCount">75</h3>
                                 </div>
                             </div>
                         </div>

@@ -16,9 +16,7 @@ const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 // Landing Page route
 router.get('/', function (req, res, next) {
   let user = req.user || [];
-  res.set('Content-Type', 'text/html');
-  res.send(new Buffer('<h1>LANDING PAGE</h1> <style>h1{font-size:40px; text-align:center}</style>'));
-  // res.render('index', { user });
+  res.render('index', { layout: 'index', user, home: true });
 });
 
 

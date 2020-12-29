@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== BOX ICONS ===== -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css"
+        integrity="sha512-zxBiDORGDEAYDdKLuYU9X/JaJo/DPzE42UubfBw9yg8Qvb2YRRIQ8v4KsGHOx2H1/+sdSXyXxLXv5r7tHc9ygg=="
+        crossorigin="anonymous" />
+
+
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/components.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/patients.css">
+    <link rel="stylesheet" href="/stylesheets/index.css">
+    <title>Crossroads Clinic</title>
+</head>
+
+<body id="body-pd">
+    <div class="top-head">
+        <div class="container header-content">
+            <div class="header-contact v-center">
+                <i class="fa fa-phone-square" aria-hidden="true"></i>
+                <h2>+91 9846704120</h2>
+                <i class='bx bx-mail-send ml-5'></i>
+                <h2>crossroadsclinic@gmail.com</h2>
+                <i class='bx bxs-time-five ml-5'></i>
+                <h2>Mon to Sat 9:00am to 18:00pm</h2>
+            </div>
+            <div class="admin-tab  pop-1" onclick="userPopup1()">
+                <div class="admin-name">
+                    <h5>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}
+                        {{user.lastname}}{{else}}Login{{/if}}</h5>
+                    <h6>{{#if user.patient}}PATIENT{{else if user.doctor}}DOCTOR{{/if}}</h6>
+                </div>
+                <div class="header__img">
+                    <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg"
+                        onerror="this.src='/images/default.png';">
+                </div>
+            </div>
+        </div>
+        <div id="user-pop-1" class="user-pop">
+            {{#if user}}
+            <div class="user-pop-head patient-pop">
+                <h2>Hello <span>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}{{/if}}</span>
+                </h2>
+                <h4>Available</h4>
+            </div>
+            {{else}}
+            <div class="user-pop-head patient-pop">
+                <h2>Hello </span>User</span></h2>
+                <h4>Login to Continue</h4>
+            </div>
+            {{/if}}
+            <div class="wrapper">
+                {{#if user}}
+                <div class="list">
+                    <i class='bx bx-user nav__logo-icon'></i>
+                    <a href="/homepage">Profile</a>
+                </div>
+                <div class="list">
+                    <i class='bx bx-log-out'></i>
+                    <a href="/logout">Logout</a>
+                </div>
+                {{else}}
+                <div class="list">
+                    <i class='bx bx-log-in'></i>
+                    <a href="/logout">Login</a>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Crossroads Clinic</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {{#if home}}active{{/if}}">
+                        <a class="nav-link" href="/homepage">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item {{#if doctors}}active{{/if}}">
+                        <a class="nav-link" href="/doctors">Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- To delete -->
+            <div class="admin-tab pop-2 pt-2 pb-2" onclick="userPopup2()">
+                <div class="admin-name">
+                    <h5>{{#if user.patient}}{{user.name}}{{else if user.doctor}}{{user.firstname}}
+                        {{user.lastname}}{{else}}Login{{/if}}</h5>
+                    <h6>{{#if user.patient}}PATIENT{{else if user.doctor}}DOCTOR{{/if}}</h6>
+                </div>
+                <div class="header__img">
+                    <img id="user-img" class="user-img" src="/images/{{user._id}}.jpg"
+                        onerror="this.src='/images/default.png';">
+                </div>
+            </div>
+            <div id="user-pop-2" class="user-pop">
+                {{#if user}}
+                <div class="user-pop-head patient-pop">
+                    <h2>Hello <span>{{#if user.patient}}{{user.name}}{{else if
+                            user.doctor}}{{user.firstname}}{{/if}}</span>
+                    </h2>
+                    <h4>Available</h4>
+                </div>
+                {{else}}
+                <div class="user-pop-head patient-pop">
+                    <h2>Hello </span>User</span></h2>
+                    <h4>Login to Continue</h4>
+                </div>
+                {{/if}}
+                <div class="wrapper">
+                    {{#if user}}
+                    <div class="list">
+                        <i class='bx bx-user nav__logo-icon'></i>
+                        <a href="/homepage">Profile</a>
+                    </div>
+                    <div class="list">
+                        <i class='bx bx-log-out'></i>
+                        <a href="/logout">Logout</a>
+                    </div>
+                    {{else}}
+                    <div class="list">
+                        <i class='bx bx-log-in'></i>
+                        <a href="/logout">Login</a>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <div class="herobg d-flex align-items-center justify-content-start"
+        style="background-image: url(/images/herobg.jpg);">
+        <div class="container hero-container">
+            <h1>Take the world's best<br>Quality treatment</h1>
+            <h4>Book your appointment now</h4>
+            <a href="/doctors" class="btn-hero">Book Now</a>
+        </div>
+    </div>
+
+    {{!-- content --}}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12 col-lg-5">
+                <div class="indexImgs mb-5">
+                    <img src="/images/index1.jpg" alt="Photo" class="indexImg1 img-fluid">
+                    <img src="/images/index2.jpg" alt="Photo" class="indexImg2 img-fluid">
+                </div>
+            </div>
+            <div class="col-12 col-lg-7 pl-lg-5 pr-lg-5">
+                <div class="content-texts pl-lg-5 pr-lg-5">
+                    <h4>WELCOME TO CROSSROADS CLINIC</h4>
+                    <h2>Find Best Doctors <br> With <span>Crossroads</span></h2>
+                    <p>In healthcare sector, service
+                        excellence is the facility of the hospital as
+                        healthcare service provider to consistently.
+                        Expert physician specialists and caring clinical staff
+                        provide you with an exceptional health care experience.
+                        Personalized patient care is what sets Medicus Medical Center apart.</p>
+                </div>
+                <div class="pl-lg-5 pr-lg-5">
+                    <div class="label-card-wrapper">
+                        <h6>Opening Hours</h6>
+                        <div class="card-content d-flex justify-content-between p-5">
+                            <div class="card-days text-left">
+                                <p>Monday - Thursday</p>
+                                <p>Friday</p>
+                                <p>Saturday</p>
+                                <p class="m-0">Sunday</p>
+                            </div>
+                            <div class="card-time">
+                                <p>8.00 - 19.00</p>
+                                <p>8.00 - 18.30</p>
+                                <p>9.30 - 17.00</p>
+                                <p class="m-0">9.30 - 15.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="container">
+            <div class="row fs-1">
+                <div class="col-6 col-md-3 mb-4">
+                    <h4>Specialities</h4>
+                    <h5><a href="#">Orthology</a></h5>
+                    <h5><a href="#">Cardiology</a></h5>
+                    <h5><a href="#">Dentist</a></h5>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h4 style="opacity: 0;">Specialities</h4>
+                    <h5><a href="#">Pediatrics</a></h5>
+                    <h5><a href="#">Radiology</a></h5>
+                    <h5><a href="#">Dermetology</a></h5>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h4>Links</h4>
+                    <h5><a href="#">Home</a></h5>
+                    <h5><a href="#">About</a></h5>
+                    <h5><a href="#">Doctors</a></h5>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h4>Contact</h4>
+                    <h5><a href="#"><i class="fa fa-phone"></i>+974 44669988</a></h5>
+                    <h5><a href="#"><i class="fa fa-envelope icon-email"></i>crossroads@clinic.com</a></h5>
+                    <h5><a href="#"><i class="fa fa-location-arrow"></i>Calicut, India</a></h5>
+                </div>
+            </div>
+        </div>
+        <div class="fs-2">
+            <div class="text-center">
+                <h2>Copyright © 2020 All rights reserved | Designed and developed by Ammar</h2>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{#if user.patient}}
+    <script>
+        $(document).ready(function () {
+            var fname = $(".patient-pop h2 span").text().split(' ');
+            $(".patient-pop h2 span").text(fname[0])
+        })
+    </script>
+    {{/if}}
+</body>
+
+<!--===== MAIN JS =====-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script src="/javascripts/main.js"></script>
+<script src="/javascripts/datatables.js"></script>
+<script src="/javascripts/patients.js"></script>
+<script src="/javascripts/doctors.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"
+    integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig=="
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -239,5 +239,12 @@ module.exports = {
 
             resolve(response)
         })
+    },
+
+    getAllAppointments: () => {
+        return new Promise(async (resolve, reject) => {
+            let appointments = db.get().collection(collections.APPOINTMENTS_COLLECTION).find().toArray();
+            resolve(appointments)
+        })
     }
 }

@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const adminHelpers = require('../helpers/adminHelpers')
+const doctorHelpers = require('../helpers/doctorHelpers')
+var objectId = require('mongodb').ObjectID
 const fs = require('fs');
 const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
@@ -8,11 +10,12 @@ const isNotAuthenticated = require('../config/auth').isNotAuthenticated
 /* GET home page. */
 router.get('/', isAdmin, async function (req, res, next) {
   // Get doctor details
+  let appointments = await adminHelpers.getAllAppointments();
   let counts = await adminHelpers.getDashboardCounts();
   let doctors = await adminHelpers.getDoctors();
   let specialities = await adminHelpers.getSpecialities();
   let patients = await adminHelpers.getPetients();
-  res.render('admin/dashboard', { doctors, counts, specialities, patients, admin: true });
+  res.render('admin/dashboard', { appointments, doctors, counts, specialities, patients, admin: true });
 });
 
 
@@ -65,7 +68,13 @@ router.post('/unblock-doctor', isAdmin, (req, res) => {
 })
 
 router.get('/profile', isAdmin, (req, res) => {
-  adminHelpers.getDoctorDetails(req.query.id).then((response) => {
+  adminHelpers.getDoctorDetails(req.query.id).then(async (response) => {
+    let docId = objectId(req.query.id)
+    let count = 0;
+    let myPatients = await doctorHelpers.getMyPatients(docId)
+    myPatients.forEach(patient => { count++ })
+    console.log(myPatients)
+    response.count = count;
     let approved = 0;
     let requests = 0;
     let consulted = 0;

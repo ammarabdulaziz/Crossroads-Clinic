@@ -77,13 +77,16 @@ router.get('/send-otp', async (req, res) => {
 
     // Send OTP Fn
     let user = await patientHelpers.checkPhone(req.query.phone)
-    if (user !== null && user !== '') {
+    if (user !== null && user !== '' && user.status === 'active') {
         client.verify.services(config.serviceID).verifications.create({
             to: `+91${req.query.phone}`,
             channel: req.query.channel === 'call' ? 'call' : 'sms'
         }).then(data => {
             res.json({ status: true })
         })
+    } else if (user.status === 'blocked') {
+        var error = 'Sorry, You have been blocked for Malpractices'
+        return res.status(200).send({ result: 'redirect', url: '/login?error=' + error })
     } else {
         var error = 'Your Phone Number does not exists. Register to conitnue'
         return res.status(200).send({ result: 'redirect', url: '/login?error=' + error })

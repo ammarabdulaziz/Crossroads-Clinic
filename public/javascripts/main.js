@@ -376,6 +376,7 @@ $(document).ready(function () {
                 $('.detail-2 a').text(response.response.email);
                 $('.detail-3 a').text(response.response.place);
                 $('.detail-3 a').text(response.response.place);
+                $('.myPatientCount').text(response.response.count);
                 $('.edit-profile').attr('data-id', response.response._id);
                 $('.hero-img').attr('src', '../images/' + response.response._id + '.jpg');
 

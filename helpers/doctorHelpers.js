@@ -105,6 +105,8 @@ module.exports = {
 
     getMyPatients: (docId) => {
         return new Promise(async (resolve, reject) => {
+            console.log(docId)
+            console.log(typeof docId)
             let myPatients = await db.get().collection(collections.CONSULTATIONS_COLLECTION).aggregate([
                 {
                     $match:
