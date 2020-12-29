@@ -4,16 +4,12 @@ $("#closeMsg").click(function () {
 })
 
 $(document).ready(function () {
-    $('#login-form').show();
-    $('#register-form').hide();
-    $('#otp-form').hide();
-    $('#otp-verify').hide();
+    $('.forgot-pwd').show()
+    $('#login-form').show().siblings().hide();
     $('.login-tab').click((event) => {
         event.preventDefault();
-        $('#login-form').show();
-        $('#register-form').hide();
-        $('#otp-form').hide();
-        $('#otp-verify').hide();
+        $('#login-form').show().siblings().hide();
+        $('.forgot-pwd').show()
         $('.login-tab').addClass('active')
         $('.register-tab').removeClass('active')
         $('.login-content h1').text('LOGIN');
@@ -21,10 +17,8 @@ $(document).ready(function () {
     })
     $('.register-tab').click((event) => {
         event.preventDefault();
-        $('#login-form').hide();
-        $('#otp-form').hide();
-        $('#otp-verify').hide();
-        $('#register-form').show();
+        $('.forgot-pwd').hide()
+        $('#register-form').show().siblings().hide();
         $('.register-tab').addClass('active')
         $('.login-tab').removeClass('active')
         $('.login-content h1').text('REGISTER');
@@ -32,6 +26,7 @@ $(document).ready(function () {
     })
     $('.otp').click(() => {
         $('#login-form').hide();
+        $('.forgot-pwd').hide()
         $('.login-tab').addClass('active')
         $('#otp-form').show();
         $('.send-otp-timer').hide();
@@ -48,11 +43,9 @@ $(document).ready(function () {
     })
     $('.send-otp, .resendOTP').click((event) => {
         event.preventDefault();
-        $('#login-form').hide();
-        $('#register-form').hide();
-        $('#otp-form').hide();
+        $('.forgot-pwd').hide()
         $('.login-tab').addClass('active')
-        $('#otp-verify').show();
+        $('#otp-verify').show().siblings().hide();
         $('.resendOTP').hide()
         var phone = $('#phone').val()
         var channel = 'sms'
@@ -99,6 +92,7 @@ $(document).ready(function () {
     })
     $('.verify-otp').click((event) => {
         event.preventDefault();
+        $('.forgot-pwd').hide()
         var phone = $('#phone').val()
         var otp = $('#otp').val()
         $.ajax({

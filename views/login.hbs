@@ -42,74 +42,76 @@
             </div>
             {{/if}}
             {{!-- ----------------- --}}
-            <form action="/auth/send-otp" method="POST" id="otp-form">
-                <label for="email">Phone Number (10 digit number)</label><br>
-                <div class="form-icon-input">
-                    <i class="fa fa-phone" aria-hidden="true"></i>
-                    <input type="text" maxlength="10" id="phone" name="phone" placeholder="+91"><br>
-                </div>
-                <div class="submit">
-                    <button class="btn btn-green send-otp">Send OTP</button>
-                    <h6 href="" class="send-otp-timer otp">Multiple Requests. Try again later</h6>
-                </div>
-            </form>
-            {{!-- ----------------- --}}
-            <form action="/auth/verify-otp" method="POST" id="otp-verify">
-                <b>Do Not Refresh.</b> Please enter the OTP recieved.<br>
-                <label for="password">Enter OTP</label><br>
-                <div class="form-icon-input">
-                    <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="text" maxlength="4" id="otp" name="code" placeholder="****">
-                </div>
-                <div class="submit">
-                    <button class="btn btn-green verify-otp" type="submit">Login</button>
-                    <a class="verify-otp-timer"></a>
-                    <h6 class="resendOTP"></h6>
-                </div>
-            </form>
-            {{!-- ----------------- --}}
-            <form action="/login" method="POST" id="login-form">
-                <label for="email">Email Address</label><br>
-                <div class="form-icon-input">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input type="text" name="email" placeholder="johndoe@gmail.com"><br>
-                </div>
-                <label for="password">Password</label><br>
-                <div class="form-icon-input">
-                    <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" name="password" placeholder="*****">
-                </div>
-                <div class="submit">
-                    <button class="btn btn-green" type="submit">Login</button>
-                    <h6 href="" class="otp">Login with OTP</h6>
-                </div>
-            </form>
-            {{!-- ----------------- --}}
-            <form action="/register" method="POST" id="register-form">
-                <label for="name">Full Name</label><br>
-                <div class="form-icon-input">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <input type="text" name="name" placeholder="John Doe"><br>
-                </div>
-                <label for="phone">Phone Number</label><br>
-                <div class="form-icon-input">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <input type="text" maxlength="10" name="phone" placeholder="+91"><br>
-                </div>
-                <label for="email">Email Address</label><br>
-                <div class="form-icon-input">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input type="text" name="email" placeholder="johndoe@gmail.com"><br>
-                </div>
-                <label for="password">Password</label><br>
-                <div class="form-icon-input">
-                    <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" name="password" placeholder="*****">
-                </div>
-                <div class="submit">
-                    <button class="btn btn-green" type="submit">Register</button>
-                </div>
-            </form>
+            <div>
+                <form action="/auth/send-otp" method="POST" id="otp-form">
+                    <label for="email">Phone Number (10 digit number)</label><br>
+                    <div class="form-icon-input">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <input type="text" maxlength="10" id="phone" name="phone" placeholder="+91"><br>
+                    </div>
+                    <div class="submit">
+                        <button class="btn btn-green send-otp">Send OTP</button>
+                        <h6 href="" class="send-otp-timer otp">Multiple Requests. Try again later</h6>
+                    </div>
+                </form>
+                {{!-- ----------------- --}}
+                <form action="/auth/verify-otp" method="POST" id="otp-verify">
+                    <b>Do Not Refresh.</b> Please enter the OTP recieved.<br>
+                    <label for="password">Enter OTP</label><br>
+                    <div class="form-icon-input">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <input type="text" maxlength="4" id="otp" name="code" placeholder="****">
+                    </div>
+                    <div class="submit">
+                        <button class="btn btn-green verify-otp" type="submit">Login</button>
+                        <a class="verify-otp-timer"></a>
+                        <h6 class="resendOTP"></h6>
+                    </div>
+                </form>
+                {{!-- ----------------- --}}
+                <form action="/login" method="POST" id="login-form">
+                    <label for="email">Email Address</label><br>
+                    <div class="form-icon-input">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <input type="text" name="email" placeholder="johndoe@gmail.com"><br>
+                    </div>
+                    <label for="password">Password</label><br>
+                    <div class="form-icon-input">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <input type="password" name="password" placeholder="*****">
+                    </div>
+                    <div class="submit">
+                        <button class="btn btn-green" type="submit">Login</button>
+                        <h6 href="" class="otp">Login with OTP</h6>
+                    </div>
+                </form>
+                {{!-- ----------------- --}}
+                <form action="/register" method="POST" id="register-form">
+                    <label for="name">Full Name</label><br>
+                    <div class="form-icon-input">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <input type="text" name="name" placeholder="John Doe"><br>
+                    </div>
+                    <label for="phone">Phone Number</label><br>
+                    <div class="form-icon-input">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <input type="text" maxlength="10" name="phone" placeholder="+91"><br>
+                    </div>
+                    <label for="email">Email Address</label><br>
+                    <div class="form-icon-input">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <input type="text" name="email" placeholder="johndoe@gmail.com"><br>
+                    </div>
+                    <label for="password">Password</label><br>
+                    <div class="form-icon-input">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <input type="password" name="password" placeholder="*****">
+                    </div>
+                    <div class="submit">
+                        <button class="btn btn-green" type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
             <hr>
             <div class="oauth">
                 <a href="/auth/google" class="btn btn-oauth btn-google-plus"><i class="fa fa-google-plus"

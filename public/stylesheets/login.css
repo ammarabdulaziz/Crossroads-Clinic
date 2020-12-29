@@ -14,7 +14,7 @@ body {
     background-position: center center;
     color: #383838;
     line-height: 5px;
-    background-attachment:fixed;
+    background-attachment: fixed;
 }
 
 .login-card {
@@ -24,10 +24,16 @@ body {
     -webkit-box-shadow: 10px 10px 0px 0px rgba(255, 255, 255, 0.1);
     -moz-box-shadow: 10px 10px 0px 0px rgba(255, 255, 255, 0.1);
     box-shadow: 10px 10px 0px 0px rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
     overflow: scroll;
+    position: relative;
     -ms-overflow-style: none;
+}
+
+.login-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    align-items: center;
 }
 
 .login-card::-webkit-scrollbar {
@@ -131,6 +137,7 @@ form label {
 .form-icon-input {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 form input {
@@ -164,6 +171,7 @@ form i {
     padding: 0px 15px;
     color: #28905F;
     font-size: 15px !important;
+    z-index: 1;
 }
 
 .fa-lock {
@@ -190,7 +198,7 @@ form i {
     cursor: pointer;
 }
 
-.forgot-pwd{
+.forgot-pwd {
     display: flex;
     justify-content: center;
     margin: 25px 0px;
