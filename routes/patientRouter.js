@@ -58,7 +58,7 @@ router.post('/register', (req, res) => {
     } else {
       req.login(response, function (err) {
         if (!err) {
-          res.redirect('/');
+          res.redirect('/homepage');
         } else {
           var error = 'Something went wrong. Please login with the Credintials'
           res.redirect('/login?error=' + error)

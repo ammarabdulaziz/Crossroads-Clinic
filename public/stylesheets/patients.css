@@ -625,6 +625,11 @@ body {
     cursor: pointer;
 }
 
+.sideimg{
+    object-fit: contain;
+    object-position: 0 0;
+}
+
 @media screen and (max-width: 767.5px) {
     .main-bg {
         height: 15em;
@@ -640,6 +645,9 @@ body {
     }
     .tab-content .tab-img:nth-child(3) {
         min-width: 180px;
+    }
+    .sideimg{
+        display: none;
     }
 }
 
