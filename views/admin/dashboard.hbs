@@ -1,4 +1,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+{{!-- JQuery UI --}}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+    body {
+        background-color: #F1FCF5 !important;
+    }
+</style>
+
 
 <div class="tab-container">
 
@@ -643,9 +653,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row  pt-3">
+                    <div class="row pt-3">
                         <div class="card col-12">
-                            <canvas id="myChart"></canvas>
+                            <div class="row">
+                                <div class="col-12 col-md-6 box-border pb-5">
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-row">
+                                        <label for="date" class="col-4 col-form-label">Select date</label>
+                                        <input data-id="" type="text" name="date" class="form-control col-8 date-report"
+                                            placeholder="dd-mm-yyyy" required>
+                                    </div>
+                                    <div id="chart2">
+                                        <canvas id="myChart2"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <br>

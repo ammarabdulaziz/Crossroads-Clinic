@@ -640,6 +640,10 @@ table a {
   background-color: #000000;
 }
 
+.box-border{
+  border-right: 2px solid #e0e0e0;
+}
+
 @media (min-width: 1200px) {
   .container {
     max-width: 1230px !important;

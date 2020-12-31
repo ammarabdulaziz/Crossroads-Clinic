@@ -75,10 +75,7 @@ router.get('/profile', isAdmin, (req, res) => {
     myPatients.forEach(patient => { count++ })
     console.log(myPatients)
     response.count = count;
-    let approved = 0;
-    let requests = 0;
-    let consulted = 0;
-    let cancelled = 0;
+    let approved = 0, requests = 0, consulted = 0, cancelled = 0;
     let bookings = response.bookings;
     response.report = []
     bookings.forEach(booking => {
@@ -130,6 +127,18 @@ router.post('/edit-speciality', isAdmin, (req, res) => {
 router.post('/delete-speciality', isAdmin, (req, res) => {
   adminHelpers.deleteSpeciality(req.body.id).then(() => {
     res.json({ status: true })
+  })
+})
+
+router.get('/date-report', isAdmin, async (req, res) => {
+  console.log('ajax call' + req.query.date)
+  console.log('ajax call' + req.query.docId)
+  adminHelpers.getDateReport(req.query.docId, req.query.date).then((percentage) => {
+    // response.push(percentage)
+    let data = []
+    let totalApps = 100 - percentage;
+    data.push(percentage, totalApps)
+    res.json({ data })
   })
 })
 

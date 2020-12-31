@@ -246,5 +246,24 @@ module.exports = {
             let appointments = db.get().collection(collections.APPOINTMENTS_COLLECTION).find().toArray();
             resolve(appointments)
         })
+    },
+
+    getDateReport: (docId, date) => {
+        return new Promise(async (resolve, reject) => {
+            docId = docId.toString()
+            let totalApps = await db.get().collection(collections.APPOINTMENTS_COLLECTION).aggregate([
+                { $match: { docId: docId, status: 'consulted' } }
+            ]).toArray()
+            let appCount = 0
+            totalApps.forEach(apps => { appCount++ });
+            let dateReportCount = await db.get().collection(collections.APPOINTMENTS_COLLECTION).aggregate([
+                { $match: { docId: docId, status: 'consulted', date: date } }
+            ]).toArray()
+            let reportCount = 0
+            dateReportCount.forEach(apps => { reportCount++ });
+            let percentage = (appCount / reportCount) * 100
+            if (percentage === Infinity) { percentage = 0 }
+            resolve(percentage)
+        })
     }
 }

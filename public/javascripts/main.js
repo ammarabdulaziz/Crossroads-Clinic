@@ -362,6 +362,10 @@ $(document).ready(function () {
         showContent(1, 6)
         window.location.hash = "#tab2"
 
+        //Remove existing canvas
+        $('#myChart2').remove();
+        $('#chart2').append('<canvas id="myChart2"></canvas>');
+
         // Edit id
         var docID = $(this).data('id');
         $.ajax({
@@ -378,10 +382,9 @@ $(document).ready(function () {
                 $('.detail-3 a').text(response.response.place);
                 $('.myPatientCount').text(response.response.count);
                 $('.edit-profile').attr('data-id', response.response._id);
+                $('.date-report').attr('data-id', response.response._id);
                 $('.hero-img').attr('src', '../images/' + response.response._id + '.jpg');
 
-                console.log('response.response', response.response)
-                console.log('response.report', response.response.report)
                 //Graph
                 let doctorReport = document.getElementById("myChart");
                 Chart.defaults.global.defaultFontFamily = 'Montserrat'
@@ -414,13 +417,79 @@ $(document).ready(function () {
                         title: {
                             display: true,
                             text: 'Doctor Appointment Status',
-                            fontSize: 25
+                            fontSize: 18
+                        },
+                        legend: {
+                            position: 'right',
+                            onHover: function (e) {
+                                e.target.style.cursor = 'pointer';
+                            }
                         }
                     }
                 });
             }
         })
     });
+});
+
+
+/*===== DATEWISE GRAPGH  =====*/
+$('.date-report').datepicker({
+    dateFormat: 'dd/mm/yy',
+    onSelect: function (date) {
+        var docID = $(this).data('id');
+        $.ajax({
+            url: '/admin/date-report?date=' + date + '&docId=' + docID,
+            method: 'get',
+            success: (response) => {
+                //Graph
+                console.log(response.data)
+                //response.data = [67, 43]
+                let dateReport = document.getElementById("myChart2");
+                Chart.defaults.global.defaultFontFamily = 'Montserrat'
+                let myChart2 = new Chart(dateReport, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['On this date', 'Rest of the Appoint.'],
+                        datasets: [{
+                            label: 'Of Orders',
+                            data: response.data,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                            ], borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: .5
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Datewise Doctor Appointments (%)',
+                            fontSize: 18
+                        },
+                        legend: {
+                            position: 'right',
+                            onHover: function (e) {
+                                e.target.style.cursor = 'pointer';
+                            }
+                        }
+                    }
+                });
+                //myChart2.destroy();
+            }
+        })
+    }
 });
 
 
