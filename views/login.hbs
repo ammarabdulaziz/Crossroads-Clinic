@@ -69,7 +69,7 @@
                     </div>
                 </form>
                 {{!---------------------}}
-                <form action="/login" method="POST" id="login-form">
+                <form action="/login?docId={{docId}}" method="POST" id="login-form">
                     <label for="email">Email Address</label><br>
                     <div class="form-icon-input">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -114,9 +114,9 @@
             </div>
             <hr>
             <div class="oauth">
-                <a href="/auth/google" class="btn btn-oauth btn-google-plus"><i class="fa fa-google-plus"
+                <a href="/auth/google?docId={{docId}}" class="btn btn-oauth btn-google-plus"><i class="fa fa-google-plus"
                         aria-hidden="true"></i>Sign In with Google</a>
-                <a href="/auth/facebook" class="btn btn-oauth btn-facebook"><i class="fa fa-facebook"
+                <a href="/auth/facebook?docId={{docId}}" class="btn btn-oauth btn-facebook"><i class="fa fa-facebook"
                         aria-hidden="true"></i>Sign In with Facebook</a>
             </div>
             <div class="forgot-pwd"><a href="">Forgot your password?</a></div>

@@ -26,7 +26,8 @@ router.get('/login', isNotAuthenticated, function (req, res, next) {
   if (req.query.error) {
     errors.push(req.query.error)
   }
-  res.render('login', { layout: 'login', errors });
+  let docId = req.query.docId || null;
+  res.render('login', { layout: 'login', errors, docId });
 });
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }),
@@ -37,8 +38,11 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
     else if (req.user.doctor) {
       res.redirect('/doctor');
     }
-    else if (req.user.patient) {
+    else if (req.user.patient && !req.query.docId) {
       res.redirect('/homepage');
+    }
+    else if (req.user.patient && req.query.docId) {
+      res.redirect('/book-appointment?docId=' + req.query.docId);
     }
   });
 
@@ -93,22 +97,22 @@ router.post('/edit-profile', isPatient, (req, res) => {
   })
 })
 
-router.get('/doctors', isPatient, async (req, res) => {
+router.get('/doctors', async (req, res) => {
   let error = []
-  if (req.query.error) {
-    error.push(req.query.error)
-  }
+  if (req.query.error) { error.push(req.query.error) }
   let doctors = await adminHelpers.getDoctors()
   let specialities = await adminHelpers.getSpecialities()
-  let user = req.user;
+  let user = req.user || true;
   res.render('patient/doctors', { doctors, specialities, user, error })
 })
 
-router.get('/book-appointment', isPatient, async (req, res) => {
-  if (!req.query.id) {
-    res.redirect('/doctors')
+router.get('/book-appointment', async (req, res) => {
+  if (!req.query.docId) { res.redirect('/doctors') }
+  if (!req.user) {
+    var error = 'Sorry, You are not authenticated. Please login to continue'
+    res.redirect('/login?error=' + error + '&docId=' + req.query.docId)
   }
-  let bookingDocId = req.query.id;
+  let bookingDocId = req.query.docId;
   let patientId = req.user._id;
   patientHelpers.checkBlocked(bookingDocId, patientId).then((response) => {
     if (!response.message) {

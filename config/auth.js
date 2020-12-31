@@ -3,7 +3,7 @@ module.exports = {
         if (req.isAuthenticated() && req.user.admin) {
             return next();
         }
-        var error = 'Sorry, not authenticated. Please login to continue'
+        var error = 'Sorry, You are not authenticated. Please login to continue'
         res.redirect('/login?error=' + error)
     },
 
@@ -11,7 +11,7 @@ module.exports = {
         if (req.isAuthenticated() && req.user.doctor) {
             return next();
         }
-        var error = 'Sorry, not authenticated. Please login to continue'
+        var error = 'Sorry, You are not authenticated. Please login to continue'
         res.redirect('/login?error=' + error)
     },
 
@@ -19,7 +19,7 @@ module.exports = {
         if (req.isAuthenticated() && req.user.patient) {
             return next();
         }
-        var error = 'Sorry, not authenticated. Please login to continue'
+        var error = 'Sorry, You are not authenticated. Please login to continue'
         res.redirect('/login?error=' + error)
     },
 
@@ -37,7 +37,7 @@ module.exports = {
             res.redirect('/')
         }
         else {
-            var error = 'Sorry, not authenticated. Please login to continue'
+            var error = 'Sorry, You are not authenticated. Please login to continue'
             res.redirect('/login?error=' + error)
         }
     }
