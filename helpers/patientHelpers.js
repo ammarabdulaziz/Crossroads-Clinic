@@ -18,6 +18,7 @@ module.exports = {
                 db.get().collection(collections.PATIENTS_COLLECTION).insertOne(userData).then((response) => {
                     resolve(response.ops[0])
                 })
+                // Validations
             } else if (userEmail && userPhone) {
                 response.error = 'This Email Address and Phone Number alredy exists'
                 resolve(response)
@@ -61,6 +62,7 @@ module.exports = {
                 }]
             ).toArray()
 
+            // Filter out not available sessions from sessionArray
             let sessionArray = [{ time: '09:00 Am' }, { time: '09:30 Am' }, { time: '10:00 Am' }, { time: '10:30 Am' }, { time: '11:00 Am' }, { time: '11:30 Am' },
             { time: '12:00 Pm' }, { time: '12:30 Pm' }, { time: '01:00 Pm' }, { time: '02:30 Pm' }, { time: '03:00 Pm' }, { time: '03:30 Pm' },
             { time: '04:00 Pm' }, { time: '04:30 Pm' }, { time: '05:00 Pm' }, { time: '05:30 Pm' }, { time: '06:00 Pm' }, { time: '06:30 Pm' }, { time: '07:00 Pm' }]
@@ -72,6 +74,7 @@ module.exports = {
 
     bookAppointment: (bookingDetails, patient, docId) => {
         return new Promise(async (resolve, reject) => {
+            console.log(bookingDetails)
             bookingDetails.patientId = patient._id
             bookingDetails.name = patient.name
             let doctor = await db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docId) });

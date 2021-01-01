@@ -20,10 +20,11 @@ module.exports = function (passport) {
                                 if (!user) {
                                     console.log('That email is not registered')
                                     return done(null, false, { message: 'This email is not registered' });
-                                    // Match passwords if user exists
+                                    // Check if user is blocked
                                 } else if (user && user.status === 'blocked') {
                                     console.log('Blocked')
                                     return done(null, false, { message: 'Sorry, You have been blocked for Malpractices' });
+                                    // Match passwords if user exists
                                 } else { matchPassword(password, user) }
                             })
                         } else if (user && user.status === 'blocked') {
@@ -43,8 +44,8 @@ module.exports = function (passport) {
                         console.log('Login Success')
                         return done(null, user);
                     } else {
-                        console.log('Your Password is incorrect')
-                        return done(null, false, { message: 'Your Password is incorrect' });
+                        console.log('Sorry, Your Password is incorrect')
+                        return done(null, false, { message: 'Sorry, Your Password is incorrect' });
                     }
                 });
             }

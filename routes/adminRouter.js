@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
@@ -7,11 +8,8 @@ var objectId = require('mongodb').ObjectID
 const fs = require('fs');
 const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
-require('dotenv').config();
 
-/* GET home page. */
 router.get('/', isAdmin, async function (req, res, next) {
-  // Get doctor details
   let appointments = await adminHelpers.getAllAppointments();
   let counts = await adminHelpers.getDashboardCounts();
   let doctors = await adminHelpers.getDoctors();
@@ -25,12 +23,13 @@ router.get('/', isAdmin, async function (req, res, next) {
 router.post('/add-dcotor', isAdmin, (req, res) => {
   let stringPassword = req.body.password
   adminHelpers.addDoctor(req.body).then((response) => {
-    console.log(response)
+    // Add image
     const path = './public/images/' + response._id + '.jpg'
     const imgdata = req.body.image;
     const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
     fs.writeFileSync(path, base64Data, { encoding: 'base64' });
 
+    // Send Username and Password to mail
     let transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -40,7 +39,7 @@ router.post('/add-dcotor', isAdmin, (req, res) => {
     });
 
     let mailOptions = {
-      from: 'ammarabdulaziz99@gmail.com',
+      from: process.env.EMAIL,
       to: `${response.email}`,
       subject: `Welcome to Crossroads Clinic`,
       text: `Welcome to Crossroads Clinic, Dr. ${response.firstname} ${response.lastname}
@@ -100,6 +99,7 @@ router.post('/unblock-doctor', isAdmin, (req, res) => {
 router.get('/profile', isAdmin, (req, res) => {
   adminHelpers.getDoctorDetails(req.query.id).then(async (response) => {
     let docId = objectId(req.query.id)
+    // Doctor grapgh data report
     let count = 0;
     let myPatients = await doctorHelpers.getMyPatients(docId)
     myPatients.forEach(patient => { count++ })
@@ -117,6 +117,18 @@ router.get('/profile', isAdmin, (req, res) => {
     response.report.push(consulted, approved, requests, cancelled)
     console.log(response.report)
     res.json({ response })
+  })
+})
+
+router.get('/date-report', isAdmin, async (req, res) => {
+  // Get date wise report
+  console.log('ajax call' + req.query.date)
+  console.log('ajax call' + req.query.docId)
+  adminHelpers.getDateReport(req.query.docId, req.query.date).then((percentage) => {
+    let data = []
+    let totalApps = 100 - percentage;
+    data.push(percentage, totalApps)
+    res.json({ data })
   })
 })
 
@@ -160,19 +172,5 @@ router.post('/delete-speciality', isAdmin, (req, res) => {
   })
 })
 
-router.get('/date-report', isAdmin, async (req, res) => {
-  console.log('ajax call' + req.query.date)
-  console.log('ajax call' + req.query.docId)
-  adminHelpers.getDateReport(req.query.docId, req.query.date).then((percentage) => {
-    // response.push(percentage)
-    let data = []
-    let totalApps = 100 - percentage;
-    data.push(percentage, totalApps)
-    res.json({ data })
-  })
-})
-
-
-// -- Appointments Routes --
 
 module.exports = router;

@@ -19,6 +19,7 @@ module.exports = {
     addDoctor: (doctorData) => {
         return new Promise(async (resolve, reject) => {
 
+            // Date formatting
             var today = new Date();
             let month = today.toLocaleString('default', { month: 'short' });
             let year = today.getFullYear();
@@ -116,7 +117,7 @@ module.exports = {
             if (doctorData.password) {
                 doctorData.password = await bcrypt.hash(doctorData.password, 10)
             } else {
-                // Retrieve the existing password
+                // Retrieve the existing password if no password update
                 let doc = await db.get().collection(collections.DOCTORS_COLLECTION).findOne({ _id: objectId(docID) })
                 doctorData.password = doc.password
             }

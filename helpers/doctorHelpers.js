@@ -134,6 +134,8 @@ module.exports = {
                     $unwind: "$patient"
                 }
             ]).toArray()
+
+            // Check for blocked patients and filter
             let blockedArray = null
             for (i = 0; i < myPatients.length; i++) {
                 patientId = myPatients[i]._id

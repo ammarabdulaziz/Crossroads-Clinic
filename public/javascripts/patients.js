@@ -1,15 +1,16 @@
-//   To delete
-
+// Logout popus
 function userPopup1() {
     var userPop = document.getElementById("user-pop-1");
     userPop.classList.toggle('show-pop');
 }
+
+// Logout popus for small screens
 function userPopup2() {
     var userPop = document.getElementById("user-pop-2");
     userPop.classList.toggle('show-pop');
 }
 
-//Cancel Option
+// Appointment cancel Option
 $(document).ready(function () {
     $('.cancel-opt-tab').on('click','.opt-icon', function () {
         $('.opt-icon').not(this).each(function () {
@@ -19,24 +20,7 @@ $(document).ready(function () {
     })
 })
 
-$(document).ready(function () {
-    $('.today').show().siblings().hide()
-    $('.tab-menu li').on('click', function () {
-        $('.tab-menu li').removeClass('active')
-        $(this).addClass('active')
-        var value = $(this).attr('data-filter');
-        if (value == 'today') {
-            $('.today').show().siblings().hide()
-        } else if (value == 'upcoming') {
-            $('.upcoming').show().siblings().hide()
-        } else if (value == 'consulted') {
-            $('.consulted').show().siblings().hide()
-        } else if (value == 'expired') {
-            $('.expired').show().siblings().hide()
-        }
-    })
-})
-
+// Patients page  tabs
 $(document).ready(function () {
     $('.app-tab').show().siblings().hide();
     $('.tab-menu a').click((e) => {
@@ -56,11 +40,29 @@ $(document).ready(function () {
     })
 })
 
-// Dropdown
+// Doctor page appoitments tabs
+$(document).ready(function () {
+    $('.today').show().siblings().hide()
+    $('.tab-menu li').on('click', function () {
+        $('.tab-menu li').removeClass('active')
+        $(this).addClass('active')
+        var value = $(this).attr('data-filter');
+        if (value == 'today') {
+            $('.today').show().siblings().hide()
+        } else if (value == 'upcoming') {
+            $('.upcoming').show().siblings().hide()
+        } else if (value == 'consulted') {
+            $('.consulted').show().siblings().hide()
+        } else if (value == 'expired') {
+            $('.expired').show().siblings().hide()
+        }
+    })
+})
+
+// Doctor page small screen sidebar
 $('.dropdown-toggle').click(() => {
     $('.dropdown-menu').toggle()
 })
-
 $(document).ready(function () {
     $('.dropdown-item').click(function () {
         var value = $(this).attr('data-filter');

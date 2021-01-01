@@ -60,15 +60,13 @@
                             </div>
                             <ul class="display-tabs">
                                 <div class="hr"></div>
-                                <li data-filter="appointments" class="active">Appointments</li>
+                                <li data-filter="bookings" class="active">Bookings</li>
                                 <div class="hr"></div>
-                                <li data-filter="bookings">Bookings</li>
+                                <li data-filter="appointments">Appointments</li>
                                 <div class="hr"></div>
                                 <li data-filter="cancelled">Cancelled</li>
                                 <div class="hr"></div>
                                 <li data-filter="myPatients">My Patients</li>
-                                <div class="hr"></div>
-                                <li data-filter="results">Results</li>
                                 <div class="hr"></div>
                             </ul>
                         </div>
@@ -77,6 +75,61 @@
             </div>
         </div>
         <div class="col-12 col-lg-8">
+            <div class="tab bookings">
+                <!-- Tab Head Div -->
+                <div class="tab-head card mb-3 col-12  mt-4">
+                    <div class="row tab-content-head m-2">
+                        <h2>Bookings</h2>
+                    </div>
+                    {{!-- <div class="row hr"></div> --}}
+                </div>
+                <!-- Tab content div -->
+                <div class="tab-content card col-12 mt-4">
+                    <div class="scroll-table">
+                        <table class="table" id="bookings">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#if bookings.requested}}
+                                {{#each bookings.requested}}
+                                <tr>
+                                    <td>{{this.name}}</td>
+                                    <td>{{this.date}}</td>
+                                    <td>{{this.time}}</td>
+                                    <td>{{this.phone}}</td>
+                                    <td><a href="/doctor/approve-appointment?id={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to Approve appointment with {{this.name}}')"
+                                            class="btn-sm btn-success">Accept</a></td>
+                                    <td><a href="/doctor/cancel-appointment?id={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to Cancel appointment with {{this.name}}')"
+                                            class="btn-sm btn-danger">Reject</a></td>
+                                    <td><a href="/doctor/block-patient?patientId={{this.patientId}}&appId={{this._id}}"
+                                            onclick="return confirm('Are you sure you want to you want to block {{this.name}} permenently?')"
+                                            class="btn-sm btn-dark">Block</a></td>
+                                </tr>
+                                {{/each}}
+                                {{else}}
+                                <tr>
+                                    <td align="center" colspan="7">
+                                        <h6>No Records</h6>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
             <div class="tab appointments">
                 <!-- Tab Head Div -->
                 <div class="tab-head card mb-3 col-12  mt-4">
@@ -252,75 +305,6 @@
                 </div>
                 <!-- </div> -->
             </div>
-            <div class="tab consultation">
-                <!-- Tab Head Div -->
-                <div class="tab-head card mb-3 col-12  mt-4">
-                    <div class="row tab-content-head m-2">
-                        <h2>Appointments</h2>
-                    </div>
-                    {{!-- <div class="row hr"></div> --}}
-                </div>
-                <!-- Tab content div -->
-                <div class="tab-content card col-12 mt-4">
-                    Appointments
-                </div>
-                <!-- </div> -->
-            </div>
-            <div class="tab bookings">
-                <!-- Tab Head Div -->
-                <div class="tab-head card mb-3 col-12  mt-4">
-                    <div class="row tab-content-head m-2">
-                        <h2>Bookings</h2>
-                    </div>
-                    {{!-- <div class="row hr"></div> --}}
-                </div>
-                <!-- Tab content div -->
-                <div class="tab-content card col-12 mt-4">
-                    <div class="scroll-table">
-                        <table class="table" id="bookings">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Patient Name</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col"></th>
-                                    <th scope="col"></th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#if bookings.requested}}
-                                {{#each bookings.requested}}
-                                <tr>
-                                    <td>{{this.name}}</td>
-                                    <td>{{this.date}}</td>
-                                    <td>{{this.time}}</td>
-                                    <td>{{this.phone}}</td>
-                                    <td><a href="/doctor/approve-appointment?id={{this._id}}"
-                                            onclick="return confirm('Are you sure you want to Approve appointment with {{this.name}}')"
-                                            class="btn-sm btn-success">Accept</a></td>
-                                    <td><a href="/doctor/cancel-appointment?id={{this._id}}"
-                                            onclick="return confirm('Are you sure you want to Cancel appointment with {{this.name}}')"
-                                            class="btn-sm btn-danger">Reject</a></td>
-                                    <td><a href="/doctor/block-patient?patientId={{this.patientId}}&appId={{this._id}}"
-                                            onclick="return confirm('Are you sure you want to you want to block {{this.name}} permenently?')"
-                                            class="btn-sm btn-dark">Block</a></td>
-                                </tr>
-                                {{/each}}
-                                {{else}}
-                                <tr>
-                                    <td align="center" colspan="7">
-                                        <h6>No Records</h6>
-                                    </td>
-                                </tr>
-                                {{/if}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- </div> -->
-            </div>
             <div class="tab cancelled">
                 <!-- Tab Head Div -->
                 <div class="tab-head card mb-3 col-12  mt-4">
@@ -431,22 +415,6 @@
                     <div class="row presc-table">
                     </div>
                 </div>
-            </div>
-
-
-            <div class="tab results">
-                <!-- Tab Head Div -->
-                <div class="tab-head card mb-3 col-12  mt-4">
-                    <div class="row tab-content-head m-2">
-                        <h2>Results</h2>
-                    </div>
-                    {{!-- <div class="row hr"></div> --}}
-                </div>
-                <!-- Tab content div -->
-                <div class="tab-content card col-12 mt-4">
-                    <h6 class="text-center">No Results</h6>
-                </div>
-                <!-- </div> -->
             </div>
         </div>
     </div>

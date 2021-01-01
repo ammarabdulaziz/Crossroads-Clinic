@@ -1,9 +1,11 @@
+// Error box close
 $("#closeMsg").click(function () {
     $("#errorDiv").hide();
     window.location.href = '/login'
 })
 
 $(document).ready(function () {
+    // Login page tabs
     $('.forgot-pwd').show()
     $('#login-form').show().siblings().hide();
     $('.login-tab').click((event) => {
@@ -41,6 +43,8 @@ $(document).ready(function () {
             }
         })
     })
+
+    // Send - Resend OTP Ajax
     $('.send-otp, .resendOTP').click((event) => {
         event.preventDefault();
         $('.forgot-pwd').hide()
@@ -90,6 +94,8 @@ $(document).ready(function () {
             }
         })
     })
+
+    // Verify OTP Ajax
     $('.verify-otp').click((event) => {
         event.preventDefault();
         $('.forgot-pwd').hide()

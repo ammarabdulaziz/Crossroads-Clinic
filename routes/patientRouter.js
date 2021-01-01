@@ -19,7 +19,6 @@ router.get('/', function (req, res, next) {
   res.render('index', { layout: 'index', user, home: true });
 });
 
-
 // Login Routes
 router.get('/login', isNotAuthenticated, function (req, res, next) {
   var errors = req.flash().error || [];
@@ -32,16 +31,20 @@ router.get('/login', isNotAuthenticated, function (req, res, next) {
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }),
   function (req, res, next) {
-    if (req.user.admin) {
+    if (req.user.admin) { 
+      // If Admin
       res.redirect('/admin');
     }
-    else if (req.user.doctor) {
+    else if (req.user.doctor) { 
+      // If Doctor
       res.redirect('/doctor');
     }
-    else if (req.user.patient && !req.query.docId) {
+    else if (req.user.patient && !req.query.docId) { 
+      // If patient and no docter Id in header
       res.redirect('/homepage');
     }
-    else if (req.user.patient && req.query.docId) {
+    else if (req.user.patient && req.query.docId) { 
+      // If patient and has docter Id in header redirect to book appointmetn page
       res.redirect('/book-appointment?docId=' + req.query.docId);
     }
   });
@@ -49,9 +52,8 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
 router.get('/logout', (req, res, next) => {
   req.logout();
   req.session.destroy();
-  res.redirect('/login');
+  res.redirect('/');
 });
-
 
 // User Register routes
 router.post('/register', (req, res) => {
@@ -75,7 +77,6 @@ router.post('/register', (req, res) => {
 router.get('/homepage', isPatient, async (req, res) => {
   let appointments = await patientHelpers.getAppointments(req.user._id)
   let consultations = await patientHelpers.getConsultations(req.user._id)
-  // console.log(consultations)
   let user = req.user
   res.render('patient/homepage', { appointments, consultations, user, home: true })
 })

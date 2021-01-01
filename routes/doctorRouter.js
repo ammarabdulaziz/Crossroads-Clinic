@@ -15,8 +15,8 @@ const { ok } = require('assert');
 router.get('/', isDoctor, async (req, res) => {
     // Get todays date
     let dateNow = new Date();
-    let date = dateNow.getDate();
-    let month = dateNow.getMonth() + 1;
+    let date = ("0" + dateNow.getDate()).slice(-2)
+    let month = ("0" + dateNow.getMonth() + 1).slice(-2);
     let year = dateNow.getFullYear();
     let today = date + "/" + month + "/" + year;
     req.session.today = today;

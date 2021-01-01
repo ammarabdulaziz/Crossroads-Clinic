@@ -1,5 +1,6 @@
+// Doctor page tabs
 $(document).ready(function () {
-    $('.appointments').show().siblings().hide()
+    $('.bookings').show().siblings().hide()
     $('.doc-tabs li').on('click', function (e) {
         e.preventDefault();
         var value = $(this).attr('data-filter');
