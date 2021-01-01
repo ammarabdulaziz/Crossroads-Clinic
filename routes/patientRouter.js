@@ -117,7 +117,7 @@ router.get('/book-appointment', async (req, res) => {
   patientHelpers.checkBlocked(bookingDocId, patientId).then((response) => {
     if (!response.message) {
       user = req.user
-      res.render('patient/book-now', { bookingDocId, user })
+      res.render('patient/book-now', { bookingDocId, user, doctors: true })
     } else {
       var error = response.message
       res.redirect('/doctors?error=' + error)

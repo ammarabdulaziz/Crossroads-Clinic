@@ -136,6 +136,7 @@ a {
   align-items: center;
   column-gap: 1rem;
   padding: .5rem 0 .5rem 1.5rem;
+  text-decoration: none !important;
 }
 
 .nav__logo {
@@ -313,7 +314,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 185px;
+  width: 100%;
   transition: .3s ease;
 }
 

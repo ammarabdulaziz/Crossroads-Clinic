@@ -133,7 +133,7 @@ body {
     padding: 14px 24px;
 }
 
-.card-content {
+.card-content p{
     color: #A3A3A3;
     font-size: 18px;
 }

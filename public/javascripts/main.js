@@ -383,7 +383,7 @@ $(document).ready(function () {
                 $('.myPatientCount').text(response.response.count);
                 $('.edit-profile').attr('data-id', response.response._id);
                 $('.date-report').attr('data-id', response.response._id);
-                $('.hero-img').attr('src', '../images/' + response.response._id + '.jpg');
+                $('.doctor-img').attr('src', '../images/' + response.response._id + '.jpg');
 
                 //Graph
                 let doctorReport = document.getElementById("myChart");
