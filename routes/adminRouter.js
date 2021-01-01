@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
 const adminHelpers = require('../helpers/adminHelpers')
 const doctorHelpers = require('../helpers/doctorHelpers')
 var objectId = require('mongodb').ObjectID
 const fs = require('fs');
 const isAdmin = require('../config/auth').isAdmin
 const isNotAuthenticated = require('../config/auth').isNotAuthenticated
+require('dotenv').config();
 
 /* GET home page. */
 router.get('/', isAdmin, async function (req, res, next) {
@@ -21,12 +23,40 @@ router.get('/', isAdmin, async function (req, res, next) {
 
 // -- Doctor routes --
 router.post('/add-dcotor', isAdmin, (req, res) => {
-  adminHelpers.addDoctor(req.body).then((id) => {
-    const path = './public/images/' + id + '.jpg'
+  let stringPassword = req.body.password
+  adminHelpers.addDoctor(req.body).then((response) => {
+    console.log(response)
+    const path = './public/images/' + response._id + '.jpg'
     const imgdata = req.body.image;
     const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
     fs.writeFileSync(path, base64Data, { encoding: 'base64' });
+
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL, 
+        pass: process.env.PASSWORD
+      }
+    });
+
+    let mailOptions = {
+      from: 'ammarabdulaziz99@gmail.com',
+      to: `${response.email}`,
+      subject: `Welcome to Crossroads Clinic`,
+      text: `Welcome to Crossroads Clinic, Dr. ${response.firstname} ${response.lastname}
+      Here are your login credentials :
+      Your Username = ${response.email}
+      Your Password = ${stringPassword}`
+    };
+
+    transporter.sendMail(mailOptions, (err, data) => {
+      if (err) {
+        console.log('Error occurs: ', err);
+      }
+      console.log('Email Sent');
+    });
     res.redirect('/admin/')
+
   })
 })
 

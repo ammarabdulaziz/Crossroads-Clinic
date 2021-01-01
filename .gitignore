@@ -3,3 +3,4 @@ config/config.env
 config/connection.js
 config/passport.js
 config/config.js
+.env

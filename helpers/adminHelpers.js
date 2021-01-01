@@ -48,7 +48,7 @@ module.exports = {
                 status: 'active'
             }
             db.get().collection(collections.DOCTORS_COLLECTION).insertOne(data).then((response) => {
-                resolve(response.ops[0]._id)
+                resolve(response.ops[0])
             })
         })
     },
