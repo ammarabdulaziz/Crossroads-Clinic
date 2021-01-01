@@ -40,7 +40,7 @@
                 <div class="col-12 col-md-6 col-xl-4 mb-3">
                     <div class="dash-card">
                         <div class="icon-bg">
-                            <i class='bx bx-bookmark nav__icon color-2'></i>
+                            <i class='bx bx-user-plus nav__icon color-2'></i>
                         </div>
                         <div class="card-content color-2">
                             <h4>Patients</h4>
@@ -63,7 +63,7 @@
                 <div class="col-12 col-md-6 col-xl-4 mb-3">
                     <div class="dash-card">
                         <div class="icon-bg">
-                            <i class='bx bx-bookmark nav__icon color-4'></i>
+                            <i class='bx bx-message-square-check nav__icon color-4'></i>
                         </div>
                         <div class="card-content color-4">
                             <h4>Appointments<br>Consulted</h4>
@@ -74,7 +74,7 @@
                 <div class="col-12 col-md-6 col-xl-4 mb-3">
                     <div class="dash-card">
                         <div class="icon-bg">
-                            <i class='bx bx-bookmark nav__icon color-6'></i>
+                            <i class='bx bx-message-square-dots nav__icon color-5'></i>
                         </div>
                         <div class="card-content color-5">
                             <h4>Appointments<br>Pending</h4>
@@ -85,7 +85,7 @@
                 <div class="col-12 col-md-6 col-xl-4 mb-3">
                     <div class="dash-card">
                         <div class="icon-bg">
-                            <i class='bx bx-bookmark nav__icon color-6'></i>
+                            <i class='bx bx-message-square-x nav__icon color-6'></i>
                         </div>
                         <div class="card-content color-6">
                             <h4>Appointments<br>Cancelled</h4>
@@ -353,12 +353,12 @@
                             <div class="form-group">
                                 <label for="pwd">Password</label>
                                 <input type="password" class="form-control" name="password" id="pwd"
-                                    placeholder="******">
+                                    placeholder="******" required>
                             </div>
                             <div class="form-group">
                                 <label for="place">Place</label>
                                 <input type="text" class="form-control" name="place" id="place"
-                                    placeholder="Calicut, India">
+                                    placeholder="Calicut, India" required>
                             </div>
                             <div class="row ">
                                 <div class="form-group col-12 col-md-6">
@@ -391,7 +391,7 @@
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
                                 <label for="speciality">Speciality</label>
-                                <select class="form-control" name="speciality">
+                                <select class="form-control" name="speciality" required>
                                     {{#each specialities}}
                                     <option>{{this.speciality}}</option>
                                     {{/each}}
@@ -497,7 +497,7 @@
                             <div class="form-group">
                                 <label for="place">Place</label>
                                 <input type="text" class="form-control" name="place" id="edit-place"
-                                    placeholder="Calicut, India">
+                                    placeholder="Calicut, India" required>
                             </div>
                             <div class="row ">
                                 <div class="form-group col-12 col-md-6">
@@ -582,7 +582,7 @@
 
     {{!-- ----------------------- Profile ----------------------- --}}
     <div id="tab7" class="tab-content">
-        <div class="content">
+        <div class="content pt-5">
             <div class="row">
                 <div class="col-12 col-md-8 box-padding profile-content">
                     <div class="row">
@@ -590,7 +590,7 @@
                             <div class="row pt-1">
                                 <!-- Image -->
                                 <div class="col-4 col-md-3">
-                                    <img src="" alt="" class="hero-img">
+                                    <img src="" alt="" class="hero-img doctor-img">
                                 </div>
                                 <!-- Name and Subs -->
                                 <div class="col-8 col-md-6">
@@ -644,7 +644,7 @@
                         <div class="card col-12">
                             <div class="patients-card">
                                 <div class="icon-bg">
-                                    <i class='bx bx-bookmark nav__icon color-5'></i>
+                                    <i class='bx bx-user-plus nav__icon color-5'></i>
                                 </div>
                                 <div class="card-content color-5">
                                     <h4>Patients</h4>

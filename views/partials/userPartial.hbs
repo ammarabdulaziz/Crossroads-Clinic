@@ -133,8 +133,11 @@
 {{#if user.patient}}
 <script>
     $(document).ready(function () {
-        var fname = $(".patient-pop h2 span").text().split(' ');
-        $(".patient-pop h2 span").text(fname[0])
+        var fname = $(".patient-pop h2 span").length
+        console.log(fname)
+        //if (fname.length < 0) {
+        //    $(".patient-pop h2 span").text(fname[0])
+       // }
     })
 </script>
 {{/if}}

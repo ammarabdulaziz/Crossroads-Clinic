@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const patientHelpers = require('../helpers/patientHelpers')
-const config = require('../config/config');
+const config = require('../config');
 const { session } = require('passport');
 const client = require('twilio')(config.accountSID, config.authToken)
 

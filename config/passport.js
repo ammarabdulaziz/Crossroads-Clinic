@@ -5,6 +5,7 @@ const LocalStrategy = require('passport-local').Strategy
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const bcrypt = require('bcrypt')
+require('dotenv').config();
 
 
 module.exports = function (passport) {
@@ -52,8 +53,8 @@ module.exports = function (passport) {
 
     // Google Strategy
     passport.use(new GoogleStrategy({
-        clientID: '342345441039-borvs3jfm5rps6pin8d179qiv9otme0k.apps.googleusercontent.com',
-        clientSecret: '2Nk5M0B7roDZhXlS36wXAUMO',
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: "/auth/google/callback"
     },
         async function (accessToken, refreshToken, profile, done) {
@@ -88,8 +89,8 @@ module.exports = function (passport) {
 
     // Facebook Strategy
     passport.use(new FacebookStrategy({
-        clientID: "822674468301210",
-        clientSecret: "467eaf2ee931843aa6204f9cb95413d2",
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
         callbackURL: "http://localhost:3000/auth/facebook/callback",
         profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)', 'email']
     },
